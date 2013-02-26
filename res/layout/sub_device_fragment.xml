@@ -18,19 +18,18 @@
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:paddingLeft="8dp"
-         android:paddingRight="8dp">
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="8dp"
+		android:paddingRight="8dp">
 
-     <ListView android:id="@id/android:list"
-               android:layout_width="match_parent"
-               android:layout_height="0dp"
-               android:layout_weight="1"
-               android:drawSelectorOnTop="false"
-               android:choiceMode="singleChoice" 
-               android:listSelector="?android:attr/colorPressedHighlight" />
+	 <ListView android:id="@id/android:list"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:drawSelectorOnTop="false"
+			android:choiceMode="singleChoice"
+			android:listSelector="?android:attr/colorPressedHighlight" />
 
 </LinearLayout>
- 

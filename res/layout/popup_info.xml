@@ -18,245 +18,245 @@
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_margin="25dp"
-        >
-
-        <TableRow
-            android:id="@+id/row_manufacturer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/text_manufacturer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/manufacturer" />
-           <TextView
-                android:id="@+id/separator_manufacturer"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/manufacturer"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row_manufacturer_url"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/text_manufacturer_url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/manufacturer_url" />
-           <TextView
-                android:id="@+id/separator_manufacturer_url"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/manufacturer_url"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-            
-        <TableRow
-            android:id="@+id/row_model_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_model_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/model_name" />
-           <TextView
-                android:id="@+id/separator_model_name"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/model_name"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-<TableRow
-            android:id="@+id/row_model_url"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_model_url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/model_url" />
-           <TextView
-                android:id="@+id/separator_model_url"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/model_url"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
-        
-		<TableRow
-            android:id="@+id/row_model_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_model_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/model_number" />
-           <TextView
-                android:id="@+id/separator_model_number"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/model_number"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/row_model_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-             <TextView
-                android:id="@+id/text_model_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/model_desc" />
-           <TextView
-                android:id="@+id/separator_model_desc"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/model_desc"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="25dp"
+		>
 
 		<TableRow
-            android:id="@+id/row_presention_url"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_presention_url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/presention_url" />
-           <TextView
-                android:id="@+id/separator_presention_url"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/presention_url"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
-        
+			android:id="@+id/row_manufacturer"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_manufacturer"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/manufacturer" />
+		   <TextView
+				android:id="@+id/separator_manufacturer"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/manufacturer"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+		</TableRow>
+
 		<TableRow
-            android:id="@+id/row_desc_xml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_desc_xml"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/desc_xml" />
-           <TextView
-                android:id="@+id/separator_desc_xml"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/desc_xml"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
-        
+			android:id="@+id/row_manufacturer_url"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_manufacturer_url"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/manufacturer_url" />
+		   <TextView
+				android:id="@+id/separator_manufacturer_url"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/manufacturer_url"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
 		<TableRow
-            android:id="@+id/row_udn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:id="@+id/text_udn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/udn" />
-            <TextView
-                android:id="@+id/separator_udn"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separator" />
-            <TextView
-                android:id="@+id/udn"
-                android:textIsSelectable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
-        </TableRow>
-    </TableLayout>
-            
-    <Button
-        android:id="@+id/button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/OK" />
+			android:id="@+id/row_model_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_model_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/model_name" />
+		   <TextView
+				android:id="@+id/separator_model_name"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/model_name"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_model_url"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_model_url"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/model_url" />
+		   <TextView
+				android:id="@+id/separator_model_url"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/model_url"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_model_number"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_model_number"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/model_number" />
+		   <TextView
+				android:id="@+id/separator_model_number"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/model_number"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_model_desc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_model_desc"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/model_desc" />
+		   <TextView
+				android:id="@+id/separator_model_desc"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/model_desc"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_presention_url"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_presention_url"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/presention_url" />
+		   <TextView
+				android:id="@+id/separator_presention_url"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/presention_url"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_desc_xml"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_desc_xml"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/desc_xml" />
+		   <TextView
+				android:id="@+id/separator_desc_xml"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/desc_xml"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+
+		<TableRow
+			android:id="@+id/row_udn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:id="@+id/text_udn"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/udn" />
+			<TextView
+				android:id="@+id/separator_udn"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/separator" />
+			<TextView
+				android:id="@+id/udn"
+				android:textIsSelectable="false"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+		</TableRow>
+	</TableLayout>
+
+	<Button
+		android:id="@+id/button"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/OK" />
 
 </LinearLayout>

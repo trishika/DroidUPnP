@@ -21,21 +21,21 @@
 
 	<color name="black_background">#1A1A1A</color>
 	<color name="black_windows_background">#232323</color>
-    <color name="blue_text">#1E90FF</color>
-	
-    <style name="AppThemeHolo" parent="android:Theme.Holo">
+	<color name="blue_text">#1E90FF</color>
+
+	<style name="AppThemeHolo" parent="android:Theme.Holo">
 		<item name="android:windowBackground">@color/black_windows_background</item>
 		<item name="android:colorBackground">@color/black_background</item>
-    </style>
-    
-    <style name="AppTextView" parent="android:style/Widget.TextView">
-        <item name="android:textColor">@color/blue_text</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    
-	<style name="AppThemeLight" parent="android:Theme.Holo.Light">
-	    
 	</style>
-	
+
+	<style name="AppTextView" parent="android:style/Widget.TextView">
+		<item name="android:textColor">@color/blue_text</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="AppThemeLight" parent="android:Theme.Holo.Light">
+
+	</style>
+
 </resources>
