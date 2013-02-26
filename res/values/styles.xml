@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+  This file is part of DroidUPNP.
+
+  DroidUPNP is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  DroidUPNP is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<color name="black_background">#1A1A1A</color>
+	<color name="black_windows_background">#232323</color>
+    <color name="blue_text">#1E90FF</color>
+	
+    <style name="AppThemeHolo" parent="android:Theme.Holo">
+		<item name="android:windowBackground">@color/black_windows_background</item>
+		<item name="android:colorBackground">@color/black_background</item>
+    </style>
+    
+    <style name="AppTextView" parent="android:style/Widget.TextView">
+        <item name="android:textColor">@color/blue_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+	<style name="AppThemeLight" parent="android:Theme.Holo.Light">
+	    
+	</style>
+	
+</resources>

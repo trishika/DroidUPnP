@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+  This file is part of DroidUPNP.
+
+  DroidUPNP is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  DroidUPNP is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pager"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="?android:attr/colorBackground"    
+    tools:context=".Main">
+
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:layout_weight="2"	    
+	    android:layout_margin="10dp"	    
+	    >
+
+        <TextView
+            android:id="@+id/textContentDirectory"
+            android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+            android:text="@string/browser" 
+            android:layout_weight="10"
+            android:layout_margin="10dp"
+            style="@style/AppTextView"
+            />
+
+        <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical"
+		    android:layout_weight="1"
+		    android:background="?android:attr/windowBackground"  
+		    >
+		    <fragment 
+		        android:id="@+id/ContentDirectoryFragment"
+		        android:layout_width="match_parent"
+	        	android:layout_height="match_parent"
+		        android:name="org.droidupnp.view.ContentDirectoryFragment"
+		        android:layout_weight="1"
+		        android:layout_margin="10dp"
+		         />
+        </LinearLayout>
+	</LinearLayout>
+
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:layout_weight="1"
+	    android:layout_margin="10dp"
+	    >
+
+	    <TextView
+            android:id="@+id/textRenderer"
+            android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+            android:text="@string/player" 
+            android:layout_weight="10"
+            android:layout_margin="10dp"
+            style="@style/AppTextView"
+            />
+
+		<fragment
+		    android:id="@+id/RendererFragment"
+		    android:layout_width="match_parent"
+	     	android:layout_height="match_parent"
+		    android:name="org.droidupnp.view.RendererFragment"
+		    tools:layout="@layout/renderer_fragment" 
+		    android:layout_weight="1"
+		    android:layout_margin="10dp"
+		/>
+	</LinearLayout>
+
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:layout_weight="2"
+	    android:layout_margin="10dp"
+	    >
+
+	    <TextView
+            android:id="@+id/textDevice"
+            android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+            android:text="@string/device" 
+            android:layout_weight="10"
+            android:layout_margin="10dp"
+            style="@style/AppTextView"
+            />
+
+	    <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical"
+		    android:layout_weight="1"
+		    android:background="?android:attr/windowBackground"  
+		    >
+		    <fragment
+		        android:name="org.droidupnp.view.DeviceFragment"
+		        android:id="@+id/DeviceFragment"
+		        android:layout_width="match_parent"
+	        	android:layout_height="match_parent"
+		        tools:layout="@layout/device_fragment" 
+		        android:layout_weight="1"
+		        android:layout_margin="10dp"
+		        />
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>

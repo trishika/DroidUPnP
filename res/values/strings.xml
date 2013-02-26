@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+  This file is part of DroidUPNP.
+
+  DroidUPNP is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  DroidUPNP is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <string name="app_name">DroidUPnP</string>
+    <string name="player">Player</string>
+    <string name="playlist">Playlist</string>
+    <string name="browser">Browser</string>
+    <string name="device">Device</string>
+    <string name="service">Service discovery</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="OK">OK</string>
+    <string name="searchingLAN">Searching UPnP devices...</string>
+    
+    <!-- Now Playing -->
+    <string name="check_button">Check for MP3s</string>
+    <string name="album_art">Album Art</string>
+    
+    <string name="track">Track Name</string>
+    <string name="artist">Artist</string>
+    <string name="duration">00:00:00</string>
+    
+    <!-- Now Playing Footer -->
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>    
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    
+    <!-- Settings -->
+    <string name="playback">Playback Settings</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="repeat">Repeat</string>
+    
+    <string name="library">Library</string>
+    <string name="sync_library">Sync Library</string>
+    <string name="media_path">Root/Current_Folder</string>
+    <string name="edit_dir">Edit Dir</string>
+
+    <string name="dirchooser_label">Dir Chooser</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    
+    <!-- Device Info -->
+    <string name="manufacturer">Manufacturer</string>
+    <string name="manufacturer_url">Manufacturer URL</string>
+    <string name="model_name">Model name</string>
+    <string name="model_url">Model URL</string>
+    <string name="model_number">Model number</string>
+    <string name="model_desc">Model description</string>
+    <string name="presention_url">Presentation URL</string> 
+    <string name="desc_xml">Description XML</string>    
+    <string name="udn">UDN</string>
+    <string name="separator"> : </string>
+</resources>

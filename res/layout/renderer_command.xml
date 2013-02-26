@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/volumeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+		android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:paddingBottom="20dp"
+		>
+		
+       <ImageView
+	        android:id="@+id/volumeIcon"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="0dp"
+	        android:paddingRight="50dp"
+	        android:src="@drawable/play64" />
+
+        <SeekBar
+            android:id="@+id/volume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="34.57" />
+
+    </LinearLayout>
+
+	<RelativeLayout
+	    android:id="@+id/buttonLayout"
+	    android:layout_width="match_parent"
+	    android:layout_height="64dp"
+	    android:layout_above="@+id/volumeLayout"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentLeft="true" >
+	
+	    <ImageView
+	        android:id="@+id/play_pauseButton"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:contentDescription="@string/play"
+	        android:paddingLeft="0dp"
+	        android:paddingRight="50dp"
+	        android:src="@drawable/play64" />
+	        
+	    <ImageView
+	        android:id="@+id/stopButton"
+	        android:layout_width="80dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:contentDescription="@string/stop"
+	        android:paddingLeft="50dp"
+	        android:paddingRight="0dp"
+	        android:src="@drawable/stop64" />
+	    
+	     <ImageView
+	        android:id="@+id/backButton"
+	        android:layout_width="68dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:contentDescription="@string/back"
+	        android:paddingLeft="18dp"
+	        android:paddingRight="12dp"
+	        android:src="@drawable/back48" />
+	     
+	     <ImageView
+	        android:id="@+id/nextButton"
+	        android:layout_width="68dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:contentDescription="@string/next"
+	        android:paddingLeft="12dp"
+	        android:paddingRight="18dp"
+	        android:src="@drawable/next48" />
+	     
+	     <ImageView
+	        android:id="@+id/repeatButton"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/play_pauseButton"
+	        android:contentDescription="@string/back"
+	        android:paddingLeft="18dp"
+	        android:paddingRight="18dp"
+	        android:src="@drawable/repeat48" />
+	     
+	     <ImageView
+	        android:id="@+id/shuffleButton"
+	        android:layout_width="50dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_toLeftOf="@+id/play_pauseButton"
+	        android:contentDescription="@string/back"
+	        android:paddingLeft="18dp"
+	        android:paddingRight="18dp"
+	        android:src="@drawable/shuffle48" />
+	</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/tracktimeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp" >
+
+        <TextView
+            android:id="@+id/trackDurationElapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|fill_vertical"
+            android:layout_marginRight="10dp"
+            android:shadowColor="#000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/duration"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="visible" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75" />
+
+        <TextView
+            android:id="@+id/trackDurationRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|fill_vertical"
+            android:layout_marginLeft="10dp"
+            android:shadowColor="#000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/duration"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </LinearLayout>
+    
+</RelativeLayout>
