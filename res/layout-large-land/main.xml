@@ -40,8 +40,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:text="@string/browser"
-			android:layout_weight="10"
-			android:layout_margin="10dp"
+			android:layout_weight="15"
 			style="@style/AppTextView"
 			/>
 
@@ -76,8 +75,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:text="@string/player"
-			android:layout_weight="10"
-			android:layout_margin="10dp"
+			android:layout_weight="15"
 			style="@style/AppTextView"
 			/>
 
@@ -105,8 +103,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:text="@string/device"
-			android:layout_weight="10"
-			android:layout_margin="10dp"
+			android:layout_weight="15"
 			style="@style/AppTextView"
 			/>
 
