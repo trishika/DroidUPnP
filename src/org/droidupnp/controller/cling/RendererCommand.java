@@ -233,6 +233,12 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	}
 
 	@Override
+	public void toggleMute()
+	{
+		setMute(!rendererState.isMute());
+	}
+
+	@Override
 	public void setURI(final String uri)
 	{
 		if (getAVTransportService() == null)
@@ -378,6 +384,45 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	{
 		// LastChange lastChange = new LastChange(new AVTransportLastChangeParser(),
 		// AVTransportVariable.CurrentTrackMetaData.class);
+
+		// SubscriptionCallback callback = new SubscriptionCallback(getRenderingControlService(), 600) {
+		//
+		// @Override
+		// public void established(GENASubscription sub)
+		// {
+		// Log.e(TAG, "Established: " + sub.getSubscriptionId());
+		// }
+		//
+		// @Override
+		// public void failed(GENASubscription sub, UpnpResponse response, Exception ex, String msg)
+		// {
+		// Log.e(TAG, createDefaultFailureMessage(response, ex));
+		// }
+		//
+		// @Override
+		// public void ended(GENASubscription sub, CancelReason reason, UpnpResponse response)
+		// {
+		// // Reason should be null, or it didn't end regularly
+		// }
+		//
+		// @Override
+		// public void eventReceived(GENASubscription sub)
+		// {
+		// Log.e(TAG, "Event: " + sub.getCurrentSequence().getValue());
+		// Map<String, StateVariableValue> values = sub.getCurrentValues();
+		// StateVariableValue status = values.get("Status");
+		// if (status != null)
+		// Log.e(TAG, "Status is: " + status.toString());
+		// }
+		//
+		// @Override
+		// public void eventsMissed(GENASubscription sub, int numberOfMissedEvents)
+		// {
+		// Log.e(TAG, "Missed events: " + numberOfMissedEvents);
+		// }
+		// };
+
+		// controlPoint.execute(callback);
 
 		int count = 0;
 		while (true)

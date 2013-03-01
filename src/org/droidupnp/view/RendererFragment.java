@@ -55,6 +55,7 @@ public class RendererFragment extends Fragment implements Observer {
 	private ImageView backButton;
 	private ImageView stopButton;
 	private ImageView play_pauseButton;
+	private ImageView volumeButton;
 	private ImageView nextButton;
 
 	// Settings Slide
@@ -164,6 +165,11 @@ public class RendererFragment extends Fragment implements Observer {
 					else
 						play_pauseButton.setImageResource(R.drawable.play64);
 
+					if (rendererState.isMute())
+						volumeButton.setImageResource(R.drawable.volume_mute);
+					else
+						volumeButton.setImageResource(R.drawable.volume);
+
 					volume.setProgress(rendererState.getVolume());
 				}
 			});
@@ -190,6 +196,7 @@ public class RendererFragment extends Fragment implements Observer {
 		// Now_Playing Footer Buttons
 		backButton = (ImageView) getActivity().findViewById(R.id.backButton);
 		play_pauseButton = (ImageView) getActivity().findViewById(R.id.play_pauseButton);
+		volumeButton = (ImageView) getActivity().findViewById(R.id.volumeIcon);
 		stopButton = (ImageView) getActivity().findViewById(R.id.stopButton);
 		nextButton = (ImageView) getActivity().findViewById(R.id.nextButton);
 		progressBar = (SeekBar) getActivity().findViewById(R.id.progressBar);
@@ -215,6 +222,16 @@ public class RendererFragment extends Fragment implements Observer {
 				{
 					if (rendererCommand != null)
 						rendererCommand.commandStop();
+				}
+			});
+
+		if (volumeButton != null)
+			volumeButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v)
+				{
+					if (rendererCommand != null)
+						rendererCommand.toggleMute();
 				}
 			});
 

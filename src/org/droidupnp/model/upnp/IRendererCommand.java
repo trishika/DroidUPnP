@@ -42,6 +42,8 @@ public interface IRendererCommand {
 
 	public void setMute(final boolean mute);
 
+	public void toggleMute();
+
 	public void updateVolume();
 
 	// / URI
