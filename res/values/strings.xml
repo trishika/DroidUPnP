@@ -44,6 +44,7 @@
 	<string name="stop">Stop</string>
 	<string name="next">Next</string>
 	<string name="back">Back</string>
+	<string name="mute">Mute</string>
 
 	<!-- Settings -->
 	<string name="playback">Playback Settings</string>
