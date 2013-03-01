@@ -82,6 +82,9 @@ public class Main extends Activity {
 		// View
 		final ActionBar bar = getActionBar();
 
+		bar.setDisplayShowHomeEnabled(false);
+		bar.setDisplayShowTitleEnabled(false);
+
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL)
 		{
 			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
