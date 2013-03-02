@@ -62,7 +62,8 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements Ref
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		list = new ArrayAdapter<DeviceDisplay>(this.getView().getContext(), android.R.layout.simple_list_item_1);
+		list = new ArrayAdapter<DeviceDisplay>(this.getView().getContext(),
+				android.R.layout.simple_list_item_single_choice);
 		setListAdapter(list);
 
 		Log.d(TAG, "Activity created");
@@ -144,13 +145,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements Ref
 						if (isSelected(d.getDevice()))
 						{
 							position = list.getPosition(d);
-							// TODO set item selected on view
-							// setSelection(position);
-							// getListView().setSelection(position);
-							// getListView().smoothScrollToPosition(position);
-							//
-							// getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-							// getListView().setItemChecked(position, true);
+							getListView().setItemChecked(position, true);
 
 							Log.e(TAG, d.toString() + " is selected at position " + position);
 						}

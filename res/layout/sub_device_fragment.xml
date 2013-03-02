@@ -29,7 +29,6 @@
 			android:layout_height="0dp"
 			android:layout_weight="1"
 			android:drawSelectorOnTop="false"
-			android:choiceMode="singleChoice"
-			android:listSelector="?android:attr/colorPressedHighlight" />
+			android:choiceMode="singleChoice" />
 
 </LinearLayout>
