@@ -248,7 +248,6 @@ public class RendererCommand implements Runnable, IRendererCommand {
 		setMute(!rendererState.isMute());
 	}
 
-	@Override
 	public void setURI(String uri, TrackMetadata trackMetadata)
 	{
 		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), uri, trackMetadata.getXML()) {
