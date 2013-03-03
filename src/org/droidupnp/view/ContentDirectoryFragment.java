@@ -206,7 +206,7 @@ public class ContentDirectoryFragment extends ListFragment implements Refreshabl
 	private void launchURI(IDIDLItem uri)
 	{
 		IRendererCommand rendererCommand = Main.factory.createRendererCommand(Main.factory.createRendererState());
-		rendererCommand.setURI(uri);
+		rendererCommand.launchItem(uri);
 	}
 
 	@Override

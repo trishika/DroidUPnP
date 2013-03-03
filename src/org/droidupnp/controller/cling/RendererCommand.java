@@ -43,7 +43,12 @@ import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.MediaInfo;
 import org.fourthline.cling.support.model.PositionInfo;
 import org.fourthline.cling.support.model.TransportInfo;
+import org.fourthline.cling.support.model.item.AudioItem;
+import org.fourthline.cling.support.model.item.ImageItem;
 import org.fourthline.cling.support.model.item.Item;
+import org.fourthline.cling.support.model.item.PlaylistItem;
+import org.fourthline.cling.support.model.item.TextItem;
+import org.fourthline.cling.support.model.item.VideoItem;
 import org.fourthline.cling.support.renderingcontrol.callback.GetMute;
 import org.fourthline.cling.support.renderingcontrol.callback.GetVolume;
 import org.fourthline.cling.support.renderingcontrol.callback.SetMute;
@@ -244,18 +249,9 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	}
 
 	@Override
-	public void setURI(final IDIDLItem item)
+	public void setURI(String uri, TrackMetadata trackMetadata)
 	{
-		if (getAVTransportService() == null)
-			return;
-
-		DIDLObject obj = ((ClingDIDLItem) item).getObject();
-		if (!(obj instanceof Item))
-			return;
-
-		TrackMetadata trackMetadata = new TrackMetadata((Item) obj);
-
-		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), item.getURI(), trackMetadata.getXML()) {
+		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), uri, trackMetadata.getXML()) {
 
 			@Override
 			public void success(ActionInvocation invocation)
@@ -271,6 +267,52 @@ public class RendererCommand implements Runnable, IRendererCommand {
 				Log.w(TAG, "Fail to set mute status ! " + arg2);
 			}
 		});
+	}
+
+	@Override
+	public void launchItem(final IDIDLItem item)
+	{
+		if (getAVTransportService() == null)
+			return;
+
+		DIDLObject obj = ((ClingDIDLItem) item).getObject();
+		if (!(obj instanceof Item))
+			return;
+
+		Item upnpItem = (Item) obj;
+
+		String type = "";
+		if (upnpItem instanceof AudioItem)
+			type = "audioItem";
+		else if (upnpItem instanceof VideoItem)
+			type = "videoItem";
+		else if (upnpItem instanceof ImageItem)
+			type = "imageItem";
+		else if (upnpItem instanceof PlaylistItem)
+			type = "playlistItem";
+		else if (upnpItem instanceof TextItem)
+			type = "textItem";
+
+		// TODO genre && artURI
+		final TrackMetadata trackMetadata = new TrackMetadata(upnpItem.getRefID(), upnpItem.getTitle(),
+				upnpItem.getCreator(), "", "", upnpItem.getFirstResource().getValue(), "object.item." + type);
+
+		// Stop playback before setting URI
+		controlPoint.execute(new Stop(getAVTransportService()) {
+			@Override
+			public void success(ActionInvocation invocation)
+			{
+				Log.v(TAG, "Success stopping ! ");
+				setURI(item.getURI(), trackMetadata);
+			}
+
+			@Override
+			public void failure(ActionInvocation arg0, UpnpResponse arg1, String arg2)
+			{
+				Log.w(TAG, "Fail to stop ! " + arg2);
+			}
+		});
+
 	}
 
 	// Update

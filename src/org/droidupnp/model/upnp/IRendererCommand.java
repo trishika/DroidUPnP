@@ -49,7 +49,7 @@ public interface IRendererCommand {
 	public void updateVolume();
 
 	// / URI
-	public void setURI(final IDIDLItem uri);
+	public void launchItem(final IDIDLItem uri);
 
 	// / Full
 	public void updateFull();

@@ -25,6 +25,8 @@ import org.fourthline.cling.support.model.PositionInfo;
 import org.fourthline.cling.support.model.TransportInfo;
 import org.fourthline.cling.support.model.TransportState;
 
+import android.util.Log;
+
 public class RendererState extends ARendererState {
 
 	protected static final String TAG = "RendererState";
@@ -110,13 +112,22 @@ public class RendererState extends ARendererState {
 
 	public void setPositionInfo(PositionInfo positionInfo)
 	{
-		// TODO Not sufficient, need to check parameters
-		if (this.positionInfo.getRelTime().compareTo(positionInfo.getRelTime()) == 0
-				&& this.positionInfo.getAbsTime().compareTo(positionInfo.getAbsTime()) == 0)
-			return;
+		try
+		{
+			if (this.positionInfo.getRelTime().compareTo(positionInfo.getRelTime()) == 0
+					&& this.positionInfo.getAbsTime().compareTo(positionInfo.getAbsTime()) == 0)
+				return;
 
-		this.positionInfo = positionInfo;
-		notifyAllObservers();
+			this.positionInfo = positionInfo;
+			notifyAllObservers();
+		}
+		catch (Exception e)
+		{
+			Log.e(TAG, (e.getMessage() == null) ? "Ëxception !" : e.getMessage());
+			for (StackTraceElement m : e.getStackTrace())
+				Log.e(TAG, m.toString());
+		}
+
 	}
 
 	public MediaInfo getMediaInfo()

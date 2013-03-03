@@ -6,12 +6,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.fourthline.cling.support.model.item.AudioItem;
-import org.fourthline.cling.support.model.item.ImageItem;
-import org.fourthline.cling.support.model.item.Item;
-import org.fourthline.cling.support.model.item.PlaylistItem;
-import org.fourthline.cling.support.model.item.TextItem;
-import org.fourthline.cling.support.model.item.VideoItem;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -36,31 +30,21 @@ public class TrackMetadata {
 		parseTrackMetadata(xml);
 	}
 
-	public TrackMetadata(Item item)
-	{
-		String type = "";
-		if (item instanceof AudioItem)
-			type = "audioItem";
-		else if (item instanceof VideoItem)
-			type = "videoItem";
-		else if (item instanceof ImageItem)
-			type = "imageItem";
-		else if (item instanceof PlaylistItem)
-			type = "playlistItem";
-		else if (item instanceof TextItem)
-			type = "textItem";
-
-		itemClass = "object.item." + type;
-		title = item.getTitle();
-		artist = item.getCreator();
-		// TODO genre
-		// TODO artURI
-		res = item.getFirstResource().getValue();
-		id = item.getRefID();
-	}
-
 	public TrackMetadata()
 	{
+	}
+
+	public TrackMetadata(String id, String title, String artist, String genre, String artURI, String res,
+			String itemClass)
+	{
+		super();
+		this.id = id;
+		this.title = title;
+		this.artist = artist;
+		this.genre = genre;
+		this.artURI = artURI;
+		this.res = res;
+		this.itemClass = itemClass;
 	}
 
 	public String id;
