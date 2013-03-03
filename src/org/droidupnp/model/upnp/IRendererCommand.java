@@ -19,6 +19,8 @@
 
 package org.droidupnp.model.upnp;
 
+import org.droidupnp.model.upnp.didl.IDIDLItem;
+
 public interface IRendererCommand {
 
 	// / Status
@@ -47,7 +49,7 @@ public interface IRendererCommand {
 	public void updateVolume();
 
 	// / URI
-	public void setURI(final String uri);
+	public void setURI(final IDIDLItem uri);
 
 	// / Full
 	public void updateFull();

@@ -22,7 +22,10 @@ package org.droidupnp.controller.cling;
 import org.droidupnp.Main;
 import org.droidupnp.model.cling.CDevice;
 import org.droidupnp.model.cling.RendererState;
+import org.droidupnp.model.cling.TrackMetadata;
+import org.droidupnp.model.cling.didl.ClingDIDLItem;
 import org.droidupnp.model.upnp.IRendererCommand;
+import org.droidupnp.model.upnp.didl.IDIDLItem;
 import org.fourthline.cling.controlpoint.ControlPoint;
 import org.fourthline.cling.model.action.ActionInvocation;
 import org.fourthline.cling.model.message.UpnpResponse;
@@ -36,9 +39,11 @@ import org.fourthline.cling.support.avtransport.callback.Play;
 import org.fourthline.cling.support.avtransport.callback.Seek;
 import org.fourthline.cling.support.avtransport.callback.SetAVTransportURI;
 import org.fourthline.cling.support.avtransport.callback.Stop;
+import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.MediaInfo;
 import org.fourthline.cling.support.model.PositionInfo;
 import org.fourthline.cling.support.model.TransportInfo;
+import org.fourthline.cling.support.model.item.Item;
 import org.fourthline.cling.support.renderingcontrol.callback.GetMute;
 import org.fourthline.cling.support.renderingcontrol.callback.GetVolume;
 import org.fourthline.cling.support.renderingcontrol.callback.SetMute;
@@ -239,12 +244,19 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	}
 
 	@Override
-	public void setURI(final String uri)
+	public void setURI(final IDIDLItem item)
 	{
 		if (getAVTransportService() == null)
 			return;
 
-		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), uri) {
+		DIDLObject obj = ((ClingDIDLItem) item).getObject();
+		if (!(obj instanceof Item))
+			return;
+
+		TrackMetadata trackMetadata = new TrackMetadata((Item) obj);
+
+		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), item.getURI(), trackMetadata.getXML()) {
+
 			@Override
 			public void success(ActionInvocation invocation)
 			{

@@ -19,24 +19,11 @@
 
 package org.droidupnp.model.cling;
 
-import java.io.StringReader;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.droidupnp.model.upnp.ARendererState;
 import org.fourthline.cling.support.model.MediaInfo;
 import org.fourthline.cling.support.model.PositionInfo;
 import org.fourthline.cling.support.model.TransportInfo;
 import org.fourthline.cling.support.model.TransportState;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
-
-import android.util.Log;
 
 public class RendererState extends ARendererState {
 
@@ -225,114 +212,6 @@ public class RendererState extends ARendererState {
 		return "RendererState [state=" + state + ", volume=" + volume + ", repeatMode=" + repeatMode + ", randomMode="
 				+ randomMode + ", positionInfo=" + positionInfo + ", mediaInfo=" + mediaInfo + ", trackMetadata="
 				+ new TrackMetadata(positionInfo.getTrackMetaData()) + "]";
-	}
-
-	public class TrackMetadata {
-
-		@Override
-		public String toString()
-		{
-			return "TrackMetadata [id=" + id + ", title=" + title + ", artist=" + artist + ", genre=" + genre
-					+ ", artURI=" + artURI + ", itemClass=" + itemClass + "]";
-		}
-
-		public TrackMetadata(String xml)
-		{
-			parseTrackMetadata(xml);
-		}
-
-		public TrackMetadata()
-		{
-		}
-
-		public String id;
-		public String title;
-		public String artist;
-		public String genre;
-		public String artURI;
-		public String itemClass;
-
-		private XMLReader initializeReader() throws ParserConfigurationException, SAXException
-		{
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser = factory.newSAXParser();
-			XMLReader xmlreader = parser.getXMLReader();
-			return xmlreader;
-		}
-
-		public void parseTrackMetadata(String xml)
-		{
-			if (xml == null)
-				return;
-
-			try
-			{
-				XMLReader xmlreader = initializeReader();
-				UpnpItemHandler upnpItemHandler = new UpnpItemHandler();
-
-				xmlreader.setContentHandler(upnpItemHandler);
-				xmlreader.parse(new InputSource(new StringReader(xml)));
-			}
-			catch (Exception e)
-			{
-				// e.printStackTrace();
-				Log.e(TAG, "Error while parsing metadata !");
-				Log.e(TAG, "XML : " + xml);
-			}
-		}
-
-		public class UpnpItemHandler extends DefaultHandler {
-
-			private final StringBuffer buffer = new StringBuffer();
-
-			@Override
-			public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
-					throws SAXException
-			{
-				buffer.setLength(0);
-				// Log.v(TAG, "startElement, localName="+ localName + ", qName=" + qName);
-
-				if (localName.equals("item"))
-				{
-					id = atts.getValue("id");
-				}
-			}
-
-			@Override
-			public void endElement(String uri, String localName, String qName) throws SAXException
-			{
-
-				// Log.v(TAG, "endElement, localName="+ localName + ", qName=" + qName + ", buffer=" +
-				// buffer.toString());
-
-				if (localName.equals("title"))
-				{
-					title = buffer.toString();
-				}
-				else if (localName.equals("creator"))
-				{
-					artist = buffer.toString();
-				}
-				else if (localName.equals("genre"))
-				{
-					genre = buffer.toString();
-				}
-				else if (localName.equals("albumArtURI"))
-				{
-					artURI = buffer.toString();
-				}
-				else if (localName.equals("class"))
-				{
-					itemClass = buffer.toString();
-				}
-			}
-
-			@Override
-			public void characters(char[] ch, int start, int length)
-			{
-				buffer.append(ch, start, length);
-			}
-		}
 	}
 
 	@Override

@@ -199,11 +199,11 @@ public class ContentDirectoryFragment extends ListFragment implements Refreshabl
 		else if (didl instanceof IDIDLItem)
 		{
 			// Launch item
-			launchURI(((IDIDLItem) didl).getURI());
+			launchURI((IDIDLItem) didl);
 		}
 	}
 
-	private void launchURI(String uri)
+	private void launchURI(IDIDLItem uri)
 	{
 		IRendererCommand rendererCommand = Main.factory.createRendererCommand(Main.factory.createRendererState());
 		rendererCommand.setURI(uri);

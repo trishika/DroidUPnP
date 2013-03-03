@@ -19,9 +19,12 @@
 
 package org.droidupnp.view;
 
-import android.app.Fragment;
+import android.app.ListFragment;
+import android.widget.ArrayAdapter;
 
-public class PlaylistFragment extends Fragment implements Refreshable {
+public class PlaylistFragment extends ListFragment implements Refreshable {
+
+	private ArrayAdapter<DIDLObjectDisplay> contentList;
 
 	@Override
 	public void refresh()

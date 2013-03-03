@@ -31,10 +31,21 @@ public class ClingDIDLObject implements IDIDLObject {
 		this.item = item;
 	}
 
+	public DIDLObject getObject()
+	{
+		return item;
+	}
+
 	@Override
 	public String getTitle()
 	{
 		return item.getTitle();
+	}
+
+	@Override
+	public String getArtist()
+	{
+		return item.getCreator();
 	}
 
 	@Override
