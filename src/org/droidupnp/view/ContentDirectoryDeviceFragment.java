@@ -36,12 +36,6 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
-	public void refresh()
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	protected boolean filter(IUpnpDevice device)
 	{
 		return device.asService("ContentDirectory");

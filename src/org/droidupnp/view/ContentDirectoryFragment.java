@@ -40,7 +40,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ContentDirectoryFragment extends ListFragment implements Refreshable, Observer {
+public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 	private static final String TAG = "ContentDirectoryFragment";
 
@@ -131,7 +131,6 @@ public class ContentDirectoryFragment extends ListFragment implements Refreshabl
 		Main.upnpServiceController.getSelectedContentDirectory().printService();
 	}
 
-	@Override
 	public void refresh()
 	{
 		refresh(false);

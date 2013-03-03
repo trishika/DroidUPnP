@@ -136,8 +136,8 @@ public class Main extends Activity {
 		{
 			case R.id.menu_settings:
 				return true;
-			case R.id.menu_refresh:
-				// ((Refreshable)getItem(this.getActionBar().getSelectedTab().getPosition())).refresh();
+			case R.id.menu_quit:
+				finish();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

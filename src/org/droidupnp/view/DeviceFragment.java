@@ -30,7 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DeviceFragment extends Fragment implements Refreshable {
+public class DeviceFragment extends Fragment {
 
 	private static final String TAG = "DeviceFragment";
 
@@ -70,9 +70,4 @@ public class DeviceFragment extends Fragment implements Refreshable {
 		ft.commit();
 	}
 
-	@Override
-	public void refresh()
-	{
-
-	}
 }

@@ -37,7 +37,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public abstract class UpnpDeviceListFragment extends ListFragment implements Refreshable {
+public abstract class UpnpDeviceListFragment extends ListFragment {
 
 	protected static final String TAG = "ServiceDiscoveryFragment";
 
@@ -168,12 +168,6 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements Ref
 				});
 		}
 	}
-
-	/**
-	 * Refreshable fragment Will be call if refresh is select on menu an fragment is visible
-	 */
-	@Override
-	public abstract void refresh();
 
 	/**
 	 * Filter device you want to add to this device list fragment

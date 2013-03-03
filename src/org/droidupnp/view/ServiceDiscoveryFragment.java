@@ -41,17 +41,9 @@ public class ServiceDiscoveryFragment extends UpnpDeviceListFragment {
 	{
 		super.onListItemClick(l, v, position, id);
 		selectedDevice = list.getItem(position).getDevice();
-		refresh();
-	}
 
-	@Override
-	public void refresh()
-	{
-		if (selectedDevice != null)
-		{
-			Log.w(TAG, "Device : " + selectedDevice.toString());
-			selectedDevice.printService();
-		}
+		Log.w(TAG, "Device : " + selectedDevice.toString());
+		selectedDevice.printService();
 	}
 
 	@Override

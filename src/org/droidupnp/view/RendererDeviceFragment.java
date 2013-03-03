@@ -43,12 +43,6 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
-	public void refresh()
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	protected boolean isSelected(IUpnpDevice device)
 	{
 		if (Main.upnpServiceController != null && Main.upnpServiceController.getSelectedRenderer() != null)
