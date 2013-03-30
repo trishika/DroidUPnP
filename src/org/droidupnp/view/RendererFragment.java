@@ -261,6 +261,9 @@ public class RendererFragment extends Fragment implements Observer {
 				@Override
 				public void onStopTrackingTouch(SeekBar seekBar)
 				{
+					if (rendererState == null)
+						return;
+
 					int position = seekBar.getProgress();
 
 					Log.d(TAG, "Max : " + seekBar.getMax());
