@@ -107,13 +107,16 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		savedInstanceState.putString(STATE_CONTENTDIRECTORY, Main.upnpServiceController.getSelectedContentDirectory()
 				.getUID());
 
-		String[] arrayTree = new String[tree.size()];
-		int i = 0;
-		for (String s : tree)
-			arrayTree[i] = s;
+		if (tree != null)
+		{
+			String[] arrayTree = new String[tree.size()];
+			int i = 0;
+			for (String s : tree)
+				arrayTree[i] = s;
 
-		savedInstanceState.putStringArray(STATE_TREE, arrayTree);
-		savedInstanceState.putString(STATE_CURRENT, currentID);
+			savedInstanceState.putStringArray(STATE_TREE, arrayTree);
+			savedInstanceState.putString(STATE_CURRENT, currentID);
+		}
 
 		super.onSaveInstanceState(savedInstanceState);
 	}
