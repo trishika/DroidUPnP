@@ -135,6 +135,9 @@ public class RendererFragment extends Fragment implements Observer {
 
 		if (rendererState != null)
 		{
+			if (getActivity() == null)
+				return;
+
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run()
