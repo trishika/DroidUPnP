@@ -57,15 +57,23 @@
 				android:orientation="vertical"
 				android:layout_weight="1"
 				android:background="?android:attr/windowBackground"
+				android:padding="10dp"
 				>
+
 				<fragment
-					android:name="org.droidupnp.view.DeviceFragment"
-					android:id="@+id/DeviceFragment"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					tools:layout="@layout/device_fragment"
+					android:id="@+id/ContentDirectoryDeviceFragment"
+					android:name="org.droidupnp.view.ContentDirectoryDeviceFragment"
 					android:layout_weight="1"
-					/>
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent" />
+
+				<fragment
+					android:id="@+id/RendererDeviceFragment"
+					android:name="org.droidupnp.view.RendererDeviceFragment"
+					android:layout_weight="1"
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent" />
+
 			</LinearLayout>
 		</LinearLayout>
 
@@ -97,8 +105,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:name="org.droidupnp.view.ContentDirectoryFragment"
-					android:layout_weight="1"
-					 />
+					/>
 			</LinearLayout>
 		</LinearLayout>
 
