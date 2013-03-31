@@ -197,11 +197,11 @@ public class RendererFragment extends Fragment implements Observer {
 	private void SetupButtons()
 	{
 		// Now_Playing Footer Buttons
-		backButton = (ImageView) getActivity().findViewById(R.id.backButton);
+		// backButton = (ImageView) getActivity().findViewById(R.id.backButton);
 		play_pauseButton = (ImageView) getActivity().findViewById(R.id.play_pauseButton);
 		volumeButton = (ImageView) getActivity().findViewById(R.id.volumeIcon);
 		stopButton = (ImageView) getActivity().findViewById(R.id.stopButton);
-		nextButton = (ImageView) getActivity().findViewById(R.id.nextButton);
+		// nextButton = (ImageView) getActivity().findViewById(R.id.nextButton);
 		progressBar = (SeekBar) getActivity().findViewById(R.id.progressBar);
 		volume = (SeekBar) getActivity().findViewById(R.id.volume);
 	}
