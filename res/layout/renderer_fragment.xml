@@ -176,6 +176,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="36dp"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -184,6 +186,8 @@
 			android:textIsSelectable="false"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
 			android:textSize="18sp"
 			android:textStyle="italic" />
 
