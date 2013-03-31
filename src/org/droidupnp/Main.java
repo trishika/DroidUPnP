@@ -50,6 +50,7 @@ public class Main extends Activity {
 	private static final String TAG = "Main";
 	private static final boolean DISCOVERY_TAB = false;
 	private static final String STATE_SELECTEDTAB = "selectedTab";
+	private int tab = 0;
 
 	// Controller
 	public static IUpnpServiceController upnpServiceController;
@@ -89,8 +90,39 @@ public class Main extends Activity {
 		bar.setDisplayShowHomeEnabled(false);
 		bar.setDisplayShowTitleEnabled(false);
 
+		if (savedInstanceState != null)
+			tab = savedInstanceState.getInt(STATE_SELECTEDTAB);
+		else
+			tab = 0;
+
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		Log.i(TAG, "Save instance");
+		savedInstanceState.putInt(STATE_SELECTEDTAB, tab);
+		super.onSaveInstanceState(savedInstanceState);
+	}
+
+	@Override
+	public void onPause()
+	{
+		Log.i(TAG, "onPause");
+		tab = getActionBar().getSelectedNavigationIndex();
+		getActionBar().removeAllTabs(); // Clear tab onPause, to avoid bug due to use of nested fragment
+		super.onPause();
+	}
+
+	@Override
+	public void onResume()
+	{
+		Log.i(TAG, "onResume");
+
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL)
 		{
+			final ActionBar bar = getActionBar();
+
 			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 			bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
 
@@ -112,26 +144,10 @@ public class Main extends Activity {
 								new TabListener<ServiceDiscoveryFragment>(this, "Discovery",
 										ServiceDiscoveryFragment.class)));
 
-			int selectedTab = 0;
-			if (savedInstanceState != null)
-				selectedTab = savedInstanceState.getInt(STATE_SELECTEDTAB);
-
-			bar.setSelectedNavigationItem(selectedTab);
+			bar.setSelectedNavigationItem(tab);
 		}
 
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle savedInstanceState)
-	{
-		Log.i(TAG, "Save instance");
-
-		final ActionBar bar = getActionBar();
-
-		savedInstanceState.putInt(STATE_SELECTEDTAB, bar.getSelectedNavigationIndex());
-		bar.removeAllTabs();
-
-		super.onSaveInstanceState(savedInstanceState);
+		super.onResume();
 	}
 
 	@Override
