@@ -21,7 +21,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/device_fragment"
 	android:baselineAligned="false"
-	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent" >
 
@@ -33,8 +32,8 @@
 		android:layout_height="fill_parent" />
 
 	<fragment
-		android:id="@+id/RendererDeviceFragment"
-		android:name="org.droidupnp.view.RendererDeviceFragment"
+	    android:id="@+id/RendererDeviceFragment"
+	    android:name="org.droidupnp.view.RendererDeviceFragment"
 		android:layout_weight="1"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent" />
