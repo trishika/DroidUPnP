@@ -70,10 +70,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		else
 			Log.w(TAG, "upnpServiceController was not ready !!!");
 
-		if (tree != null)
-			for (String s : tree)
-				Log.e("TREE", s);
-
 		if (savedInstanceState != null
 				&& Main.upnpServiceController.getSelectedContentDirectory() != null
 				&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
@@ -84,14 +80,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			// Content directory is still the same => reload context
 			tree = new LinkedList<String>(Arrays.asList(savedInstanceState.getStringArray(STATE_TREE)));
 			currentID = savedInstanceState.getString(STATE_CURRENT);
-			String parentID = (tree.size() > 0) ? tree.getLast() : null;
-			contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+
+			device = Main.upnpServiceController.getSelectedContentDirectory();
+			contentDirectoryCommand = Main.factory.createContentDirectoryCommand();
 		}
-		else
-		{
-			Log.i(TAG, "Force refresh");
-			refresh(true);
-		}
+
+		Log.i(TAG, "Force refresh");
+		refresh(true);
 
 		Log.d(TAG, "Activity created");
 	}
@@ -112,7 +107,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			String[] arrayTree = new String[tree.size()];
 			int i = 0;
 			for (String s : tree)
-				arrayTree[i] = s;
+				arrayTree[i++] = s;
 
 			savedInstanceState.putStringArray(STATE_TREE, arrayTree);
 			savedInstanceState.putString(STATE_CURRENT, currentID);
