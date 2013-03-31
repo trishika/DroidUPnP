@@ -43,13 +43,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 @SuppressLint("DefaultLocale")
 public class Main extends Activity {
 
 	private static final String TAG = "Main";
 	private static final boolean DISCOVERY_TAB = false;
+	private static final String STATE_SELECTEDTAB = "selectedTab";
 
 	// Controller
 	public static IUpnpServiceController upnpServiceController;
@@ -63,10 +63,14 @@ public class Main extends Activity {
 
 		Log.d(TAG, "onCreated");
 
-		// Cling factory init, controller
-		factory = new org.droidupnp.controller.cling.Factory();
-		upnpServiceController = factory.createUpnpServiceController(this);
+		if (savedInstanceState == null)
+		{
+			// Cling factory init, controller
+			factory = new org.droidupnp.controller.cling.Factory();
+			upnpServiceController = factory.createUpnpServiceController(this);
+		}
 
+		// Attach listener
 		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
 		if (contentDirectoryFragment != null && contentDirectoryFragment instanceof Observer)
 			upnpServiceController.addSelectedContentDirectoryObserver((Observer) contentDirectoryFragment);
@@ -108,16 +112,32 @@ public class Main extends Activity {
 								new TabListener<ServiceDiscoveryFragment>(this, "Discovery",
 										ServiceDiscoveryFragment.class)));
 
+			int selectedTab = 0;
 			if (savedInstanceState != null)
-			{
-				bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
-			}
+				selectedTab = savedInstanceState.getInt(STATE_SELECTEDTAB);
+
+			bar.setSelectedNavigationItem(selectedTab);
 		}
+
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		Log.i(TAG, "Save instance");
+
+		final ActionBar bar = getActionBar();
+
+		savedInstanceState.putInt(STATE_SELECTEDTAB, bar.getSelectedNavigationIndex());
+		bar.removeAllTabs();
+
+		super.onSaveInstanceState(savedInstanceState);
 	}
 
 	@Override
 	protected void onDestroy()
 	{
+		Log.i(TAG, "Destroy");
 		super.onDestroy();
 	}
 
@@ -211,7 +231,7 @@ public class Main extends Activity {
 		@Override
 		public void onTabReselected(Tab tab, FragmentTransaction ft)
 		{
-			Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
 		}
 	}
 }
