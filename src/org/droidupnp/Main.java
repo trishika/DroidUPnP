@@ -170,8 +170,8 @@ public class Main extends Activity {
 		// Handle item selection
 		switch (item.getItemId())
 		{
-			case R.id.menu_settings:
-				return true;
+		// case R.id.menu_settings:
+		// return true;
 			case R.id.menu_quit:
 				finish();
 				return true;
