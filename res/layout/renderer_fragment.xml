@@ -85,13 +85,13 @@
 			android:paddingRight="10dp"	>
 <!-- 
 			<ImageView
-				android:id="@+id/backButton"
+				android:id="@+id/previousButton"
 				android:layout_width="50dp"
 				android:layout_height="match_parent"
 				android:contentDescription="@string/back"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/back48" />
+				android:src="@drawable/previous" />
 
 			<ImageView
 				android:id="@+id/shuffleButton"
@@ -100,7 +100,7 @@
 				android:contentDescription="@string/back"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/shuffle48" />
+				android:src="@drawable/shuffle" />
 -->
 			<ImageView
 				android:id="@+id/play_pauseButton"
@@ -109,7 +109,7 @@
 				android:contentDescription="@string/play"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/play64" />
+				android:src="@drawable/play" />
 
 			<ImageView
 				android:id="@+id/stopButton"
@@ -118,7 +118,7 @@
 				android:contentDescription="@string/stop"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/stop64" />
+				android:src="@drawable/stop" />
 <!-- 
 			<ImageView
 				android:id="@+id/repeatButton"
@@ -127,7 +127,7 @@
 				android:contentDescription="@string/back"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/repeat48" />
+				android:src="@drawable/repeat" />
 
 			<ImageView
 				android:id="@+id/nextButton"
@@ -136,7 +136,7 @@
 				android:contentDescription="@string/next"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:src="@drawable/next48" />
+				android:src="@drawable/next" />
 -->
 		</LinearLayout>
 

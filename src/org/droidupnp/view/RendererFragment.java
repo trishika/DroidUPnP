@@ -52,7 +52,7 @@ public class RendererFragment extends Fragment implements Observer {
 	private IRendererCommand rendererCommand;
 
 	// NowPlaying Slide
-	private ImageView backButton;
+	private ImageView previousButton;
 	private ImageView stopButton;
 	private ImageView play_pauseButton;
 	private ImageView volumeButton;
@@ -164,9 +164,9 @@ public class RendererFragment extends Fragment implements Observer {
 					artist.setText(rendererState.getArtist());
 
 					if (rendererState.getState() == RendererState.State.PLAY)
-						play_pauseButton.setImageResource(R.drawable.pause64);
+						play_pauseButton.setImageResource(R.drawable.pause);
 					else
-						play_pauseButton.setImageResource(R.drawable.play64);
+						play_pauseButton.setImageResource(R.drawable.play);
 
 					if (rendererState.isMute())
 						volumeButton.setImageResource(R.drawable.volume_mute);
@@ -197,7 +197,7 @@ public class RendererFragment extends Fragment implements Observer {
 	private void SetupButtons()
 	{
 		// Now_Playing Footer Buttons
-		// backButton = (ImageView) getActivity().findViewById(R.id.backButton);
+		// previousButton = (ImageView) getActivity().findViewById(R.id.previousButton);
 		play_pauseButton = (ImageView) getActivity().findViewById(R.id.play_pauseButton);
 		volumeButton = (ImageView) getActivity().findViewById(R.id.volumeIcon);
 		stopButton = (ImageView) getActivity().findViewById(R.id.stopButton);
@@ -238,8 +238,8 @@ public class RendererFragment extends Fragment implements Observer {
 				}
 			});
 
-		if (backButton != null)
-			backButton.setOnClickListener(new OnClickListener() {
+		if (previousButton != null)
+			previousButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v)
 				{
