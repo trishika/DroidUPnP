@@ -68,7 +68,7 @@ public class TrackMetadata {
 		if (xml == null)
 			return;
 
-		Log.e(TAG, "XML : " + xml);
+		Log.d(TAG, "XML : " + xml);
 
 		try
 		{
@@ -107,7 +107,7 @@ public class TrackMetadata {
 				+ "<res>"
 				+ res
 				+ "</res>" + "<upnp:class>" + itemClass + "</upnp:class>" + "</item>" + "</DIDL-Lite>";
-		Log.e(TAG, xml);
+		Log.d(TAG, xml);
 		return xml;
 	}
 
