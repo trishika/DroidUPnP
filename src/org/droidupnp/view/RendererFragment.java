@@ -101,6 +101,18 @@ public class RendererFragment extends Fragment implements Observer {
 	{
 		super.onResume();
 		startControlPoint();
+
+		if (rendererCommand != null)
+			rendererCommand.resume();
+	}
+
+	@Override
+	public void onPause()
+	{
+		Log.e(TAG, "onPause Renderer");
+		if (rendererCommand != null)
+			rendererCommand.pause();
+		super.onPause();
 	}
 
 	@Override

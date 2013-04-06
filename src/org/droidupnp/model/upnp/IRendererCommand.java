@@ -23,6 +23,11 @@ import org.droidupnp.model.upnp.didl.IDIDLItem;
 
 public interface IRendererCommand {
 
+	// Pause/resume backgroud state update
+	public void pause();
+
+	public void resume();
+
 	// / Status
 	public void commandPlay();
 

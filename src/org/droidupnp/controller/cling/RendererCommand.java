@@ -72,7 +72,23 @@ public class RendererCommand implements Runnable, IRendererCommand {
 		this.controlPoint = controlPoint;
 
 		thread = new Thread(this);
-		thread.start();
+	}
+
+	@Override
+	public void pause()
+	{
+		Log.e(TAG, "Interrupt");
+		thread.interrupt();
+	}
+
+	@Override
+	public void resume()
+	{
+		Log.e(TAG, "Resume");
+		if (!thread.isAlive())
+			thread.start();
+		else
+			thread.interrupt();
 	}
 
 	public static Service getRenderingControlService()
@@ -477,36 +493,41 @@ public class RendererCommand implements Runnable, IRendererCommand {
 
 		// controlPoint.execute(callback);
 
-		int count = 0;
+		boolean pause = false;
 		while (true)
-		{
-			Log.d(TAG, "Update state !");
-
-			count++;
-
-			updatePositionInfo();
-
-			if ((count % 3) == 0)
-			{
-				updateVolume();
-				updateMute();
-				updateTransportInfo();
-			}
-
-			if ((count % 6) == 0)
-			{
-				updateMediaInfo();
-			}
-
 			try
 			{
-				Thread.sleep(1000);
+				int count = 0;
+				while (true)
+				{
+					if (!pause)
+					{
+						Log.d(TAG, "Update state !");
+
+						count++;
+
+						updatePositionInfo();
+
+						if ((count % 3) == 0)
+						{
+							updateVolume();
+							updateMute();
+							updateTransportInfo();
+						}
+
+						if ((count % 6) == 0)
+						{
+							updateMediaInfo();
+						}
+					}
+					Thread.sleep(1000);
+				}
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				Log.i(TAG, "State updater interrupt, current state " + ((pause) ? "pause" : "running"));
+				pause = !pause;
 			}
-		}
 	}
 
 	@Override
