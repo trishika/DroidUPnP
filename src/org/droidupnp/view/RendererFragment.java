@@ -109,7 +109,7 @@ public class RendererFragment extends Fragment implements Observer {
 	@Override
 	public void onPause()
 	{
-		Log.e(TAG, "onPause Renderer");
+		Log.d(TAG, "Pause Renderer");
 		if (rendererCommand != null)
 			rendererCommand.pause();
 		super.onPause();
@@ -281,19 +281,12 @@ public class RendererFragment extends Fragment implements Observer {
 
 					int position = seekBar.getProgress();
 
-					Log.d(TAG, "Max : " + seekBar.getMax());
-					Log.d(TAG, "progress : " + position);
-					Log.d(TAG, "Duration : " + rendererState.getDurationSeconds());
 					long t = (long) ((1.0 - ((double) seekBar.getMax() - position) / (seekBar.getMax())) * rendererState
 							.getDurationSeconds());
 					long h = t / 3600;
 					long m = (t - h * 3600) / 60;
 					long s = t - h * 3600 - m * 60;
 					String seek = formatTime(h, m, s);
-					Log.d(TAG, "t : " + t);
-					Log.d(TAG, "h : " + h);
-					Log.d(TAG, "m : " + m);
-					Log.d(TAG, "s : " + s);
 
 					Toast.makeText(getActivity().getApplicationContext(), "Seek to " + seek, Toast.LENGTH_SHORT).show();
 					Log.d(TAG, "Seek to " + seek);

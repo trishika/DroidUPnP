@@ -77,14 +77,14 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	@Override
 	public void pause()
 	{
-		Log.e(TAG, "Interrupt");
+		Log.v(TAG, "Interrupt");
 		thread.interrupt();
 	}
 
 	@Override
 	public void resume()
 	{
-		Log.e(TAG, "Resume");
+		Log.v(TAG, "Resume");
 		if (!thread.isAlive())
 			thread.start();
 		else

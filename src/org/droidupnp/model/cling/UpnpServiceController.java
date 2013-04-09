@@ -78,7 +78,7 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 	@Override
 	public void addSelectedRendererObserver(Observer o)
 	{
-		Log.w(TAG, "New SelectedRendererObserver");
+		Log.i(TAG, "New SelectedRendererObserver");
 		rendererObservable.addObserver(o);
 	}
 

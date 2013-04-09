@@ -147,7 +147,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 							position = list.getPosition(d);
 							getListView().setItemChecked(position, true);
 
-							Log.e(TAG, d.toString() + " is selected at position " + position);
+							Log.i(TAG, d.toString() + " is selected at position " + position);
 						}
 					}
 				});
