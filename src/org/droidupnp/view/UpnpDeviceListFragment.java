@@ -39,7 +39,7 @@ import android.widget.ListView;
 
 public abstract class UpnpDeviceListFragment extends ListFragment {
 
-	protected static final String TAG = "ServiceDiscoveryFragment";
+	protected static final String TAG = "UpnpDeviceListFragment";
 
 	protected ArrayAdapter<DeviceDisplay> list;
 
@@ -158,11 +158,15 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 		{
 			Log.i(TAG, "Device removed : " + device.getFriendlyName());
 
+			// Callback device remove
+			removed(device);
+
 			if (getActivity() != null) // Visible
 				getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run()
 					{
+						// Remove device from list
 						list.remove(new DeviceDisplay(device));
 					}
 				});

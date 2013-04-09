@@ -124,7 +124,14 @@ public class RendererFragment extends Fragment implements Observer {
 	public void startControlPoint()
 	{
 		if (Main.upnpServiceController.getSelectedRenderer() == null)
+		{
+			if (device != null)
+			{
+				Log.i(TAG, "Current renderer have been removed");
+				device = null;
+			}
 			return;
+		}
 
 		if (device == null || !device.equals(Main.upnpServiceController.getSelectedRenderer()))
 		{

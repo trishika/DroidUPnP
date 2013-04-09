@@ -139,7 +139,26 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		Log.d(TAG, "refresh");
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
+		{
+			if (device != null)
+			{
+				Log.i(TAG, "Current content directory have been removed");
+				device = null;
+
+				if (getActivity() != null) // Visible
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run()
+						{
+							// Clear display list
+							contentList.clear();
+						}
+					});
+
+				tree = null;
+			}
 			return;
+		}
 
 		if (device == null || contentDirectoryCommand == null
 				|| !device.equals(Main.upnpServiceController.getSelectedContentDirectory()))

@@ -75,6 +75,12 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	}
 
 	@Override
+	public void finalize()
+	{
+		this.pause();
+	}
+
+	@Override
 	public void pause()
 	{
 		Log.v(TAG, "Interrupt");
