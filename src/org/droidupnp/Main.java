@@ -53,7 +53,7 @@ public class Main extends Activity {
 	private int tab = 0;
 
 	// Controller
-	public static IUpnpServiceController upnpServiceController;
+	public static IUpnpServiceController upnpServiceController = null;
 	public static IFactory factory = null;
 
 	@Override
@@ -64,12 +64,13 @@ public class Main extends Activity {
 
 		Log.d(TAG, "onCreated");
 
-		if (savedInstanceState == null)
-		{
-			// Cling factory init, controller
+		// Use cling factory
+		if (factory == null)
 			factory = new org.droidupnp.controller.cling.Factory();
+
+		// Upnp service
+		if (upnpServiceController == null)
 			upnpServiceController = factory.createUpnpServiceController(this);
-		}
 
 		// Attach listener
 		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
