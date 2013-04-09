@@ -172,6 +172,9 @@ public class Main extends Activity {
 		{
 		// case R.id.menu_settings:
 		// return true;
+			case R.id.menu_refresh:
+				refresh();
+				return true;
 			case R.id.menu_quit:
 				finish();
 				return true;
@@ -187,6 +190,11 @@ public class Main extends Activity {
 		@SuppressWarnings("unused")
 		MenuInflater inflater = getMenuInflater();
 		// inflater.inflate(R.menu.context_menu, menu);
+	}
+
+	public void refresh()
+	{
+		upnpServiceController.getServiceListener().refresh();
 	}
 
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {

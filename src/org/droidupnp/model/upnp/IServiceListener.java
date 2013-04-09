@@ -24,4 +24,6 @@ public interface IServiceListener {
 	public void addListener(IRegistryListener registryListener);
 
 	public void removeListener(IRegistryListener registryListener);
+
+	public void refresh();
 }

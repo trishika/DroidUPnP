@@ -46,6 +46,11 @@ public class ServiceListener implements IServiceListener {
 		waitingListener = new ArrayList<IRegistryListener>();
 	}
 
+	public void refresh()
+	{
+		upnpService.getControlPoint().search();
+	}
+
 	protected ServiceConnection serviceConnection = new ServiceConnection() {
 
 		@Override
