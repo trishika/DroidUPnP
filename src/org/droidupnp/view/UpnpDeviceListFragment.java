@@ -125,7 +125,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 		{
 			Log.i(TAG, "New device detected : " + device.getDisplayString());
 
-			if (filter(device) && getActivity() != null) // Visible
+			if (device.isFullyHydrated() && filter(device) && getActivity() != null) // Visible
 				getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run()

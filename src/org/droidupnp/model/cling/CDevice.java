@@ -177,4 +177,10 @@ public class CDevice implements IUpnpDevice {
 		else
 			return "";
 	}
+
+	@Override
+	public boolean isFullyHydrated()
+	{
+		return device.isFullyHydrated();
+	}
 }

@@ -55,6 +55,8 @@ public interface IUpnpDevice {
 
 	public void printService();
 
+	public boolean isFullyHydrated();
+
 	@Override
 	public String toString();
 }
