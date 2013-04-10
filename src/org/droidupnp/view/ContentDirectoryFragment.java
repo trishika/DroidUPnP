@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.Callable;
 
 import org.droidupnp.Main;
 import org.droidupnp.model.upnp.IContentDirectoryCommand;
@@ -219,7 +220,40 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		}
 	}
 
-	private void launchURI(IDIDLItem uri)
+	private void launchURI(final IDIDLItem uri)
+	{
+		if (Main.upnpServiceController.getSelectedRenderer() == null)
+		{
+			// No renderer selected yet, open a popup to select one
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run()
+				{
+					RendererDialog rendererDialog = new RendererDialog();
+					rendererDialog.setCallback(new Callable<Void>() {
+
+						@Override
+						public Void call() throws Exception
+						{
+							launchURIRenderer(uri);
+							return null;
+						}
+					});
+
+					rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
+				}
+			});
+
+		}
+		else
+		{
+			// Renderer available, go for it
+			launchURIRenderer(uri);
+		}
+
+	}
+
+	private void launchURIRenderer(IDIDLItem uri)
 	{
 		IRendererCommand rendererCommand = Main.factory.createRendererCommand(Main.factory.createRendererState());
 		rendererCommand.launchItem(uri);

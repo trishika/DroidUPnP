@@ -2,6 +2,7 @@ package org.droidupnp.view;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.Callable;
 
 import org.droidupnp.Main;
 import org.droidupnp.R;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 public class RendererDialog extends DialogFragment {
+
+	private Callable<Void> callback = null;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -36,8 +39,22 @@ public class RendererDialog extends DialogFragment {
 			public void onClick(DialogInterface dialog, int which)
 			{
 				Main.upnpServiceController.setSelectedRenderer((IUpnpDevice) upnpDevices.toArray()[which]);
+				try
+				{
+					if (callback != null)
+						callback.call();
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
 		});
 		return builder.create();
+	}
+
+	public void setCallback(Callable<Void> callback)
+	{
+		this.callback = callback;
 	}
 }
