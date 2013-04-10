@@ -33,6 +33,8 @@
 	<string name="menu_quit">Quit</string>
 	<string name="OK">OK</string>
 	<string name="searchingLAN">Searching UPnP devices...</string>
+	<string name="selectRenderer">Select a Renderer</string>
+	<string name="selectContentDirectory">Select a Content directory</string>
 
 	<!-- Now Playing -->
 	<string name="check_button">Check for MP3s</string>

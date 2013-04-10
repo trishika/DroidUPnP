@@ -20,11 +20,14 @@
 package org.droidupnp.controller.cling;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.droidupnp.model.cling.CDevice;
 import org.droidupnp.model.cling.CRegistryListener;
+import org.droidupnp.model.upnp.ICallableFilter;
 import org.droidupnp.model.upnp.IRegistryListener;
 import org.droidupnp.model.upnp.IServiceListener;
+import org.droidupnp.model.upnp.IUpnpDevice;
 import org.fourthline.cling.android.AndroidUpnpService;
 import org.fourthline.cling.model.meta.Device;
 
@@ -46,9 +49,41 @@ public class ServiceListener implements IServiceListener {
 		waitingListener = new ArrayList<IRegistryListener>();
 	}
 
+	@Override
 	public void refresh()
 	{
 		upnpService.getControlPoint().search();
+	}
+
+	public Collection<IUpnpDevice> getDeviceList()
+	{
+		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
+		for (Device device : upnpService.getRegistry().getDevices())
+		{
+			deviceList.add(new CDevice(device));
+		}
+		return deviceList;
+	}
+
+	public Collection<IUpnpDevice> getFilteredDeviceList(ICallableFilter filter)
+	{
+		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
+		try
+		{
+			for (Device device : upnpService.getRegistry().getDevices())
+			{
+				IUpnpDevice upnpDevice = new CDevice(device);
+				filter.setDevice(upnpDevice);
+
+				if (filter.call())
+					deviceList.add(upnpDevice);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return deviceList;
 	}
 
 	protected ServiceConnection serviceConnection = new ServiceConnection() {
