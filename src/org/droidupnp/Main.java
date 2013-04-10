@@ -23,6 +23,7 @@ import java.util.Observer;
 
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.upnp.IFactory;
+import org.droidupnp.view.AboutDialog;
 import org.droidupnp.view.ContentDirectoryFragment;
 import org.droidupnp.view.DeviceFragment;
 import org.droidupnp.view.RendererFragment;
@@ -175,6 +176,10 @@ public class Main extends Activity {
 		// return true;
 			case R.id.menu_refresh:
 				refresh();
+				return true;
+			case R.id.menu_about:
+				AboutDialog newFragment = new AboutDialog();
+				newFragment.show(this.getFragmentManager(), "About");
 				return true;
 			case R.id.menu_quit:
 				finish();
