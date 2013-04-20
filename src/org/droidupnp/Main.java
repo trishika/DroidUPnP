@@ -71,14 +71,7 @@ public class Main extends Activity {
 
 		// Upnp service
 		if (upnpServiceController == null)
-		{
-			upnpServiceController = factory.createUpnpServiceController(this);
-		}
-		else
-		{
-			Log.i(TAG, "upnp service already exist, just resume it");
-			upnpServiceController.resume(this);
-		}
+			upnpServiceController = factory.createUpnpServiceController();
 
 		// Attach listener
 		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
@@ -121,6 +114,7 @@ public class Main extends Activity {
 		tab = getActionBar().getSelectedNavigationIndex();
 		getActionBar().removeAllTabs(); // Clear tab onPause, to avoid bug due to use of nested fragment
 		upnpServiceController.pause();
+		upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
 		super.onPause();
 	}
 
@@ -128,6 +122,8 @@ public class Main extends Activity {
 	public void onResume()
 	{
 		Log.i(TAG, "onResume");
+
+		upnpServiceController.resume(this);
 
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL)
 		{

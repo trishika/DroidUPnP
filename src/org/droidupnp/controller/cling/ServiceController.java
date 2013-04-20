@@ -41,12 +41,11 @@ public class ServiceController extends UpnpServiceController {
 
 	private Activity activity = null;
 
-	public ServiceController(Activity activity)
+	public ServiceController()
 	{
 		super();
 
 		upnpServiceListener = new ServiceListener();
-		resume(activity);
 	}
 
 	@Override
