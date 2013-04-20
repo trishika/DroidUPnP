@@ -27,6 +27,8 @@ public interface IServiceListener {
 
 	public void removeListener(IRegistryListener registryListener);
 
+	public void clearListener();
+
 	public void refresh();
 
 	public Collection<IUpnpDevice> getDeviceList();

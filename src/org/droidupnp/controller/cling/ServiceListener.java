@@ -55,6 +55,7 @@ public class ServiceListener implements IServiceListener {
 		upnpService.getControlPoint().search();
 	}
 
+	@Override
 	public Collection<IUpnpDevice> getDeviceList()
 	{
 		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
@@ -65,6 +66,7 @@ public class ServiceListener implements IServiceListener {
 		return deviceList;
 	}
 
+	@Override
 	public Collection<IUpnpDevice> getFilteredDeviceList(ICallableFilter filter)
 	{
 		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
@@ -160,5 +162,11 @@ public class ServiceListener implements IServiceListener {
 		assert upnpService != null;
 		Log.d(TAG, "remove listener Safe");
 		upnpService.getRegistry().removeListener(new CRegistryListener(registryListener));
+	}
+
+	@Override
+	public void clearListener()
+	{
+		waitingListener.clear();
 	}
 }

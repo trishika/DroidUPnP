@@ -39,13 +39,32 @@ public class ServiceController extends UpnpServiceController {
 		return upnpServiceListener;
 	}
 
-	private final Activity activity;
+	private Activity activity = null;
 
 	public ServiceController(Activity activity)
 	{
 		super();
 
 		upnpServiceListener = new ServiceListener();
+		resume(activity);
+	}
+
+	@Override
+	protected void finalize()
+	{
+		pause();
+	}
+
+	@Override
+	public void pause()
+	{
+		activity.unbindService(upnpServiceListener.getServiceConnexion());
+		activity = null;
+	}
+
+	@Override
+	public void resume(Activity activity)
+	{
 		this.activity = activity;
 
 		// This will start the UPnP service if it wasn't already started
@@ -54,9 +73,4 @@ public class ServiceController extends UpnpServiceController {
 				Context.BIND_AUTO_CREATE);
 	}
 
-	@Override
-	protected void finalize()
-	{
-		activity.unbindService(upnpServiceListener.getServiceConnexion());
-	}
 }

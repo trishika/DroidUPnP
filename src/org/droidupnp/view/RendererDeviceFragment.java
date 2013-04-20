@@ -52,6 +52,12 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
+	protected void select(IUpnpDevice device)
+	{
+		Main.upnpServiceController.setSelectedRenderer(device);
+	}
+
+	@Override
 	protected boolean filter(IUpnpDevice device)
 	{
 		return device.asService("RenderingControl");
@@ -69,7 +75,7 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id)
 	{
 		super.onListItemClick(l, v, position, id);
-		Main.upnpServiceController.setSelectedRenderer(list.getItem(position).getDevice());
+		select(list.getItem(position).getDevice());
 		Log.d(TAG, "Set renderer to " + list.getItem(position));
 	}
 }

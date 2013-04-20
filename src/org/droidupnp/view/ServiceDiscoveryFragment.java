@@ -53,6 +53,11 @@ public class ServiceDiscoveryFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
+	protected void select(IUpnpDevice device)
+	{
+	}
+
+	@Override
 	protected boolean filter(IUpnpDevice device)
 	{
 		return true;

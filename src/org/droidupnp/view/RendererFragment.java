@@ -116,6 +116,14 @@ public class RendererFragment extends Fragment implements Observer {
 	}
 
 	@Override
+	public void onDestroy()
+	{
+		Log.i(TAG, "Destroy");
+		Main.upnpServiceController.delSelectedRendererObserver(this);
+		super.onDestroy();
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.renderer_fragment, container, false);

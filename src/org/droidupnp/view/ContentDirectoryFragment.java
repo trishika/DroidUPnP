@@ -124,6 +124,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		refresh();
 	}
 
+	@Override
+	public void onDestroy()
+	{
+		Log.i(TAG, "Destroy");
+		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
+		super.onDestroy();
+	}
+
 	public void printCurrentContentDirectoryInfo()
 	{
 		Log.i(TAG, "Device : " + Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());

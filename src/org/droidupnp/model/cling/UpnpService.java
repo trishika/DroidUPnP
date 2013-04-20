@@ -22,6 +22,9 @@ package org.droidupnp.model.cling;
 import org.fourthline.cling.android.AndroidUpnpServiceConfiguration;
 import org.fourthline.cling.android.AndroidUpnpServiceImpl;
 
+import android.content.Intent;
+import android.util.Log;
+
 public class UpnpService extends AndroidUpnpServiceImpl {
 
 	@Override
@@ -36,5 +39,12 @@ public class UpnpService extends AndroidUpnpServiceImpl {
 			}
 
 		};
+	}
+
+	@Override
+	public boolean onUnbind(Intent intent)
+	{
+		Log.d(this.getClass().getName(), "Unbind");
+		return super.onUnbind(intent);
 	}
 }

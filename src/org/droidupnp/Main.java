@@ -63,7 +63,7 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Log.d(TAG, "onCreated");
+		Log.d(TAG, "onCreated : " + savedInstanceState + factory + upnpServiceController);
 
 		// Use cling factory
 		if (factory == null)
@@ -71,7 +71,14 @@ public class Main extends Activity {
 
 		// Upnp service
 		if (upnpServiceController == null)
+		{
 			upnpServiceController = factory.createUpnpServiceController(this);
+		}
+		else
+		{
+			Log.i(TAG, "upnp service already exist, just resume it");
+			upnpServiceController.resume(this);
+		}
 
 		// Attach listener
 		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
@@ -113,6 +120,7 @@ public class Main extends Activity {
 		Log.i(TAG, "onPause");
 		tab = getActionBar().getSelectedNavigationIndex();
 		getActionBar().removeAllTabs(); // Clear tab onPause, to avoid bug due to use of nested fragment
+		upnpServiceController.pause();
 		super.onPause();
 	}
 

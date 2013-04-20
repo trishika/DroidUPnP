@@ -59,10 +59,16 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
+	protected void select(IUpnpDevice device)
+	{
+		Main.upnpServiceController.setSelectedContentDirectory(device);
+	}
+
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id)
 	{
 		super.onListItemClick(l, v, position, id);
-		Main.upnpServiceController.setSelectedContentDirectory(list.getItem(position).getDevice());
+		select(list.getItem(position).getDevice());
 		Log.d(TAG, "Set contentDirectory to " + list.getItem(position));
 	}
 }

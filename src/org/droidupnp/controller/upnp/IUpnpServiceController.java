@@ -24,6 +24,8 @@ import java.util.Observer;
 import org.droidupnp.model.upnp.IServiceListener;
 import org.droidupnp.model.upnp.IUpnpDevice;
 
+import android.app.Activity;
+
 public interface IUpnpServiceController {
 	public void setSelectedRenderer(IUpnpDevice renderer);
 
@@ -42,4 +44,11 @@ public interface IUpnpServiceController {
 	public void delSelectedContentDirectoryObserver(Observer o);
 
 	public IServiceListener getServiceListener();
+
+	// Pause the service
+	public void pause();
+
+	// Resume the service
+	public void resume(Activity activity);
+
 }
