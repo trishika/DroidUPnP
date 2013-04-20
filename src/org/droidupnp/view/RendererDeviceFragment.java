@@ -54,7 +54,13 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	@Override
 	protected void select(IUpnpDevice device)
 	{
-		Main.upnpServiceController.setSelectedRenderer(device);
+		select(device, false);
+	}
+
+	@Override
+	protected void select(IUpnpDevice device, boolean force)
+	{
+		Main.upnpServiceController.setSelectedRenderer(device, force);
 	}
 
 	@Override

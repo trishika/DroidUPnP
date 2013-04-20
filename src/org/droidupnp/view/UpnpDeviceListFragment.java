@@ -147,8 +147,8 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 							position = list.getPosition(d);
 							getListView().setItemChecked(position, true);
 
-							// Reselect device to refresh it
-							select(d.getDevice());
+							Log.d(TAG, "Reselect device to refresh it");
+							select(d.getDevice(), true);
 
 							Log.i(TAG, d.toString() + " is selected at position " + position);
 						}
@@ -199,6 +199,14 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 	 * @param device
 	 */
 	protected abstract void select(IUpnpDevice device);
+
+	/**
+	 * Select a device
+	 * 
+	 * @param device
+	 * @param force
+	 */
+	protected abstract void select(IUpnpDevice device, boolean force);
 
 	/**
 	 * Callback when device removed

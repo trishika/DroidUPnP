@@ -29,7 +29,11 @@ import android.app.Activity;
 public interface IUpnpServiceController {
 	public void setSelectedRenderer(IUpnpDevice renderer);
 
+	public void setSelectedRenderer(IUpnpDevice renderer, boolean force);
+
 	public void setSelectedContentDirectory(IUpnpDevice contentDirectory);
+
+	public void setSelectedContentDirectory(IUpnpDevice contentDirectory, boolean force);
 
 	public IUpnpDevice getSelectedRenderer();
 

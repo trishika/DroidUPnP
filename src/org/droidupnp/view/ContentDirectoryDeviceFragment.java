@@ -61,7 +61,13 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 	@Override
 	protected void select(IUpnpDevice device)
 	{
-		Main.upnpServiceController.setSelectedContentDirectory(device);
+		select(device, false);
+	}
+
+	@Override
+	protected void select(IUpnpDevice device, boolean force)
+	{
+		Main.upnpServiceController.setSelectedContentDirectory(device, force);
 	}
 
 	@Override

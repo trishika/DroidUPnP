@@ -46,7 +46,14 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 	@Override
 	public void setSelectedRenderer(IUpnpDevice renderer)
 	{
-		if (renderer != null && this.renderer != null && this.renderer.equals(renderer))
+		setSelectedRenderer(renderer, false);
+	}
+
+	@Override
+	public void setSelectedRenderer(IUpnpDevice renderer, boolean force)
+	{
+		// Skip if no change and no force
+		if (!force && renderer != null && this.renderer != null && this.renderer.equals(renderer))
 			return;
 
 		this.renderer = renderer;
@@ -56,7 +63,15 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 	@Override
 	public void setSelectedContentDirectory(IUpnpDevice contentDirectory)
 	{
-		if (contentDirectory != null && this.contentDirectory != null && this.contentDirectory.equals(contentDirectory))
+		setSelectedContentDirectory(contentDirectory, false);
+	}
+
+	@Override
+	public void setSelectedContentDirectory(IUpnpDevice contentDirectory, boolean force)
+	{
+		// Skip if no change and no force
+		if (!force && contentDirectory != null && this.contentDirectory != null
+				&& this.contentDirectory.equals(contentDirectory))
 			return;
 
 		this.contentDirectory = contentDirectory;

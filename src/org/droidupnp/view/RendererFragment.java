@@ -150,6 +150,12 @@ public class RendererFragment extends Fragment implements Observer {
 			rendererState = Main.factory.createRendererState();
 			rendererCommand = Main.factory.createRendererCommand(rendererState);
 
+			if (rendererState == null || rendererCommand == null)
+			{
+				Log.e(TAG, "Fail to create renderer command and/or state");
+				return;
+			}
+
 			rendererState.addObserver(this);
 			rendererCommand.updateFull();
 		}

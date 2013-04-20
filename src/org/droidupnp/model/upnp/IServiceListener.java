@@ -21,6 +21,8 @@ package org.droidupnp.model.upnp;
 
 import java.util.Collection;
 
+import android.content.ServiceConnection;
+
 public interface IServiceListener {
 
 	public void addListener(IRegistryListener registryListener);
@@ -35,4 +37,5 @@ public interface IServiceListener {
 
 	public Collection<IUpnpDevice> getFilteredDeviceList(ICallableFilter filter);
 
+	public ServiceConnection getServiceConnexion();
 }
