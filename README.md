@@ -11,7 +11,7 @@ Dependancies
 
 The main dependance of DroidUPnP is cling whitch is the an
 upnp stack made in java and with an android support layer.
-Cling in licensed under the LGPVv2.
+Cling in licensed under the LGPLv2.
 
 
 Copying
