@@ -20,7 +20,7 @@
 <resources>
 
 	<string name="app_name">DroidUPnP</string>
-	<string name="app_version">1.0</string>
+	<string name="app_version">1.0.1</string>
 	<string name="version">Version</string>
 	<string name="player">Player</string>
 	<string name="playlist">Playlist</string>
