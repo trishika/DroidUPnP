@@ -108,10 +108,12 @@ public class ServiceListener implements IServiceListener {
 		@Override
 		public void onServiceDisconnected(ComponentName className)
 		{
+			Log.i(TAG, "Service disconnected");
 			upnpService = null;
 		}
 	};
 
+	@Override
 	public ServiceConnection getServiceConnexion()
 	{
 		return serviceConnection;
@@ -125,7 +127,7 @@ public class ServiceListener implements IServiceListener {
 	@Override
 	public void addListener(IRegistryListener registryListener)
 	{
-		Log.i(TAG, "Add Listener !");
+		Log.d(TAG, "Add Listener !");
 		if (upnpService != null)
 			addListenerSafe(registryListener);
 		else
@@ -135,7 +137,7 @@ public class ServiceListener implements IServiceListener {
 	private void addListenerSafe(IRegistryListener registryListener)
 	{
 		assert upnpService != null;
-		Log.i(TAG, "Add Listener Safe !");
+		Log.d(TAG, "Add Listener Safe !");
 
 		// Get ready for future device advertisements
 		upnpService.getRegistry().addListener(new CRegistryListener(registryListener));
