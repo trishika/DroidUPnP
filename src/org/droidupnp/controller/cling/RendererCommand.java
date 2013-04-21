@@ -65,6 +65,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	private final ControlPoint controlPoint;
 
 	public Thread thread;
+	boolean pause = false;
 
 	public RendererCommand(ControlPoint controlPoint, RendererState rendererState)
 	{
@@ -72,6 +73,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 		this.controlPoint = controlPoint;
 
 		thread = new Thread(this);
+		pause = true;
 	}
 
 	@Override
@@ -84,6 +86,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	public void pause()
 	{
 		Log.v(TAG, "Interrupt");
+		pause = true;
 		thread.interrupt();
 	}
 
@@ -91,6 +94,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 	public void resume()
 	{
 		Log.v(TAG, "Resume");
+		pause = false;
 		if (!thread.isAlive())
 			thread.start();
 		else
@@ -499,7 +503,6 @@ public class RendererCommand implements Runnable, IRendererCommand {
 
 		// controlPoint.execute(callback);
 
-		boolean pause = false;
 		while (true)
 			try
 			{
@@ -531,8 +534,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 			}
 			catch (InterruptedException e)
 			{
-				Log.i(TAG, "State updater interrupt, current state " + ((pause) ? "pause" : "running"));
-				pause = !pause;
+				Log.i(TAG, "State updater interrupt, new state " + ((pause) ? "pause" : "running"));
 			}
 	}
 

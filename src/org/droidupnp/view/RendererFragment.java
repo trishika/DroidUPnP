@@ -141,7 +141,8 @@ public class RendererFragment extends Fragment implements Observer {
 			return;
 		}
 
-		if (device == null || !device.equals(Main.upnpServiceController.getSelectedRenderer()))
+		if (device == null || rendererState == null || rendererCommand == null
+				|| !device.equals(Main.upnpServiceController.getSelectedRenderer()))
 		{
 			device = Main.upnpServiceController.getSelectedRenderer();
 
@@ -155,6 +156,8 @@ public class RendererFragment extends Fragment implements Observer {
 				Log.e(TAG, "Fail to create renderer command and/or state");
 				return;
 			}
+
+			rendererCommand.resume();
 
 			rendererState.addObserver(this);
 			rendererCommand.updateFull();
