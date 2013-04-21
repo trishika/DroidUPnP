@@ -110,6 +110,7 @@ public class RendererFragment extends Fragment implements Observer {
 	public void onPause()
 	{
 		Log.d(TAG, "Pause Renderer");
+		device = null;
 		if (rendererCommand != null)
 			rendererCommand.pause();
 		super.onPause();
