@@ -19,9 +19,8 @@
 
 package org.droidupnp.view;
 
-import org.droidupnp.Main;
 import org.droidupnp.R;
-import org.droidupnp.model.upnp.IRegistryListener;
+import org.droidupnp.model.upnp.IDeviceDiscoveryObserver;
 import org.droidupnp.model.upnp.IUpnpDevice;
 
 import android.app.DialogFragment;
@@ -37,25 +36,22 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public abstract class UpnpDeviceListFragment extends ListFragment {
+public abstract class UpnpDeviceListFragment extends ListFragment implements IDeviceDiscoveryObserver {
 
 	protected static final String TAG = "UpnpDeviceListFragment";
 
 	protected ArrayAdapter<DeviceDisplay> list;
 
-	private final BrowsingRegistryListener browsingRegistryListener;
-
-	protected boolean extendedInformation;
-
-	public UpnpDeviceListFragment(boolean extendedInformation)
-	{
-		browsingRegistryListener = new BrowsingRegistryListener();
-		this.extendedInformation = extendedInformation;
-	}
+	private final boolean extendedInformation;
 
 	public UpnpDeviceListFragment()
 	{
 		this(false);
+	}
+
+	public UpnpDeviceListFragment(boolean extendedInformation)
+	{
+		this.extendedInformation = extendedInformation;
 	}
 
 	@Override
@@ -67,7 +63,6 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 		setListAdapter(list);
 
 		Log.d(TAG, "Activity created");
-		Main.upnpServiceController.getServiceListener().addListener(browsingRegistryListener);
 	}
 
 	@Override
@@ -109,7 +104,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 	public void onDestroy()
 	{
 		super.onDestroy();
-		Main.upnpServiceController.getServiceListener().removeListener(browsingRegistryListener);
+		Log.d(TAG, "onDestroy");
 	}
 
 	@Override
@@ -118,80 +113,58 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 	}
 
-	public class BrowsingRegistryListener implements IRegistryListener {
+	@Override
+	public void addedDevice(IUpnpDevice device)
+	{
+		Log.i(TAG, "New device detected : " + device.getDisplayString());
 
-		@Override
-		public void deviceAdded(final IUpnpDevice device)
-		{
-			Log.i(TAG, "New device detected : " + device.getDisplayString());
+		final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
 
-			if (device.isFullyHydrated() && filter(device))
-			{
-				final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
-
-				if (isSelected(d.getDevice()))
+		if (getActivity() != null) // Visible
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run()
 				{
-					Log.i(TAG, "Reselect device to refresh it");
-					select(d.getDevice(), true);
-				}
 
-				if (getActivity() != null) // Visible
-					getActivity().runOnUiThread(new Runnable() {
-						@Override
-						public void run()
-						{
-
-							int position = list.getPosition(d);
-							if (position >= 0)
-							{
-								// Device already in the list, re-set new value at same position
-								list.remove(d);
-								list.insert(d, position);
-							}
-							else
-							{
-								list.add(d);
-							}
-							if (isSelected(d.getDevice()))
-							{
-								position = list.getPosition(d);
-								getListView().setItemChecked(position, true);
-
-								Log.i(TAG, d.toString() + " is selected at position " + position);
-							}
-						}
-					});
-			}
-		}
-
-		@Override
-		public void deviceRemoved(final IUpnpDevice device)
-		{
-			Log.i(TAG, "Device removed : " + device.getFriendlyName());
-
-			// Callback device remove
-			removed(device);
-
-			if (getActivity() != null) // Visible
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run()
+					int position = list.getPosition(d);
+					if (position >= 0)
 					{
-						// Remove device from list
-						list.remove(new DeviceDisplay(device));
+						// Device already in the list, re-set new value at same position
+						list.remove(d);
+						list.insert(d, position);
 					}
-				});
-		}
+					else
+					{
+						list.add(d);
+					}
+					if (isSelected(d.getDevice()))
+					{
+						position = list.getPosition(d);
+						getListView().setItemChecked(position, true);
+
+						Log.i(TAG, d.toString() + " is selected at position " + position);
+					}
+				}
+			});
 	}
 
-	/**
-	 * Filter device you want to add to this device list fragment
-	 * 
-	 * @param device
-	 *            the device to test
-	 * @return add it or not
-	 */
-	protected abstract boolean filter(IUpnpDevice device);
+	@Override
+	public void removedDevice(IUpnpDevice device)
+	{
+		Log.i(TAG, "Device removed : " + device.getFriendlyName());
+
+		final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
+
+		if (getActivity() != null) // Visible
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run()
+				{
+					// Remove device from list
+					list.remove(d);
+				}
+			});
+	}
 
 	/**
 	 * Filter to know if device is selected
@@ -215,12 +188,4 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 	 * @param force
 	 */
 	protected abstract void select(IUpnpDevice device, boolean force);
-
-	/**
-	 * Callback when device removed
-	 * 
-	 * @param d
-	 */
-	protected abstract void removed(IUpnpDevice d);
-
 }

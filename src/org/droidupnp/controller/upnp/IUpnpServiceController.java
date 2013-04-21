@@ -21,8 +21,10 @@ package org.droidupnp.controller.upnp;
 
 import java.util.Observer;
 
+import org.droidupnp.model.upnp.ContentDirectoryDiscovery;
 import org.droidupnp.model.upnp.IServiceListener;
 import org.droidupnp.model.upnp.IUpnpDevice;
+import org.droidupnp.model.upnp.RendererDiscovery;
 
 import android.app.Activity;
 
@@ -48,6 +50,10 @@ public interface IUpnpServiceController {
 	public void delSelectedContentDirectoryObserver(Observer o);
 
 	public IServiceListener getServiceListener();
+
+	public ContentDirectoryDiscovery getContentDirectoryDiscovery();
+
+	public RendererDiscovery getRendererDiscovery();
 
 	// Pause the service
 	public void pause();

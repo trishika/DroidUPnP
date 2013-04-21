@@ -17,39 +17,23 @@
  * along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.droidupnp.view;
+package org.droidupnp.model.upnp;
 
 import org.droidupnp.Main;
-import org.droidupnp.model.upnp.IUpnpDevice;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
-
-public class RendererDeviceFragment extends UpnpDeviceListFragment {
+public class RendererDiscovery extends DeviceDiscovery {
 
 	protected static final String TAG = "RendererDeviceFragment";
 
-	public RendererDeviceFragment()
+	public RendererDiscovery(IServiceListener serviceListener)
 	{
-		super();
+		super(serviceListener);
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	protected ICallableFilter getCallableFilter()
 	{
-		super.onActivityCreated(savedInstanceState);
-		Main.upnpServiceController.getRendererDiscovery().addObserver(this);
-		Log.d(TAG, "onActivityCreated");
-	}
-
-	@Override
-	public void onDestroy()
-	{
-		super.onDestroy();
-		Main.upnpServiceController.getRendererDiscovery().removeObserver(this);
-		Log.d(TAG, "onDestroy");
+		return new CallableRendererFilter();
 	}
 
 	@Override
@@ -74,10 +58,11 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	}
 
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id)
+	protected void removed(IUpnpDevice d)
 	{
-		super.onListItemClick(l, v, position, id);
-		select(list.getItem(position).getDevice());
-		Log.d(TAG, "Set renderer to " + list.getItem(position));
+		if (Main.upnpServiceController != null && Main.upnpServiceController.getSelectedRenderer() != null
+				&& d.equals(Main.upnpServiceController.getSelectedRenderer()))
+			Main.upnpServiceController.setSelectedRenderer(null);
 	}
+
 }

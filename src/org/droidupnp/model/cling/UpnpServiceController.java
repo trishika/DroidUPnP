@@ -23,8 +23,11 @@ import java.util.Observer;
 
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.CObservable;
+import org.droidupnp.model.upnp.ContentDirectoryDiscovery;
 import org.droidupnp.model.upnp.IUpnpDevice;
+import org.droidupnp.model.upnp.RendererDiscovery;
 
+import android.app.Activity;
 import android.util.Log;
 
 public abstract class UpnpServiceController implements IUpnpServiceController {
@@ -37,10 +40,28 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 	protected CObservable rendererObservable;
 	protected CObservable contentDirectoryObservable;
 
+	private final ContentDirectoryDiscovery contentDirectoryDiscovery;
+	private final RendererDiscovery rendererDiscovery;
+
+	@Override
+	public ContentDirectoryDiscovery getContentDirectoryDiscovery()
+	{
+		return contentDirectoryDiscovery;
+	}
+
+	@Override
+	public RendererDiscovery getRendererDiscovery()
+	{
+		return rendererDiscovery;
+	}
+
 	protected UpnpServiceController()
 	{
 		rendererObservable = new CObservable();
 		contentDirectoryObservable = new CObservable();
+
+		contentDirectoryDiscovery = new ContentDirectoryDiscovery(getServiceListener());
+		rendererDiscovery = new RendererDiscovery(getServiceListener());
 	}
 
 	@Override
@@ -114,4 +135,21 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 	{
 		contentDirectoryObservable.deleteObserver(o);
 	}
+
+	// Pause the service
+	@Override
+	public void pause()
+	{
+		rendererDiscovery.pause(getServiceListener());
+		contentDirectoryDiscovery.pause(getServiceListener());
+	}
+
+	// Resume the service
+	@Override
+	public void resume(Activity activity)
+	{
+		rendererDiscovery.resume(getServiceListener());
+		contentDirectoryDiscovery.resume(getServiceListener());
+	}
+
 }

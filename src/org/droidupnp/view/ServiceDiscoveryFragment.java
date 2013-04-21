@@ -61,16 +61,4 @@ public class ServiceDiscoveryFragment extends UpnpDeviceListFragment {
 	protected void select(IUpnpDevice device, boolean force)
 	{
 	}
-
-	@Override
-	protected boolean filter(IUpnpDevice device)
-	{
-		return true;
-	}
-
-	@Override
-	protected void removed(IUpnpDevice d)
-	{
-
-	}
 }

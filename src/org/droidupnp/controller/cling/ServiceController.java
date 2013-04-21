@@ -32,19 +32,11 @@ public class ServiceController extends UpnpServiceController {
 	private static final String TAG = "Cling.ServiceController";
 
 	private final ServiceListener upnpServiceListener;
-
-	@Override
-	public ServiceListener getServiceListener()
-	{
-		return upnpServiceListener;
-	}
-
 	private Activity activity = null;
 
 	public ServiceController()
 	{
 		super();
-
 		upnpServiceListener = new ServiceListener();
 	}
 
@@ -55,8 +47,15 @@ public class ServiceController extends UpnpServiceController {
 	}
 
 	@Override
+	public ServiceListener getServiceListener()
+	{
+		return upnpServiceListener;
+	}
+
+	@Override
 	public void pause()
 	{
+		super.pause();
 		activity.unbindService(upnpServiceListener.getServiceConnexion());
 		activity = null;
 	}
@@ -64,6 +63,7 @@ public class ServiceController extends UpnpServiceController {
 	@Override
 	public void resume(Activity activity)
 	{
+		super.resume(activity);
 		this.activity = activity;
 
 		// This will start the UPnP service if it wasn't already started
