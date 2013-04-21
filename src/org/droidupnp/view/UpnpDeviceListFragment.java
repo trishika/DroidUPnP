@@ -125,35 +125,43 @@ public abstract class UpnpDeviceListFragment extends ListFragment {
 		{
 			Log.i(TAG, "New device detected : " + device.getDisplayString());
 
-			if (device.isFullyHydrated() && filter(device) && getActivity() != null) // Visible
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run()
-					{
-						DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
-						int position = list.getPosition(d);
-						if (position >= 0)
-						{
-							// Device already in the list, re-set new value at same position
-							list.remove(d);
-							list.insert(d, position);
-						}
-						else
-						{
-							list.add(d);
-						}
-						if (isSelected(d.getDevice()))
-						{
-							position = list.getPosition(d);
-							getListView().setItemChecked(position, true);
+			if (device.isFullyHydrated() && filter(device))
+			{
+				final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
 
-							Log.d(TAG, "Reselect device to refresh it");
-							select(d.getDevice(), true);
+				if (isSelected(d.getDevice()))
+				{
+					Log.i(TAG, "Reselect device to refresh it");
+					select(d.getDevice(), true);
+				}
 
-							Log.i(TAG, d.toString() + " is selected at position " + position);
+				if (getActivity() != null) // Visible
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run()
+						{
+
+							int position = list.getPosition(d);
+							if (position >= 0)
+							{
+								// Device already in the list, re-set new value at same position
+								list.remove(d);
+								list.insert(d, position);
+							}
+							else
+							{
+								list.add(d);
+							}
+							if (isSelected(d.getDevice()))
+							{
+								position = list.getPosition(d);
+								getListView().setItemChecked(position, true);
+
+								Log.i(TAG, d.toString() + " is selected at position " + position);
+							}
 						}
-					}
-				});
+					});
+			}
 		}
 
 		@Override
