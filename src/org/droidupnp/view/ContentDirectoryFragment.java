@@ -72,6 +72,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			Log.w(TAG, "upnpServiceController was not ready !!!");
 
 		if (savedInstanceState != null
+				&& savedInstanceState.getStringArray(STATE_TREE) != null
 				&& Main.upnpServiceController.getSelectedContentDirectory() != null
 				&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
 						.compareTo(savedInstanceState.getString(STATE_CONTENTDIRECTORY)))
