@@ -146,7 +146,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 	public void refresh(boolean force)
 	{
-		Log.d(TAG, "refresh");
+		Log.d(TAG, "refresh " + force);
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
@@ -170,7 +170,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			return;
 		}
 
-		if (device == null || contentDirectoryCommand == null
+		if (device == null || contentDirectoryCommand == null || contentList.isEmpty()
 				|| !device.equals(Main.upnpServiceController.getSelectedContentDirectory()))
 		{
 			device = Main.upnpServiceController.getSelectedContentDirectory();
