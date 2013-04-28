@@ -32,10 +32,14 @@ public class ClingDIDLContainer extends ClingDIDLObject implements IDIDLContaine
 	@Override
 	public int getChildCount()
 	{
-		if (item == null)
+		if (item == null || !(item instanceof Container))
 			return 0;
 
-		return ((Container) item).getChildCount();
-	}
+		Integer i = ((Container) item).getChildCount();
 
+		if (i == null)
+			return 0;
+
+		return i;
+	}
 }
