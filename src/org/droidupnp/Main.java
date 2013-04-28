@@ -132,22 +132,32 @@ public class Main extends Activity {
 			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 			bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
 
-			bar.addTab(bar.newTab().setText("Renderer")
-					.setTabListener(new TabListener<RendererFragment>(this, "Renderer", RendererFragment.class)));
 			bar.addTab(bar
 					.newTab()
-					.setText("Content")
+					.setText(getString(R.string.renderer))
 					.setTabListener(
-							new TabListener<ContentDirectoryFragment>(this, "Content", ContentDirectoryFragment.class)));
-			bar.addTab(bar.newTab().setText("Device")
-					.setTabListener(new TabListener<DeviceFragment>(this, "Device", DeviceFragment.class)));
+							new TabListener<RendererFragment>(this, getString(R.string.renderer),
+									RendererFragment.class)));
+
+			bar.addTab(bar
+					.newTab()
+					.setText(getString(R.string.browser))
+					.setTabListener(
+							new TabListener<ContentDirectoryFragment>(this, getString(R.string.browser),
+									ContentDirectoryFragment.class)));
+
+			bar.addTab(bar
+					.newTab()
+					.setText(getString(R.string.device))
+					.setTabListener(
+							new TabListener<DeviceFragment>(this, getString(R.string.device), DeviceFragment.class)));
 
 			if (DISCOVERY_TAB)
 				bar.addTab(bar
 						.newTab()
-						.setText("Discovery")
+						.setText(getString(R.string.discovery))
 						.setTabListener(
-								new TabListener<ServiceDiscoveryFragment>(this, "Discovery",
+								new TabListener<ServiceDiscoveryFragment>(this, getString(R.string.discovery),
 										ServiceDiscoveryFragment.class)));
 
 			bar.setSelectedNavigationItem(tab);
@@ -183,7 +193,7 @@ public class Main extends Activity {
 				return true;
 			case R.id.menu_about:
 				AboutDialog newFragment = new AboutDialog();
-				newFragment.show(this.getFragmentManager(), "About");
+				newFragment.show(this.getFragmentManager(), getString(R.string.about_app));
 				return true;
 			case R.id.menu_quit:
 				finish();
