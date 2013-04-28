@@ -122,7 +122,7 @@
 			android:id="@+id/textRenderer"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:text="@string/player"
+			android:text="@string/renderer"
 			android:layout_weight="10"
 			android:layout_margin="10dp"
 			style="@style/AppTextView"
