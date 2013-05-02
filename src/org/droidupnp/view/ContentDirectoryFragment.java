@@ -121,14 +121,23 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	@Override
 	public void onResume()
 	{
+		Log.i(TAG, "onResume");
 		super.onResume();
+		contentList.clear();
 		refresh();
+	}
+
+	@Override
+	public void onPause()
+	{
+		Log.i(TAG, "onPause");
+		super.onPause();
 	}
 
 	@Override
 	public void onDestroy()
 	{
-		Log.i(TAG, "Destroy");
+		Log.i(TAG, "onDestroy");
 		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
 		super.onDestroy();
 	}
@@ -170,8 +179,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			return;
 		}
 
-		if (device == null || contentDirectoryCommand == null || contentList.isEmpty()
-				|| !device.equals(Main.upnpServiceController.getSelectedContentDirectory()))
+		Log.i(TAG, "device " + device + " device " + ((device != null) ? device.getDisplayString() : ""));
+		Log.i(TAG, "contentDirectoryCommand : " + contentDirectoryCommand);
+
+		contentDirectoryCommand = Main.factory.createContentDirectoryCommand();
+		if (contentDirectoryCommand == null)
+			return; // Can't do anything if upnp not ready
+
+		if (device == null || !device.equals(Main.upnpServiceController.getSelectedContentDirectory()))
 		{
 			device = Main.upnpServiceController.getSelectedContentDirectory();
 
@@ -180,11 +195,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 			tree = new LinkedList<String>();
 
-			contentDirectoryCommand = Main.factory.createContentDirectoryCommand();
-			if (contentDirectoryCommand != null)
-				contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
+			contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
 		}
-		else if (force)
+		else if (force || contentList.isEmpty())
 		{
 			if (tree.size() > 0)
 			{
@@ -204,28 +217,36 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		IDIDLObject didl = contentList.getItem(position).getDIDLObject();
 		String parentID = null;
 
-		if (didl instanceof IDIDLContainer)
+		try
 		{
-			// Browsing
-			if (didl instanceof IDIDLParentContainer)
+			if (didl instanceof IDIDLContainer)
 			{
-				currentID = tree.pop();
-				parentID = (tree.size() > 0) ? tree.getLast() : null;
-			}
-			else
-			{
-				currentID = didl.getId();
-				parentID = didl.getParentID();
-				tree.push(parentID);
-			}
+				// Browsing
+				if (didl instanceof IDIDLParentContainer)
+				{
+					currentID = tree.pop();
+					parentID = (tree.size() > 0) ? tree.getLast() : null;
+				}
+				else
+				{
+					currentID = didl.getId();
+					parentID = didl.getParentID();
+					tree.push(parentID);
+				}
 
-			Log.d(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
-			contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+				Log.d(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
+				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+			}
+			else if (didl instanceof IDIDLItem)
+			{
+				// Launch item
+				launchURI((IDIDLItem) didl);
+			}
 		}
-		else if (didl instanceof IDIDLItem)
+		catch (Exception e)
 		{
-			// Launch item
-			launchURI((IDIDLItem) didl);
+			Log.e(TAG, "Unable to finish action after item click");
+			e.printStackTrace();
 		}
 	}
 
