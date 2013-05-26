@@ -19,6 +19,8 @@
 
 package org.droidupnp.controller.cling;
 
+import android.content.Context;
+
 import org.droidupnp.Main;
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.cling.RendererState;
@@ -59,9 +61,9 @@ public class Factory implements IFactory {
 	}
 
 	@Override
-	public IUpnpServiceController createUpnpServiceController()
+	public IUpnpServiceController createUpnpServiceController(Context ctx)
 	{
-		return new ServiceController();
+		return new ServiceController(ctx);
 	}
 
 	@Override

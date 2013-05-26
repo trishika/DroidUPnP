@@ -82,5 +82,11 @@
 		Le code source est disponible à <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
 		]]>
 	</string>
+	<string name="about_nanohttpd">
+		<![CDATA[
+		<p>DroidUPnP utilise <b>NanoHttpd</b>. NanoHttpd est sous license BSD modifi�.
+		Le code source est disponible à <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a></p>
+		]]>
+	</string>
 
 </resources>

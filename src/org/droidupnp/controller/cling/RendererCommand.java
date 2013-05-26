@@ -276,6 +276,8 @@ public class RendererCommand implements Runnable, IRendererCommand {
 
 	public void setURI(String uri, TrackMetadata trackMetadata)
 	{
+		Log.i(TAG, "Set uri to " + uri);
+
 		controlPoint.execute(new SetAVTransportURI(getAVTransportService(), uri, trackMetadata.getXML()) {
 
 			@Override

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+This file is part of DroidUPNP.
+
+DroidUPNP is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+DroidUPNP is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<Preference
+		android:key="version"
+		android:title="@string/version"
+		android:summary="" />
+
+	<Preference
+		android:key="copyright"
+		android:title="@string/copyright"
+		android:summary="@string/about_copyright" />
+
+	<Preference
+		android:key="license"
+		android:title="@string/license"
+		android:summary="@string/about_license" />
+
+	<Preference
+		android:key="source"
+		android:title="@string/source"
+		android:summary="@string/source_url">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="@string/source_url" />
+	</Preference>
+
+</PreferenceScreen>

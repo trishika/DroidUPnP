@@ -19,34 +19,48 @@
 
 package org.droidupnp.controller.cling;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.droidupnp.Main;
 import org.droidupnp.model.cling.CDevice;
 import org.droidupnp.model.cling.CRegistryListener;
+import org.droidupnp.model.mediaserver.ContentDirectoryService;
+import org.droidupnp.model.mediaserver.MediaServer;
 import org.droidupnp.model.upnp.ICallableFilter;
 import org.droidupnp.model.upnp.IRegistryListener;
 import org.droidupnp.model.upnp.IServiceListener;
 import org.droidupnp.model.upnp.IUpnpDevice;
+import org.droidupnp.view.SettingsActivity;
 import org.fourthline.cling.android.AndroidUpnpService;
+import org.fourthline.cling.model.ValidationException;
 import org.fourthline.cling.model.meta.Device;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 @SuppressWarnings("rawtypes")
-public class ServiceListener implements IServiceListener {
-
+public class ServiceListener implements IServiceListener
+{
 	private static final String TAG = "Cling.ServiceListener";
 
 	protected AndroidUpnpService upnpService;
 	protected ArrayList<IRegistryListener> waitingListener;
 
-	public ServiceListener()
+	private MediaServer mediaServer = null;
+	private Context ctx = null;
+
+	public ServiceListener(Context ctx)
 	{
 		waitingListener = new ArrayList<IRegistryListener>();
+		this.ctx = ctx;
 	}
 
 	@Override
@@ -95,6 +109,45 @@ public class ServiceListener implements IServiceListener {
 		{
 			Log.i(TAG, "Service connexion");
 			upnpService = (AndroidUpnpService) service;
+
+			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
+			if(sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_SERVICE, true))
+			{
+				try
+				{
+					// Local content directory
+					if(mediaServer == null)
+					{
+						mediaServer = new MediaServer(Main.getLocalIpAddress(ctx), ctx);
+						mediaServer.start();
+					}
+					else
+					{
+						mediaServer.restart();
+					}
+					upnpService.getRegistry().addDevice(mediaServer.getDevice());
+				}
+				catch (UnknownHostException e1)
+				{
+					Log.e(TAG, "Creating demo device failed");
+					Log.e(TAG, "exception", e1);
+				}
+				catch (ValidationException e2)
+				{
+					Log.e(TAG, "Creating demo device failed");
+					Log.e(TAG, "exception", e2);
+				}
+				catch (IOException e3)
+				{
+					Log.e(TAG, "Starting http server failed");
+					Log.e(TAG, "exception", e3);
+				}
+			}
+			else if(mediaServer != null)
+			{
+				mediaServer.stop();
+				mediaServer = null;
+			}
 
 			for (IRegistryListener registryListener : waitingListener)
 			{

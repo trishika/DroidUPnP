@@ -25,6 +25,7 @@ import org.droidupnp.model.upnp.ContentDirectoryDiscovery;
 import org.droidupnp.model.upnp.IServiceListener;
 import org.droidupnp.model.upnp.IUpnpDevice;
 import org.droidupnp.model.upnp.RendererDiscovery;
+import org.fourthline.cling.model.meta.LocalDevice;
 
 import android.app.Activity;
 
@@ -60,5 +61,8 @@ public interface IUpnpServiceController {
 
 	// Resume the service
 	public void resume(Activity activity);
+
+	public void addDevice(LocalDevice localDevice);
+	public void removeDevice(LocalDevice localDevice);
 
 }

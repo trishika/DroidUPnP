@@ -17,12 +17,24 @@
   You should have received a copy of the GNU General Public License
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<CheckBoxPreference
-		android:key="pref_test"
-		android:title="TEST"
-		android:summary="Little pref test"
-		android:defaultValue="true" />
+	<header
+		android:id="@+id/contentdirectory_settings"
+		android:fragment="org.droidupnp.view.SettingsActivity$ContentDirectorySettingsFragment"
+		android:title="@string/pref_contentdirectory_title"
+		android:summary="@string/pref_contentdirectory_desc" />
+<!--
+	<header
+		android:id="@+id/theme_settings"
+		android:fragment="org.droidupnp.view.SettingsActivity$ThemeSettingsFragment"
+		android:title="@string/pref_theme_title"
+		android:summary="@string/pref_theme_desc" />
+-->
+	<header
+		android:id="@+id/about_settings"
+		android:fragment="org.droidupnp.view.SettingsActivity$AboutSettingsFragment"
+		android:title="@string/pref_about_title"
+		android:summary="@string/pref_about_desc" />
 
-</PreferenceScreen>
+</preference-headers>

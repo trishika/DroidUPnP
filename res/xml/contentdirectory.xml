@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+This file is part of DroidUPNP.
+
+DroidUPNP is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+DroidUPNP is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!--
+	<CheckBoxPreference
+		android:key="pref_contentDirectoryService"
+		android:title="Local content directory"
+		android:summary="Activate a local content directory"
+		android:defaultValue="true" />
+-->
+
+	<EditTextPreference
+		android:key="pref_contentDirectoryService_name"
+		android:title="@string/display_name"
+		android:summary=""
+		android:defaultValue="" />
+
+	<CheckBoxPreference
+		android:key="pref_contentDirectoryService_share"
+		android:title="@string/share_contentdirectory"
+		android:summary="@string/share_contentdirectory_desc"
+		android:defaultValue="true" />
+
+	<PreferenceCategory
+		android:key="pref_share_media_key"
+		android:title="@string/pref_share_media_title" >
+
+		<CheckBoxPreference
+			android:key="pref_contentDirectoryService_audio"
+			android:title="@string/pref_contentDirectory_audio_title"
+			android:summary="@string/pref_contentDirectory_audio_desc"
+			android:defaultValue="true" />
+
+		<CheckBoxPreference
+			android:key="pref_contentDirectoryService_image"
+			android:title="@string/pref_contentDirectory_image_title"
+			android:summary="@string/pref_contentDirectory_image_desc"
+			android:defaultValue="true" />
+
+		<CheckBoxPreference
+			android:key="pref_contentDirectoryService_video"
+			android:title="@string/pref_contentDirectory_video_title"
+			android:summary="@string/pref_contentDirectory_video_desc"
+			android:defaultValue="true" />
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

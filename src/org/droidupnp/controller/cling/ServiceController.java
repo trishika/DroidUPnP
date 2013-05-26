@@ -21,23 +21,24 @@ package org.droidupnp.controller.cling;
 
 import org.droidupnp.model.cling.UpnpService;
 import org.droidupnp.model.cling.UpnpServiceController;
+import org.fourthline.cling.model.meta.LocalDevice;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class ServiceController extends UpnpServiceController {
-
+public class ServiceController extends UpnpServiceController
+{
 	private static final String TAG = "Cling.ServiceController";
 
 	private final ServiceListener upnpServiceListener;
 	private Activity activity = null;
 
-	public ServiceController()
+	public ServiceController(Context ctx)
 	{
 		super();
-		upnpServiceListener = new ServiceListener();
+		upnpServiceListener = new ServiceListener(ctx);
 	}
 
 	@Override
@@ -70,6 +71,16 @@ public class ServiceController extends UpnpServiceController {
 		Log.d(TAG, "Start upnp service");
 		activity.bindService(new Intent(activity, UpnpService.class), upnpServiceListener.getServiceConnexion(),
 				Context.BIND_AUTO_CREATE);
+	}
+
+	@Override
+	public void addDevice(LocalDevice localDevice) {
+		upnpServiceListener.getUpnpService().getRegistry().addDevice(localDevice);
+	}
+
+	@Override
+	public void removeDevice(LocalDevice localDevice) {
+		upnpServiceListener.getUpnpService().getRegistry().removeDevice(localDevice);
 	}
 
 }

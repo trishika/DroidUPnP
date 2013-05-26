@@ -81,5 +81,11 @@
 		El código fuente está disponible en <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
 		]]>
 	</string>
+	<string name="about_nanohttpd">
+		<![CDATA[
+		<p>Uso DroidUPnP <b>NanoHttpd</b>. NanoHttpd está bajo una licencia BSD modificación.
+		El código fuente está disponible en <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
+		]]>
+	</string>
 
 </resources>

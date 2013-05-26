@@ -82,5 +82,11 @@
 		Broncode is beschikbaar op <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
 		]]>
 	</string>
+	<string name="about_nanohttpd">
+		<![CDATA[
+		<p>DroidUPnP gebruik <b>NanoHttpd</b>. NanoHttpd is onder een modify BSD licentie.
+		Broncode is beschikbaar op <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
+		]]>
+	</string>
 
 </resources>

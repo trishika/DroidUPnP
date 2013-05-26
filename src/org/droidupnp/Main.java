@@ -19,15 +19,17 @@
 
 package org.droidupnp;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Observer;
 
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.upnp.IFactory;
-import org.droidupnp.view.AboutDialog;
 import org.droidupnp.view.ContentDirectoryFragment;
 import org.droidupnp.view.DeviceFragment;
 import org.droidupnp.view.RendererFragment;
 import org.droidupnp.view.ServiceDiscoveryFragment;
+import org.droidupnp.view.SettingsActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -35,8 +37,14 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -71,7 +79,7 @@ public class Main extends Activity {
 
 		// Upnp service
 		if (upnpServiceController == null)
-			upnpServiceController = factory.createUpnpServiceController();
+			upnpServiceController = factory.createUpnpServiceController(this);
 
 		// Attach listener
 		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
@@ -96,7 +104,6 @@ public class Main extends Activity {
 			tab = savedInstanceState.getInt(STATE_SELECTEDTAB);
 		else
 			tab = 0;
-
 	}
 
 	@Override
@@ -131,7 +138,7 @@ public class Main extends Activity {
 
 			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 			bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-
+//			bar.setDisplayHomeAsUpEnabled(true);
 			bar.addTab(bar
 					.newTab()
 					.setText(getString(R.string.renderer))
@@ -186,21 +193,22 @@ public class Main extends Activity {
 		// Handle item selection
 		switch (item.getItemId())
 		{
-		// case R.id.menu_settings:
-		// return true;
 			case R.id.menu_refresh:
 				refresh();
-				return true;
-			case R.id.menu_about:
-				AboutDialog newFragment = new AboutDialog();
-				newFragment.show(this.getFragmentManager(), getString(R.string.about_app));
-				return true;
+				break;
+			case R.id.menu_settings:
+				startActivity(new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+				break;
+			//case R.id.menu_about:
+			//	AboutDialog.showDialog(this);
+			//	break;
 			case R.id.menu_quit:
 				finish();
-				return true;
+				break;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+		return false;
 	}
 
 	@Override
@@ -277,5 +285,15 @@ public class Main extends Activity {
 		{
 			// Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+		int ipAddress = wifiInfo.getIpAddress();
+		return InetAddress.getByName(String.format("%d.%d.%d.%d",
+				(ipAddress & 0xff), (ipAddress >> 8 & 0xff),
+				(ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff)));
 	}
 }
