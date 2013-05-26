@@ -77,7 +77,8 @@
 	</string>
 	<string name="about_cling">
 		<![CDATA[
-		<p>DroidUPnP use <b>Cling</b> which is a Java/Android UPnP library. Cling is licensed under LGPLv2. Source code is available at <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
+		<p>DroidUPnP use <b>Cling</b> which is a Java/Android UPnP library. Cling is licensed under LGPLv2.
+		Source code is available at <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
 		]]>
 	</string>
 

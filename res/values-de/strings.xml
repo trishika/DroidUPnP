@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+  This file is part of DroidUPNP.
+
+  DroidUPNP is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  DroidUPNP is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+	<!-- General -->
+	<string name="app_name">DroidUPnP</string>
+	<string name="version">Versie</string>
+
+	<!--  TAB -->
+	<string name="renderer">Speler</string>
+	<string name="playlist">Playlist</string>
+	<string name="browser">Browser</string>
+	<string name="device">Apparaat</string>
+	<string name="discovery">Ontdekking</string>
+
+	<!--  Menu -->
+	<string name="menu_settings">Instellingen</string>
+	<string name="menu_about">Over</string>
+	<string name="menu_refresh">Verversen</string>
+	<string name="menu_quit">Ophouden</string>
+
+	<!-- Popup -->
+	<string name="OK">OK</string>
+	<string name="searchingLAN">Zoeken UPnP-apparaten...</string>
+	<string name="loading">Het laden...</string>
+	<string name="selectRenderer">Selecteer een Renderer</string>
+	<string name="selectContentDirectory">Selecteer een Content directory</string>
+
+	<!-- Now Playing -->
+	<string name="duration">00:00:00</string>
+
+	<!-- Now Playing Footer -->
+	<string name="play">Spelen</string>
+	<string name="pause">Pauzeren</string>
+	<string name="stop">Stop</string>
+	<string name="next">Volgende</string>
+	<string name="back">Terug</string>
+	<string name="mute">Dempen</string>
+
+	<!-- Device Info -->
+	<string name="manufacturer">Fabrikant</string>
+	<string name="manufacturer_url">URL Fabrikant</string>
+	<string name="model_name">Modelnaam</string>
+	<string name="model_url">Model URL</string>
+	<string name="model_number">Modelnummer</string>
+	<string name="model_desc">Model beschrijving</string>
+	<string name="presention_url">Presentatie URL</string>
+	<string name="desc_xml">Beschrijving XML</string>
+	<string name="udn">UDN</string>
+	<string name="separator"> : </string>
+
+	<!-- About -->
+	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
+	<string name="about_contact">Contact : aurelien@chabot.fr</string>
+	<string name="about_app">
+		<![CDATA[
+		<p><b>DroidUPnP is vrije software gelicenseerd onder GPLv3.</b>
+		Broncode is beschikbaar op <a href="https://github.com/trishika/DroidUPnP">GitHub</a>.
+		Als je een develloper bijdrage zijn van harte welkom !</p>
+		]]>
+	</string>
+	<string name="about_cling">
+		<![CDATA[
+		<p>DroidUPnP gebruik <b>Cling</b> dat is een Java/Android UPnP bibliotheek. Cling is gelicenseerd onder LGPLv2.
+		Broncode is beschikbaar op <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
+		]]>
+	</string>
+
+</resources>
