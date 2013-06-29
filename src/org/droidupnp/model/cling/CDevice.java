@@ -112,70 +112,91 @@ public class CDevice implements IUpnpDevice {
 	@Override
 	public String getManufacturerURL()
 	{
-		if (device.getDetails().getManufacturerDetails() != null)
+		try {
 			return device.getDetails().getManufacturerDetails().getManufacturerURI().toString();
-		else
+		} catch (Exception e) {
 			return "";
+		}
 	}
 
 	@Override
 	public String getModelName()
 	{
-		return device.getDetails().getModelDetails().getModelName();
+		try {
+			return device.getDetails().getModelDetails().getModelName();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	@Override
 	public String getModelDesc()
 	{
-		return device.getDetails().getModelDetails().getModelDescription();
+		try {
+			return device.getDetails().getModelDetails().getModelDescription();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	@Override
 	public String getModelNumber()
 	{
-		return device.getDetails().getModelDetails().getModelNumber();
+		try {
+			return device.getDetails().getModelDetails().getModelNumber();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	@Override
 	public String getModelURL()
 	{
-		if (device.getDetails().getModelDetails() != null)
+		try {
 			return device.getDetails().getModelDetails().getModelURI().toString();
-		else
+		} catch (Exception e) {
 			return "";
+		}
 	}
 
 	@Override
 	public String getXMLURL()
 	{
-		if (device.getDetails().getBaseURL() != null)
+		try {
 			return device.getDetails().getBaseURL().toString();
-		else
+		} catch (Exception e) {
 			return "";
+		}
 	}
 
 	@Override
 	public String getPresentationURL()
 	{
-		if (device.getDetails().getPresentationURI() != null)
+		try {
 			return device.getDetails().getPresentationURI().toString();
-		else
+		} catch (Exception e) {
 			return "";
+		}
 	}
 
 	@Override
 	public String getSerialNumber()
 	{
-		return device.getDetails().getSerialNumber();
+		try {
+			return device.getDetails().getSerialNumber();
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	@Override
 	public String getUDN()
 	{
-		if (device.getIdentity().getUdn() != null)
+		try {
 			return device.getIdentity().getUdn().toString();
-		else
+		} catch (Exception e) {
 			return "";
+		}
 	}
 
 	@Override
