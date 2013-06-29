@@ -20,7 +20,7 @@ public class DeviceInfoDialog extends DialogFragment {
 	private String model_url;
 	private String model_number;
 	private String model_desc;
-	private String presention_url;
+	private String presentation_url;
 	private String desc_xml;
 
 	/**
@@ -39,7 +39,7 @@ public class DeviceInfoDialog extends DialogFragment {
 		args.putString("model_url", d.getDevice().getModelURL());
 		args.putString("model_number", d.getDevice().getModelNumber());
 		args.putString("model_desc", d.getDevice().getModelDesc());
-		args.putString("presention_url", d.getDevice().getPresentationURL());
+		args.putString("presentation_url", d.getDevice().getPresentationURL());
 		args.putString("desc_xml", d.getDevice().getXMLURL());
 
 		f.setArguments(args);
@@ -58,7 +58,7 @@ public class DeviceInfoDialog extends DialogFragment {
 		model_url = getArguments().getString("model_url");
 		model_number = getArguments().getString("model_number");
 		model_desc = getArguments().getString("model_desc");
-		presention_url = getArguments().getString("presention_url");
+		presentation_url = getArguments().getString("presentation_url");
 		desc_xml = getArguments().getString("desc_xml");
 	}
 
@@ -72,7 +72,7 @@ public class DeviceInfoDialog extends DialogFragment {
 		((TextView) v.findViewById(R.id.model_url)).setText(model_url);
 		((TextView) v.findViewById(R.id.model_number)).setText(model_number);
 		((TextView) v.findViewById(R.id.model_desc)).setText(model_desc);
-		((TextView) v.findViewById(R.id.presention_url)).setText(presention_url);
+		((TextView) v.findViewById(R.id.presentation_url)).setText(presentation_url);
 		((TextView) v.findViewById(R.id.desc_xml)).setText(desc_xml);
 
 		final DeviceInfoDialog deviceInfoDialog = this;
