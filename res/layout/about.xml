@@ -23,55 +23,17 @@
 	android:layout_height="fill_parent"
 	android:padding="20dp" >
 
-	<LinearLayout
-		android:id="@+id/version"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_vertical|center_horizontal"
-		android:layout_marginBottom="10dp">
-
-		<TextView
-			android:id="@+id/version_text"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/version"
-			android:paddingRight="10dp"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
-
-		<TextView
-			android:id="@+id/version_number"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=""
-			android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	</LinearLayout>
-
-	<TextView
-		android:id="@+id/copyright"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/about_copyright"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<TextView
-		android:id="@+id/contact"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/about_contact"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<TextView
-		android:id="@+id/about_app"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:text="@string/about_app"
-		android:layout_marginTop="30dp" />
-
 	<TextView
 		android:id="@+id/about_cling"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:text="@string/about_cling" />
+
+	<TextView
+		android:id="@+id/about_nanohttpd"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:text="@string/about_nanohttpd"
+		android:layout_marginTop="30dp" />
 
 </LinearLayout>

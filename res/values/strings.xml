@@ -88,6 +88,9 @@
 	<string name="about_contact">Contact : aurelien@chabot.fr</string>
 	<string name="license">License</string>
 	<string name="about_license">GPLv3</string>
+	<string name="link_license">http://www.gnu.org/licenses/gpl-3.0.html</string>
+	<string name="license_other">Library license</string>
+	<string name="about_license_other"></string>
 	<string name="source">Source Code</string>
 	<string name="source_url">http://github.com/trishika/droidupnp</string>
 	<string name="more">More information</string>

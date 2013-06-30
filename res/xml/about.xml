@@ -32,7 +32,11 @@ along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 	<Preference
 		android:key="license"
 		android:title="@string/license"
-		android:summary="@string/about_license" />
+		android:summary="@string/about_license" >
+		<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/link_license" />
+	</Preference>
 
 	<Preference
 		android:key="source"
@@ -41,6 +45,12 @@ along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 		<intent
 			android:action="android.intent.action.VIEW"
 			android:data="@string/source_url" />
+	</Preference>
+
+	<Preference
+		android:key="license_other"
+		android:title="@string/license_other"
+		android:summary="@string/about_license_other" >
 	</Preference>
 
 </PreferenceScreen>

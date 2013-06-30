@@ -3,21 +3,25 @@ Description
 ===========
 
 DroidUPnP is an upnp control point application for android.
-It is licensed under the GPLv3.
+
+It is licensed under the **GPLv3**.
 
 
-Dependancies
+Dependencies
 ============
 
-The main dependance of DroidUPnP is cling whitch is the an
+The main dependence of DroidUPnP is **Cling** which is the an
 upnp stack made in java and with an android support layer.
-Cling in licensed under the LGPLv2.
+Cling in licensed under the **LGPLv2**.
+Source code is available at [4thline.org](http://4thline.org/projects/cling/)
 
+DroidUPnP use also **NanoHttpd**. NanoHttpd is under a modify **BSD license**.
+Source code is available on [GitHub](https://github.com/NanoHttpd/nanohttpd).
 
 Copying
 =======
 
-Copyright (C) 2012, Aurélien Chabot <aurelien@chabot.fr>
+Copyright (C) 2013, Aurélien Chabot <aurelien@chabot.fr>
 
 Licensed under GPLv3
 

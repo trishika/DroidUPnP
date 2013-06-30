@@ -199,9 +199,6 @@ public class Main extends Activity {
 			case R.id.menu_settings:
 				startActivity(new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
 				break;
-			//case R.id.menu_about:
-			//	AboutDialog.showDialog(this);
-			//	break;
 			case R.id.menu_quit:
 				finish();
 				break;

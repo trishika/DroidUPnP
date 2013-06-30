@@ -22,7 +22,6 @@ package org.droidupnp.view;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -217,6 +215,16 @@ public class SettingsActivity extends PreferenceActivity {
 			} catch (PackageManager.NameNotFoundException e) {
 				Log.e(TAG, "exception", e);
 			}
+
+			// Dialog for external license
+			Preference customPref = (Preference) findPreference("license_other");
+			customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				public boolean onPreferenceClick(Preference preference) {
+					LicenseDialog.showDialog(getActivity());
+					return false;
+				}
+			});
+
 		}
 	}
 

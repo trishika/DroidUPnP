@@ -25,7 +25,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.text.Html;
@@ -34,14 +33,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
-public class AboutDialog extends DialogFragment {
+public class LicenseDialog extends DialogFragment {
 
-	private static final String TAG = "AboutDialog";
+	private static final String TAG = "LicenseDialog";
 
 	public static void showDialog(Activity ctx)
 	{
-		AboutDialog newFragment = new AboutDialog();
-		newFragment.show(ctx.getFragmentManager(), ctx.getString(R.string.about_app));
+		LicenseDialog newFragment = new LicenseDialog();
+		newFragment.show(ctx.getFragmentManager(), ctx.getString(R.string.about_license_other));
 	}
 
 	@Override
@@ -57,32 +56,19 @@ public class AboutDialog extends DialogFragment {
 		d.show();
 
 		TextView textView;
-		textView = (TextView) d.findViewById(R.id.version_number);
-		if (textView != null)
-		{
-			textView.setMovementMethod(LinkMovementMethod.getInstance());
-			try
-			{
-				textView.setText(getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName);
-			}
-			catch (NameNotFoundException e)
-			{
-				Log.e(TAG, "Application version name not found");
-			}
-		}
-
-		textView = (TextView) d.findViewById(R.id.about_app);
-		if (textView != null)
-		{
-			textView.setMovementMethod(LinkMovementMethod.getInstance());
-			textView.setText(Html.fromHtml(getString(R.string.about_app)));
-		}
 
 		textView = (TextView) d.findViewById(R.id.about_cling);
 		if (textView != null)
 		{
 			textView.setMovementMethod(LinkMovementMethod.getInstance());
 			textView.setText(Html.fromHtml(getString(R.string.about_cling)));
+		}
+
+		textView = (TextView) d.findViewById(R.id.about_nanohttpd);
+		if (textView != null)
+		{
+			textView.setMovementMethod(LinkMovementMethod.getInstance());
+			textView.setText(Html.fromHtml(getString(R.string.about_nanohttpd)));
 		}
 
 		return d;
