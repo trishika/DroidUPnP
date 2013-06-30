@@ -4,3 +4,5 @@ libs/*
 .settings/*
 out/*
 .idea/*
+target/*
+key/*
