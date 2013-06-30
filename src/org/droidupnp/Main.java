@@ -31,7 +31,6 @@ import org.droidupnp.view.RendererFragment;
 import org.droidupnp.view.ServiceDiscoveryFragment;
 import org.droidupnp.view.SettingsActivity;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -43,8 +42,6 @@ import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -53,7 +50,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-@SuppressLint("DefaultLocale")
 public class Main extends Activity {
 
 	private static final String TAG = "Main";
