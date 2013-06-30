@@ -29,6 +29,7 @@ import org.droidupnp.model.upnp.ARendererState;
 import org.droidupnp.model.upnp.IRendererCommand;
 import org.droidupnp.model.upnp.IUpnpDevice;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -172,18 +173,19 @@ public class RendererFragment extends Fragment implements Observer {
 
 		if (rendererState != null)
 		{
-			if (getActivity() == null)
+			final Activity a = getActivity();
+			if (a == null)
 				return;
 
-			getActivity().runOnUiThread(new Runnable() {
+			a.runOnUiThread(new Runnable() {
 				@Override
 				public void run()
 				{
-					TextView title = (TextView) getActivity().findViewById(R.id.title);
-					TextView artist = (TextView) getActivity().findViewById(R.id.artist);
-					SeekBar seek = (SeekBar) getActivity().findViewById(R.id.progressBar);
-					SeekBar volume = (SeekBar) getActivity().findViewById(R.id.volume);
-					TextView durationElapse = (TextView) getActivity().findViewById(R.id.trackDurationElapse);
+					TextView title = (TextView) a.findViewById(R.id.title);
+					TextView artist = (TextView) a.findViewById(R.id.artist);
+					SeekBar seek = (SeekBar) a.findViewById(R.id.progressBar);
+					SeekBar volume = (SeekBar) a.findViewById(R.id.volume);
+					TextView durationElapse = (TextView) a.findViewById(R.id.trackDurationElapse);
 
 					if (title == null || artist == null || seek == null || duration == null || durationElapse == null)
 						return;
