@@ -6,6 +6,18 @@ DroidUPnP is an upnp control point application for android.
 
 It is licensed under the **GPLv3**.
 
+BUILD
+=====
+
+Application can be build using maven.
+
+To generate the apk :
+
+	mvn install
+
+To install on your android device via adb :
+
+	mvn android:deploy
 
 Dependencies
 ============
