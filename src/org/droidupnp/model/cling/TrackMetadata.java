@@ -1,18 +1,21 @@
 package org.droidupnp.model.cling;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Log;
+import android.util.Xml;
 
 public class TrackMetadata {
 
@@ -88,26 +91,67 @@ public class TrackMetadata {
 
 	public String getXML()
 	{
-		String xml = "<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns:dlna=\"urn:schemas-dlna-org:metadata-1-0/\">"
-				+ "<item id=\""
-				+ id
-				+ "\" parentID=\"\" restricted=\"1\">"
-				+ "<dc:title>"
-				+ title
-				+ "</dc:title>"
-				+ "<dc:creator>"
-				+ artist
-				+ "</dc:creator>"
-				+ "<upnp:genre>"
-				+ genre
-				+ "</upnp:genre>"
-				+ "<upnp:albumArtURI dlna:profileID=\"JPEG_TN\">"
-				+ artURI
-				+ "</upnp:albumArtURI>"
-				+ "<res>"
-				+ res
-				+ "</res>" + "<upnp:class>" + itemClass + "</upnp:class>" + "</item>" + "</DIDL-Lite>";
-		Log.d(TAG, xml);
+		XmlSerializer s = Xml.newSerializer();
+		StringWriter sw = new StringWriter();
+
+		try {
+			s.setOutput(sw);
+
+			s.startDocument(null,null);
+			s.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+
+			//start a tag called "root"
+			s.startTag(null, "DIDL-Lite");
+			s.attribute(null, "xmlns", "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/");
+			s.attribute(null, "xmlns:dc", "http://purl.org/dc/elements/1.1/");
+			s.attribute(null, "xmlns:upnp", "urn:schemas-upnp-org:metadata-1-0/upnp/");
+			s.attribute(null, "xmlns:dlna", "urn:schemas-dlna-org:metadata-1-0/");
+
+			s.startTag(null, "item");
+			s.attribute(null, "id", ""+id);
+			s.attribute(null, "parentID", "");
+			s.attribute(null, "restricted", "1");
+
+			s.startTag(null, "dc:title");
+			s.text(title);
+			s.endTag(null, "dc:title");
+
+			s.startTag(null, "dc:creator");
+			s.text(artist);
+			s.endTag(null, "dc:creator");
+
+			s.startTag(null, "upnp:genre");
+			s.text(genre);
+			s.endTag(null, "upnp:genre");
+
+			s.startTag(null, "upnp:albumArtURI");
+			s.attribute(null, "dlna:profileID", "JPEG_TN");
+			s.text(artURI);
+			s.endTag(null, "upnp:albumArtURI");
+
+			s.startTag(null, "res");
+			s.text(res);
+			s.endTag(null, "res");
+
+			s.startTag(null, "upnp:class");
+			s.text(itemClass);
+			s.endTag(null, "upnp:class");
+
+			s.endTag(null, "item");
+
+			s.endTag(null, "DIDL-Lite");
+
+			s.endDocument();
+			s.flush();
+
+		} catch (Exception e) {
+			Log.e(TAG, "error occurred while creating xml file");
+			Log.e(TAG, e.toString());
+		}
+
+		String xml = sw.toString();
+		Log.d(TAG, "TrackMetadata : " + xml);
+
 		return xml;
 	}
 

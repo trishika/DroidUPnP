@@ -289,7 +289,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 			@Override
 			public void failure(ActionInvocation arg0, UpnpResponse arg1, String arg2)
 			{
-				Log.w(TAG, "Fail to set mute status ! " + arg2);
+				Log.w(TAG, "Fail to set URI ! " + arg2);
 			}
 		});
 	}
@@ -319,8 +319,11 @@ public class RendererCommand implements Runnable, IRendererCommand {
 			type = "textItem";
 
 		// TODO genre && artURI
-		final TrackMetadata trackMetadata = new TrackMetadata(upnpItem.getRefID(), upnpItem.getTitle(),
-				upnpItem.getCreator(), "", "", upnpItem.getFirstResource().getValue(), "object.item." + type);
+		final TrackMetadata trackMetadata = new TrackMetadata(upnpItem.getId(), upnpItem.getTitle(),
+				upnpItem.getCreator(), "", "", upnpItem.getFirstResource().getValue(),
+				"object.item." + type);
+
+		Log.e(TAG, "TrackMetadata : "+trackMetadata.toString());
 
 		// Stop playback before setting URI
 		controlPoint.execute(new Stop(getAVTransportService()) {
