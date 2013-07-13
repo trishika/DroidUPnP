@@ -39,5 +39,6 @@ Copying
 
 Copyright (C) 2013, Aurélien Chabot <aurelien@chabot.fr>
 
-Licensed under GPLv3
+Licensed under **GPLv3**
 
+See [COPYING](https://github.com/trishika/DroidUPnP/blob/master/COPYING).
