@@ -21,72 +21,102 @@
 
 	<!-- General -->
 	<string name="app_name">DroidUPnP</string>
-	<string name="version">Versie</string>
+	<string name="app_url">https://github.com/trishika/DroidUPnP</string>
+	<string name="version">Version</string>
 
 	<!--  TAB -->
-	<string name="renderer">Speler</string>
+	<string name="renderer">Player</string>
 	<string name="playlist">Playlist</string>
 	<string name="browser">Browser</string>
-	<string name="device">Apparaat</string>
-	<string name="discovery">Ontdekking</string>
+	<string name="device">Gerät</string>
+	<string name="discovery">Suche</string>
 
 	<!--  Menu -->
-	<string name="menu_settings">Instellingen</string>
-	<string name="menu_about">Over</string>
-	<string name="menu_refresh">Verversen</string>
-	<string name="menu_quit">Ophouden</string>
+	<string name="menu_settings">Einstellungen</string>
+	<string name="menu_about">Über</string>
+	<string name="menu_refresh">Aktualisieren</string>
+	<string name="menu_quit">Schließen</string>
+
+	<!-- Option -->
+	<string name="pref_contentdirectory_title">Medienserver</string>
+	<string name="pref_contentdirectory_desc">Lokale Medien teilen</string>
+	<string name="pref_share_media_title">Zu teilende Medien</string>
+	<string name="pref_contentDirectory_audio_title">Musik</string>
+	<string name="pref_contentDirectory_audio_desc">Musik teilen</string>
+	<string name="pref_contentDirectory_image_title">Bilder</string>
+	<string name="pref_contentDirectory_image_desc">Bilder teilen</string>
+	<string name="pref_contentDirectory_video_title">Video</string>
+	<string name="pref_contentDirectory_video_desc">Videos teilen</string>
+	<string name="pref_about_title">Über</string>
+	<string name="pref_about_desc"></string>
+	<string name="pref_theme_title">Thema</string>
+	<string name="pref_theme_desc"></string>
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="searchingLAN">Zoeken UPnP-apparaten...</string>
-	<string name="loading">Het laden...</string>
-	<string name="selectRenderer">Selecteer een Renderer</string>
-	<string name="selectContentDirectory">Selecteer een Content directory</string>
+	<string name="searchingLAN">Suche UPnP Geräte...</string>
+	<string name="loading">Lade...</string>
+	<string name="selectRenderer">Empfänger auswählen</string>
+	<string name="selectContentDirectory">Server auswählen</string>
 
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 
 	<!-- Now Playing Footer -->
-	<string name="play">Spelen</string>
-	<string name="pause">Pauzeren</string>
-	<string name="stop">Stop</string>
-	<string name="next">Volgende</string>
-	<string name="back">Terug</string>
-	<string name="mute">Dempen</string>
+	<string name="play">Start</string>
+	<string name="pause">Pause</string>
+	<string name="stop">Stopp</string>
+	<string name="next">Weiter</string>
+	<string name="back">Zurück</string>
+	<string name="mute">Still</string>
 
 	<!-- Device Info -->
-	<string name="manufacturer">Fabrikant</string>
-	<string name="manufacturer_url">URL Fabrikant</string>
-	<string name="model_name">Modelnaam</string>
-	<string name="model_url">Model URL</string>
-	<string name="model_number">Modelnummer</string>
-	<string name="model_desc">Model beschrijving</string>
-	<string name="presention_url">Presentatie URL</string>
-	<string name="desc_xml">Beschrijving XML</string>
+	<string name="manufacturer">Hersteller</string>
+	<string name="manufacturer_url">Hersteller URL</string>
+	<string name="model_name">Modellname</string>
+	<string name="model_url">Modell URL</string>
+	<string name="model_number">Modellnummer</string>
+	<string name="model_desc">Modellbeschreibung</string>
+	<string name="presention_url">Präsentation URL</string>
+	<string name="desc_xml">Beschreibung XML</string>
 	<string name="udn">UDN</string>
 	<string name="separator"> : </string>
 
 	<!-- About -->
+	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
-	<string name="about_contact">Contact : aurelien@chabot.fr</string>
+	<string name="about_contact">Kontakt : aurelien@chabot.fr</string>
+	<string name="license">Lizenz</string>
+	<string name="about_license">GPLv3</string>
+	<string name="link_license">http://www.gnu.org/licenses/gpl-3.0.html</string>
+	<string name="license_other">Bibliotheklizenz</string>
+	<string name="about_license_other"></string>
+	<string name="source">Quellcode</string>
+	<string name="source_url">http://github.com/trishika/droidupnp</string>
+	<string name="more">Weitere Informationen</string>
+	<string name="about_more"></string>
 	<string name="about_app">
 		<![CDATA[
-		<p><b>DroidUPnP is vrije software gelicenseerd onder GPLv3.</b>
-		Broncode is beschikbaar op <a href="https://github.com/trishika/DroidUPnP">GitHub</a>.
-		Als je een develloper bijdrage zijn van harte welkom !</p>
+		<p><b>DroidUPnP ist freie Software und unter GPLv3 lizenziert.</b>
+		Der Quellcode steht auf <a href="https://github.com/trishika/DroidUPnP">GitHub</a> zur Verfügung.
+		Wenn sie Entwickler sind dürfen sie gern beitragen!</p>
 		]]>
 	</string>
 	<string name="about_cling">
 		<![CDATA[
-		<p>DroidUPnP gebruik <b>Cling</b> dat is een Java/Android UPnP bibliotheek. Cling is gelicenseerd onder LGPLv2.
-		Broncode is beschikbaar op <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
+		<p>DroidUPnP nutzt die Java/Android UPnP Bibliothek <b>Cling</b>. Cling ist lizenziert unter LGPLv2.
+		Der Quellcode steht auf <a href="http://4thline.org/projects/cling/">4thline.org</a> zur Verfügung.</p>
 		]]>
 	</string>
 	<string name="about_nanohttpd">
 		<![CDATA[
-		<p>DroidUPnP gebruik <b>NanoHttpd</b>. NanoHttpd is onder een modify BSD licentie.
-		Broncode is beschikbaar op <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
+		<p>DroidUPnP nutzt <b>NanoHttpd</b>. NanoHttpd ist lizenziert unter einer angepassten BSD Lizenz.
+		Der Quellcode steht auf <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a> zur Verfügung.
 		]]>
 	</string>
 
+	<!-- Content directory pref -->
+	<string name="display_name">Anzeigename</string>
+	<string name="share_contentdirectory">Medien teilen</string>
+	<string name="share_contentdirectory_desc">Teile Medien mit anderen Geräten im Netzwerk</string>
 </resources>
