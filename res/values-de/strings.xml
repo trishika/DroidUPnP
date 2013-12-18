@@ -21,7 +21,6 @@
 
 	<!-- General -->
 	<string name="app_name">DroidUPnP</string>
-	<string name="app_url">https://github.com/trishika/DroidUPnP</string>
 	<string name="version">Version</string>
 
 	<!--  TAB -->
@@ -36,21 +35,6 @@
 	<string name="menu_about">Über</string>
 	<string name="menu_refresh">Aktualisieren</string>
 	<string name="menu_quit">Schließen</string>
-
-	<!-- Option -->
-	<string name="pref_contentdirectory_title">Medienserver</string>
-	<string name="pref_contentdirectory_desc">Lokale Medien teilen</string>
-	<string name="pref_share_media_title">Zu teilende Medien</string>
-	<string name="pref_contentDirectory_audio_title">Musik</string>
-	<string name="pref_contentDirectory_audio_desc">Musik teilen</string>
-	<string name="pref_contentDirectory_image_title">Bilder</string>
-	<string name="pref_contentDirectory_image_desc">Bilder teilen</string>
-	<string name="pref_contentDirectory_video_title">Video</string>
-	<string name="pref_contentDirectory_video_desc">Videos teilen</string>
-	<string name="pref_about_title">Über</string>
-	<string name="pref_about_desc"></string>
-	<string name="pref_theme_title">Thema</string>
-	<string name="pref_theme_desc"></string>
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
@@ -83,18 +67,8 @@
 	<string name="separator"> : </string>
 
 	<!-- About -->
-	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
 	<string name="about_contact">Kontakt : aurelien@chabot.fr</string>
-	<string name="license">Lizenz</string>
-	<string name="about_license">GPLv3</string>
-	<string name="link_license">http://www.gnu.org/licenses/gpl-3.0.html</string>
-	<string name="license_other">Bibliotheklizenz</string>
-	<string name="about_license_other"></string>
-	<string name="source">Quellcode</string>
-	<string name="source_url">http://github.com/trishika/droidupnp</string>
-	<string name="more">Weitere Informationen</string>
-	<string name="about_more"></string>
 	<string name="about_app">
 		<![CDATA[
 		<p><b>DroidUPnP ist freie Software und unter GPLv3 lizenziert.</b>
@@ -115,8 +89,4 @@
 		]]>
 	</string>
 
-	<!-- Content directory pref -->
-	<string name="display_name">Anzeigename</string>
-	<string name="share_contentdirectory">Medien teilen</string>
-	<string name="share_contentdirectory_desc">Teile Medien mit anderen Geräten im Netzwerk</string>
 </resources>
