@@ -24,8 +24,8 @@
 	<string name="version">Versión</string>
 
 	<!--  TAB -->
-	<string name="renderer">Jugador</string>
-	<string name="playlist">Playlist</string>
+	<string name="renderer">Reproductor</string>
+	<string name="playlist">Lista de reproducción</string>
 	<string name="browser">Navegador</string>
 	<string name="device">Dispositivo</string>
 	<string name="discovery">Descubrimiento</string>
@@ -34,34 +34,34 @@
 	<string name="menu_settings">Configuración</string>
 	<string name="menu_about">Acerca de</string>
 	<string name="menu_refresh">Refrescar</string>
-	<string name="menu_quit">Dejar de</string>
+	<string name="menu_quit">Salir</string>
 
 	<!-- Popup -->
-	<string name="OK">OK</string>
-	<string name="searchingLAN">Busca dispositivos UPnP...</string>
-	<string name="loading">Carga...</string>
-	<string name="selectRenderer">Seleccione un representador</string>
+	<string name="OK">Aceptar</string>
+	<string name="searchingLAN">Buscando dispositivos UPnP...</string>
+	<string name="loading">Cargando...</string>
+	<string name="selectRenderer">Seleccione un reproductor</string>
 	<string name="selectContentDirectory">Seleccione un directorio de contenido</string>
 
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 
 	<!-- Now Playing Footer -->
-	<string name="play">Jugar</string>
+	<string name="play">Reproducir</string>
 	<string name="pause">Pausa</string>
-	<string name="stop">Deténgase</string>
-	<string name="next">Próximo</string>
-	<string name="back">Espalda</string>
+	<string name="stop">Detener</string>
+	<string name="next">Siguiente</string>
+	<string name="back">Anterior</string>
 	<string name="mute">Silencio</string>
 
 	<!-- Device Info -->
 	<string name="manufacturer">Fabricante</string>
 	<string name="manufacturer_url">URL del fabricante</string>
 	<string name="model_name">Nombre del modelo</string>
-	<string name="model_url">Modelo URL</string>
+	<string name="model_url">URL del modelo</string>
 	<string name="model_number">Número del modelo</string>
 	<string name="model_desc">Descripción del modelo</string>
-	<string name="presention_url">Presentación URL</string>
+	<string name="presention_url">URL de presentación</string>
 	<string name="desc_xml">Descripción XML</string>
 	<string name="udn">UDN</string>
 	<string name="separator"> : </string>
@@ -77,13 +77,13 @@
 	</string>
 	<string name="about_cling">
 		<![CDATA[
-		<p>Uso DroidUPnP <b>Cling</b> que es una biblioteca UPnP Java/Android. Cling está licenciado bajo LGPLv2.
+		<p>DroidUPnP usa <b>Cling</b> que es una biblioteca UPnP Java/Android. Cling está licenciado bajo LGPLv2.
 		El código fuente está disponible en <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
 		]]>
 	</string>
 	<string name="about_nanohttpd">
 		<![CDATA[
-		<p>Uso DroidUPnP <b>NanoHttpd</b>. NanoHttpd está bajo una licencia BSD modificación.
+		<p>DroidUPnP usa <b>NanoHttpd</b>. NanoHttpd está bajo una licencia BSD modificada.
 		El código fuente está disponible en <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
 		]]>
 	</string>
