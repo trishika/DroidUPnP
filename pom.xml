@@ -55,7 +55,7 @@
 		<android.version>4.0.1.2</android.version>
 		<android.maven.plugin.version>3.8.2</android.maven.plugin.version>
 
-		<cling.version>2.0-alpha2</cling.version>
+		<cling.version>2.0-alpha3</cling.version>
 
 		<jetty.version>8.1.8.v20121106</jetty.version>
 		<slf4j.version>1.6.1</slf4j.version>
