@@ -58,7 +58,7 @@
 		<cling.version>2.0-alpha3</cling.version>
 
 		<jetty.version>8.1.8.v20121106</jetty.version>
-		<slf4j.version>1.6.1</slf4j.version>
+		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
 
 
