@@ -4,5 +4,9 @@ libs/*
 .settings/*
 out/*
 .idea/*
+.gradle/*
 target/*
+build/*
 key/*
+local.properties
+DroidUPnP.iml
