@@ -13,15 +13,15 @@ It is licensed under the **GPLv3**.
 BUILD
 =====
 
-Application can be build using maven.
+Application can be build using [gragle](http://www.gradle.org).
 
 To generate the apk :
 
-	mvn install
+	gradle build
 
 To install on your android device via adb :
 
-	mvn android:deploy
+	gradle installDebug
 
 Dependencies
 ============
