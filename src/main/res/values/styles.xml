@@ -44,7 +44,7 @@
 	<drawable name="volume">@drawable/device_access_volume_on</drawable>
 	<drawable name="volume_mute">@drawable/device_access_volume_muted</drawable>
 
-	<style name="AppThemeLight" parent="android:Theme.Holo.Light">
+	<style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar">
 
 	</style>
 
