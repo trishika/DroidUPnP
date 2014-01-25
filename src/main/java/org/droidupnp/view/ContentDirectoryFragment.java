@@ -86,21 +86,15 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			final DIDLObjectDisplay entry = getItem(position);
 
 			ImageView imageView = (ImageView) convertView.findViewById(R.id.icon);
-			imageView.setImageResource(android.R.color.transparent);
-			imageView.setVisibility(View.VISIBLE);
-			// TODO set image
+			imageView.setImageResource(entry.getIcon());
 
 			TextView text1 = (TextView) convertView.findViewById(R.id.text1);
 			text1.setText(entry.getTitle());
 
 			TextView text2 = (TextView) convertView.findViewById(R.id.text2);
-			text2.setText(entry.toString());
-			text2.setVisibility(View.VISIBLE);
 			text2.setText(entry.getDescription());
 
 			TextView text3 = (TextView) convertView.findViewById(R.id.text3);
-			text3.setText(entry.toString());
-			text3.setVisibility(View.VISIBLE);
 			text3.setText(entry.getCount());
 
 			return convertView;

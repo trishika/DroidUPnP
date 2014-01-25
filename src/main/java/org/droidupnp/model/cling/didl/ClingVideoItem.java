@@ -19,6 +19,7 @@
 
 package org.droidupnp.model.cling.didl;
 
+import org.droidupnp.R;
 import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.item.VideoItem;
 
@@ -49,5 +50,11 @@ public class ClingVideoItem extends ClingDIDLItem
 			return "" + res.get(0).getDuration().split("\\.")[0];
 
 		return "";
+	}
+
+	@Override
+	public int getIcon()
+	{
+		return R.drawable.ic_action_video;
 	}
 }

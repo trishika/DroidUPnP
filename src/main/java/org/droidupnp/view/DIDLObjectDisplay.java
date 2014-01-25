@@ -57,7 +57,7 @@ public class DIDLObjectDisplay {
 
 	public int getIcon()
 	{
-		return R.drawable.blank_album_art;
+		return didl.getIcon();
 	}
 
 	@Override

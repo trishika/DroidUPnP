@@ -32,7 +32,7 @@
 
 	<ImageView
 		android:id="@+id/icon"
-		android:layout_width="50dip"
+		android:layout_width="wrap_content"
 		android:layout_height="fill_parent"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentTop="true"

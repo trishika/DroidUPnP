@@ -19,6 +19,7 @@
 
 package org.droidupnp.model.cling.didl;
 
+import org.droidupnp.R;
 import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.item.ImageItem;
 
@@ -60,6 +61,12 @@ public class ClingImageItem extends ClingDIDLItem
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	@Override
+	public int getIcon()
+	{
+		return R.drawable.ic_action_picture;
 	}
 }
 

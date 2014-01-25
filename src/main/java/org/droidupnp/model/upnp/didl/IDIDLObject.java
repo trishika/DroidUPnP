@@ -27,6 +27,8 @@ public interface IDIDLObject {
 
 	public String getCount();
 
+	public int getIcon();
+
 	public String getParentID();
 
 	public String getId();
