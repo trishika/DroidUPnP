@@ -235,7 +235,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		}
 		else
 		{
-			if (tree.size() > 0)
+			if (tree != null && tree.size() > 0)
 			{
 				String parentID = (tree.size() > 0) ? tree.getLast() : null;
 				Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
