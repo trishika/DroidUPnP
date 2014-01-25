@@ -29,6 +29,11 @@ public class ClingDIDLContainer extends ClingDIDLObject implements IDIDLContaine
 		super(item);
 	}
 
+	public String getCount()
+	{
+		return "" + getChildCount();
+	}
+
 	@Override
 	public int getChildCount()
 	{

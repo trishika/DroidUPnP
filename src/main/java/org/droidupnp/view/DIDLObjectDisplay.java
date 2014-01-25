@@ -19,6 +19,7 @@
 
 package org.droidupnp.view;
 
+import org.droidupnp.R;
 import org.droidupnp.model.upnp.didl.IDIDLContainer;
 import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
@@ -39,13 +40,29 @@ public class DIDLObjectDisplay {
 		return didl;
 	}
 
+	public String getTitle()
+	{
+		return didl.getTitle();
+	}
+
+	public String getDescription()
+	{
+		return didl.getDescription();
+	}
+
+	public String getCount()
+	{
+		return didl.getCount();
+	}
+
+	public int getIcon()
+	{
+		return R.drawable.blank_album_art;
+	}
+
 	@Override
 	public String toString()
 	{
-
-		if (didl instanceof IDIDLParentContainer)
-			return "..";
-
 		if (didl instanceof IDIDLContainer)
 			return didl.getTitle() + " (" + ((IDIDLContainer) didl).getChildCount() + ")";
 

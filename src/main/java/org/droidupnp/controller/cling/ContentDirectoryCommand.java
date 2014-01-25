@@ -21,9 +21,12 @@ package org.droidupnp.controller.cling;
 
 import org.droidupnp.Main;
 import org.droidupnp.model.cling.CDevice;
+import org.droidupnp.model.cling.didl.ClingAudioItem;
 import org.droidupnp.model.cling.didl.ClingDIDLContainer;
 import org.droidupnp.model.cling.didl.ClingDIDLItem;
 import org.droidupnp.model.cling.didl.ClingDIDLParentContainer;
+import org.droidupnp.model.cling.didl.ClingImageItem;
+import org.droidupnp.model.cling.didl.ClingVideoItem;
 import org.droidupnp.model.upnp.IContentDirectoryCommand;
 import org.droidupnp.view.DIDLObjectDisplay;
 import org.fourthline.cling.controlpoint.ControlPoint;
@@ -37,7 +40,10 @@ import org.fourthline.cling.support.model.DIDLContent;
 import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.SortCriterion;
 import org.fourthline.cling.support.model.container.Container;
+import org.fourthline.cling.support.model.item.AudioItem;
+import org.fourthline.cling.support.model.item.ImageItem;
 import org.fourthline.cling.support.model.item.Item;
+import org.fourthline.cling.support.model.item.VideoItem;
 
 import android.app.Activity;
 import android.util.Log;
@@ -131,7 +137,17 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 
 						for (Item item : didl.getItems())
 						{
-							contentList.add(new DIDLObjectDisplay(new ClingDIDLItem(item)));
+							ClingDIDLItem clingItem = null;
+							if(item instanceof VideoItem)
+								clingItem = new ClingVideoItem((VideoItem)item);
+							else if(item instanceof AudioItem)
+								clingItem = new ClingAudioItem((AudioItem)item);
+							else if(item instanceof ImageItem)
+								clingItem = new ClingImageItem((ImageItem)item);
+							else
+								clingItem = new ClingDIDLItem(item);
+
+							contentList.add(new DIDLObjectDisplay(clingItem));
 							Log.v(TAG, "Add item : " + item.getTitle());
 
 							for (DIDLObject.Property p : item.getProperties())

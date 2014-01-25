@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,57 +19,31 @@
 
 package org.droidupnp.model.cling.didl;
 
-import android.util.Log;
-
-import org.droidupnp.model.upnp.didl.IDIDLObject;
-import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.Res;
+import org.fourthline.cling.support.model.item.AudioItem;
 
 import java.util.List;
 
-public class ClingDIDLObject implements IDIDLObject {
-
-	private static final String TAG = "ClingDIDLObject";
-
-	protected DIDLObject item;
-
-	public ClingDIDLObject(DIDLObject item)
+public class ClingAudioItem extends ClingDIDLItem
+{
+	public ClingAudioItem(AudioItem item)
 	{
-		this.item = item;
-	}
-
-	public DIDLObject getObject()
-	{
-		return item;
-	}
-
-	@Override
-	public String getTitle()
-	{
-		return item.getTitle();
+		super(item);
 	}
 
 	@Override
 	public String getDescription()
 	{
-		return "";
+		return ((AudioItem) item).getDescription();
 	}
 
 	@Override
 	public String getCount()
 	{
+		List<Res> res = item.getResources();
+		if(res!=null && res.size()>0)
+			return "" + res.get(0).getDuration().split("\\.")[0];
+
 		return "";
-	}
-
-	@Override
-	public String getParentID()
-	{
-		return item.getParentID();
-	}
-
-	@Override
-	public String getId()
-	{
-		return item.getId();
 	}
 }

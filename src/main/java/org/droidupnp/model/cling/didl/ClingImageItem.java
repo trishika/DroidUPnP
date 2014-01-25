@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,57 +19,47 @@
 
 package org.droidupnp.model.cling.didl;
 
-import android.util.Log;
-
-import org.droidupnp.model.upnp.didl.IDIDLObject;
-import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.Res;
+import org.fourthline.cling.support.model.item.ImageItem;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class ClingDIDLObject implements IDIDLObject {
-
-	private static final String TAG = "ClingDIDLObject";
-
-	protected DIDLObject item;
-
-	public ClingDIDLObject(DIDLObject item)
+public class ClingImageItem extends ClingDIDLItem
+{
+	public ClingImageItem(ImageItem item)
 	{
-		this.item = item;
-	}
-
-	public DIDLObject getObject()
-	{
-		return item;
-	}
-
-	@Override
-	public String getTitle()
-	{
-		return item.getTitle();
+		super(item);
 	}
 
 	@Override
 	public String getDescription()
 	{
+		List<Res> res = item.getResources();
+		if(res!=null && res.size()>0)
+			return "" + res.get(0).getResolution();
+
 		return "";
 	}
 
 	@Override
 	public String getCount()
 	{
+		try
+		{
+			SimpleDateFormat formatIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date date = formatIn.parse(((ImageItem) item).getDate());
+			DateFormat formatOut = DateFormat.getDateTimeInstance();
+			return formatOut.format(date);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		return "";
 	}
-
-	@Override
-	public String getParentID()
-	{
-		return item.getParentID();
-	}
-
-	@Override
-	public String getId()
-	{
-		return item.getId();
-	}
 }
+

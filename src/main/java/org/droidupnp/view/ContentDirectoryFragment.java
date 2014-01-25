@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -26,6 +26,7 @@ import java.util.Observer;
 import java.util.concurrent.Callable;
 
 import org.droidupnp.Main;
+import org.droidupnp.R;
 import org.droidupnp.model.upnp.IContentDirectoryCommand;
 import org.droidupnp.model.upnp.IRendererCommand;
 import org.droidupnp.model.upnp.IUpnpDevice;
@@ -35,12 +36,16 @@ import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -60,13 +65,55 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	static final String STATE_TREE = "tree";
 	static final String STATE_CURRENT = "current";
 
+	public class CustomAdapter extends ArrayAdapter<DIDLObjectDisplay>
+	{
+		private final int layout;
+		private LayoutInflater inflater;
+
+		public CustomAdapter(Context context) {
+			super(context, 0);
+			this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			this.layout = R.layout.custom_list_item;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			if (convertView == null)
+				convertView = inflater.inflate(layout, null);
+
+			// Item
+			final DIDLObjectDisplay entry = getItem(position);
+
+			ImageView imageView = (ImageView) convertView.findViewById(R.id.icon);
+			imageView.setImageResource(android.R.color.transparent);
+			imageView.setVisibility(View.VISIBLE);
+			// TODO set image
+
+			TextView text1 = (TextView) convertView.findViewById(R.id.text1);
+			text1.setText(entry.getTitle());
+
+			TextView text2 = (TextView) convertView.findViewById(R.id.text2);
+			text2.setText(entry.toString());
+			text2.setVisibility(View.VISIBLE);
+			text2.setText(entry.getDescription());
+
+			TextView text3 = (TextView) convertView.findViewById(R.id.text3);
+			text3.setText(entry.toString());
+			text3.setVisibility(View.VISIBLE);
+			text3.setText(entry.getCount());
+
+			return convertView;
+		}
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		contentList = new ArrayAdapter<DIDLObjectDisplay>(this.getView().getContext(),
-				android.R.layout.simple_list_item_1);
+		contentList = new CustomAdapter(this.getView().getContext());
+
 		setListAdapter(contentList);
 
 		// Listen to content directory change
@@ -76,10 +123,10 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			Log.w(TAG, "upnpServiceController was not ready !!!");
 
 		if (savedInstanceState != null
-				&& savedInstanceState.getStringArray(STATE_TREE) != null
-				&& Main.upnpServiceController.getSelectedContentDirectory() != null
-				&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
-						.compareTo(savedInstanceState.getString(STATE_CONTENTDIRECTORY)))
+			&& savedInstanceState.getStringArray(STATE_TREE) != null
+			&& Main.upnpServiceController.getSelectedContentDirectory() != null
+			&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
+			.compareTo(savedInstanceState.getString(STATE_CONTENTDIRECTORY)))
 		{
 			Log.i(TAG, "Restore previews state");
 
@@ -100,8 +147,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	private PullToRefreshLayout mPullToRefreshLayout;
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view,savedInstanceState);
+	public void onViewCreated(View view, Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
 
 		// This is the View which is created by ListFragment
 		ViewGroup viewGroup = (ViewGroup) view;
@@ -111,15 +159,15 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 		// We can now setup the PullToRefreshLayout
 		ActionBarPullToRefresh.from(getActivity())
-				.insertLayoutInto(viewGroup)
-				.theseChildrenArePullable(getListView(), getListView().getEmptyView())
-				.listener(new uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener() {
-					@Override
-					public void onRefreshStarted(View view) {
-						refresh();
-					}
-				})
-				.setup(mPullToRefreshLayout);
+			.insertLayoutInto(viewGroup)
+			.theseChildrenArePullable(getListView(), getListView().getEmptyView())
+			.listener(new uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener() {
+				@Override
+				public void onRefreshStarted(View view) {
+					refresh();
+				}
+			})
+			.setup(mPullToRefreshLayout);
 	}
 
 	@Override
@@ -131,7 +179,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			return;
 
 		savedInstanceState.putString(STATE_CONTENTDIRECTORY, Main.upnpServiceController.getSelectedContentDirectory()
-				.getUID());
+			.getUID());
 
 		if (tree != null)
 		{
@@ -178,7 +226,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	}
 
 	public class RefreshCallback implements Callable<Void> {
-		public Void call() throws java.lang.Exception{
+		public Void call() throws java.lang.Exception {
 			setListShown(true);
 			mPullToRefreshLayout.setRefreshComplete();
 			return null;
@@ -202,8 +250,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 				if (getActivity() != null) // Visible
 					getActivity().runOnUiThread(new Runnable() {
 						@Override
-						public void run()
-						{
+						public void run() {
 							// Clear display list
 							contentList.clear();
 						}
@@ -226,7 +273,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			device = Main.upnpServiceController.getSelectedContentDirectory();
 
 			Log.i(TAG, "Content directory changed !!! "
-					+ Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
+				+ Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
 
 			tree = new LinkedList<String>();
 
@@ -256,8 +303,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 		IDIDLObject didl = contentList.getItem(position).getDIDLObject();
 
-		try
-		{
+		try {
 			if (didl instanceof IDIDLContainer)
 			{
 				// Update position
@@ -280,9 +326,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 				// Launch item
 				launchURI((IDIDLItem) didl);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.e(TAG, "Unable to finish action after item click");
 			e.printStackTrace();
 		}
@@ -301,8 +345,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 					rendererDialog.setCallback(new Callable<Void>() {
 
 						@Override
-						public Void call() throws Exception
-						{
+						public Void call() throws Exception {
 							launchURIRenderer(uri);
 							return null;
 						}
@@ -311,7 +354,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 					rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
 				}
 			});
-
 		}
 		else
 		{

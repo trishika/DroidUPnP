@@ -20,9 +20,12 @@
 package org.droidupnp.model.cling.didl;
 
 import org.droidupnp.model.upnp.didl.IDIDLItem;
+import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.item.Item;
 
 import android.util.Log;
+
+import java.util.List;
 
 public class ClingDIDLItem extends ClingDIDLObject implements IDIDLItem {
 
