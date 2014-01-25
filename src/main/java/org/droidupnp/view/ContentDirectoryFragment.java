@@ -38,8 +38,12 @@ import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
 public class ContentDirectoryFragment extends ListFragment implements Observer {
 
@@ -88,9 +92,34 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		}
 
 		Log.i(TAG, "Force refresh");
-		refresh(true);
+		refresh();
 
 		Log.d(TAG, "Activity created");
+	}
+
+	private PullToRefreshLayout mPullToRefreshLayout;
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view,savedInstanceState);
+
+		// This is the View which is created by ListFragment
+		ViewGroup viewGroup = (ViewGroup) view;
+
+		// We need to create a PullToRefreshLayout manually
+		mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
+
+		// We can now setup the PullToRefreshLayout
+		ActionBarPullToRefresh.from(getActivity())
+				.insertLayoutInto(viewGroup)
+				.theseChildrenArePullable(getListView(), getListView().getEmptyView())
+				.listener(new uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener() {
+					@Override
+					public void onRefreshStarted(View view) {
+						refresh();
+					}
+				})
+				.setup(mPullToRefreshLayout);
 	}
 
 	@Override
@@ -148,14 +177,20 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		Main.upnpServiceController.getSelectedContentDirectory().printService();
 	}
 
-	public void refresh()
-	{
-		refresh(false);
+	public class RefreshCallback implements Callable<Void> {
+		public Void call() throws java.lang.Exception{
+			setListShown(true);
+			mPullToRefreshLayout.setRefreshComplete();
+			return null;
+		}
 	}
 
-	public void refresh(boolean force)
+	public void refresh()
 	{
-		Log.d(TAG, "refresh " + force);
+		Log.d(TAG, "refresh ");
+
+		setListShown(false);
+		mPullToRefreshLayout.setRefreshing(true);
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
@@ -195,17 +230,22 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 			tree = new LinkedList<String>();
 
-			contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
+			Log.i(TAG, "Browse root of a new device");
+			contentDirectoryCommand.browse(getActivity(), contentList, "0", new RefreshCallback()); // browse root
 		}
-		else if (force || contentList.isEmpty())
+		else
 		{
 			if (tree.size() > 0)
 			{
 				String parentID = (tree.size() > 0) ? tree.getLast() : null;
-				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+				Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
+				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID, new RefreshCallback());
 			}
 			else
-				contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
+			{
+				Log.i(TAG, "Browse root");
+				contentDirectoryCommand.browse(getActivity(), contentList, "0", new RefreshCallback()); // browse root
+			}
 		}
 	}
 
@@ -215,27 +255,25 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		super.onListItemClick(l, v, position, id);
 
 		IDIDLObject didl = contentList.getItem(position).getDIDLObject();
-		String parentID = null;
 
 		try
 		{
 			if (didl instanceof IDIDLContainer)
 			{
-				// Browsing
+				// Update position
 				if (didl instanceof IDIDLParentContainer)
 				{
 					currentID = tree.pop();
-					parentID = (tree.size() > 0) ? tree.getLast() : null;
 				}
 				else
 				{
 					currentID = didl.getId();
-					parentID = didl.getParentID();
+					String parentID = didl.getParentID();
 					tree.push(parentID);
 				}
 
-				Log.d(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
-				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+				// Refresh display
+				refresh();
 			}
 			else if (didl instanceof IDIDLItem)
 			{

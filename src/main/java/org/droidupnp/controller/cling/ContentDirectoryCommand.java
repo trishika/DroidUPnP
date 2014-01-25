@@ -43,6 +43,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import java.util.concurrent.Callable;
+
 @SuppressWarnings("rawtypes")
 public class ContentDirectoryCommand implements IContentDirectoryCommand {
 
@@ -83,12 +85,25 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 	@Override
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID)
 	{
-		browse(activity, contentList, directoryID, null);
+		browse(activity, contentList, directoryID, null, null);
 	}
 
 	@Override
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-			final String parent)
+					   final String parent)
+	{
+		browse(activity, contentList, directoryID, parent, null);
+	}
+
+	@Override
+	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID, final Callable<Void> callback)
+	{
+		browse(activity, contentList, directoryID, null, callback);
+	}
+
+	@Override
+	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
+			final String parent, final Callable<Void> callback)
 	{
 		if (getContentDirectoryService() == null)
 			return;
@@ -121,6 +136,13 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 							for (DIDLObject.Property p : item.getProperties())
 								Log.v(TAG, p.getDescriptorName() + " " + p.toString());
 						}
+
+						if(callback!=null)
+							try {
+								callback.call();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 					}
 				});
 			}

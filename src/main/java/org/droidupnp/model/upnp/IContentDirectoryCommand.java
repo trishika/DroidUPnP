@@ -24,11 +24,19 @@ import org.droidupnp.view.DIDLObjectDisplay;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 
+import java.util.concurrent.Callable;
+
 public interface IContentDirectoryCommand {
+
+	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
+		final Callable<Void> callback);
+
+	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
+		final String parent, final Callable<Void> callback);
 
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID);
 
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-			final String parent);
+		final String parent);
 
 }

@@ -22,6 +22,7 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'8.1.12.v20130726'
     compile group: 'org.eclipse.jetty', name: 'jetty-client', version:'8.1.12.v20130726'
     compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.5'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'com.android.support:support-v4:+'
 }
 
