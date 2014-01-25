@@ -36,4 +36,11 @@
 		android:text="@string/about_nanohttpd"
 		android:layout_marginTop="30dp" />
 
+	<TextView
+		android:id="@+id/about_pulltorefresh"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:text="@string/about_pulltorefresh"
+		android:layout_marginTop="30dp" />
+
 </LinearLayout>

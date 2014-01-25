@@ -118,6 +118,12 @@
 		Source code is available on <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
 		]]>
 	</string>
+	<string name="about_pulltorefresh">
+		<![CDATA[
+		<p>DroidUPnP use <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh is underthe Apache License, Version 2.0.
+		Source code is available on <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
+		]]>
+	</string>
 
 	<!-- Content directory pref -->
 	<string name="display_name">Display Name</string>
