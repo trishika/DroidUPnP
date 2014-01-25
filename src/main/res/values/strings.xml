@@ -21,7 +21,6 @@
 
     <string name="navigation_drawer_open">Open device list</string>
     <string name="navigation_drawer_close">Close device list</string>
-    <string name="action_search">Search</string>
 
 	<!-- General -->
 	<string name="app_name">DroidUPnP</string>
@@ -40,6 +39,7 @@
 	<string name="menu_about">About</string>
 	<string name="menu_refresh">Refresh</string>
 	<string name="menu_quit">Quit</string>
+    <string name="menu_search">Search</string>
 
 	<!-- Option -->
 	<string name="pref_contentdirectory_title">Content Directory</string>
