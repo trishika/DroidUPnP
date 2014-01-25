@@ -90,20 +90,21 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 
 	@Override
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-					   final String parent)
+		final String parent)
 	{
 		browse(activity, contentList, directoryID, parent, null);
 	}
 
 	@Override
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID, final Callable<Void> callback)
+	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
+		final Callable<Void> callback)
 	{
 		browse(activity, contentList, directoryID, null, callback);
 	}
 
 	@Override
 	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-			final String parent, final Callable<Void> callback)
+		final String parent, final Callable<Void> callback)
 	{
 		if (getContentDirectoryService() == null)
 			return;

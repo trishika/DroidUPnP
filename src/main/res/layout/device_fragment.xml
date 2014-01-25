@@ -18,16 +18,16 @@
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/device_fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:drawSelectorOnTop="false"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    android:background="#cccc"
-    tools:context="org.droidupnp.DrawerFragment" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/device_fragment"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:drawSelectorOnTop="false"
+	android:divider="@android:color/transparent"
+	android:dividerHeight="0dp"
+	android:background="#cccc"
+	tools:context="org.droidupnp.DrawerFragment" >
 
 	<fragment
 		android:id="@+id/ContentDirectoryDeviceFragment"

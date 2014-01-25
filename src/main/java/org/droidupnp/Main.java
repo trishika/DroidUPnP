@@ -28,134 +28,134 @@ import java.util.Observer;
 
 public class Main extends Activity {
 
-    private static final String TAG = "Main";
+	private static final String TAG = "Main";
 
-    // Controller
-    public static IUpnpServiceController upnpServiceController = null;
-    public static IFactory factory = null;
-
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private DrawerFragment mDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
-    private CharSequence mTitle;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Log.d(TAG, "onCreated : " + savedInstanceState + factory + upnpServiceController);
-
-        // Use cling factory
-        if (factory == null)
-            factory = new org.droidupnp.controller.cling.Factory();
-
-        // Upnp service
-        if (upnpServiceController == null)
-            upnpServiceController = factory.createUpnpServiceController(this);
-
-        // Attach listener
-        Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
-        if (contentDirectoryFragment != null && contentDirectoryFragment instanceof Observer)
-            upnpServiceController.addSelectedContentDirectoryObserver((Observer) contentDirectoryFragment);
-        else
-            Log.w(TAG, "No contentDirectoryFragment yet !");
-
-        Fragment rendererFragment = getFragmentManager().findFragmentById(R.id.RendererFragment);
-        if (rendererFragment != null && rendererFragment instanceof Observer)
-            upnpServiceController.addSelectedRendererObserver((Observer) rendererFragment);
-        else
-            Log.w(TAG, "No rendererFragment yet !");
+	// Controller
+	public static IUpnpServiceController upnpServiceController = null;
+	public static IFactory factory = null;
 
 
-        mDrawerFragment = (DrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+	/**
+	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
+	 */
+	private DrawerFragment mDrawerFragment;
 
-        // Set up the drawer.
-        mDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+	/**
+	 * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+	 */
+	private CharSequence mTitle;
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new ContentDirectoryFragment())
-                .commit();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-    @Override
-    public void onResume()
-    {
-        Log.i(TAG, "onResume");
-        upnpServiceController.resume(this);
-        super.onResume();
-    }
+		Log.d(TAG, "onCreated : " + savedInstanceState + factory + upnpServiceController);
 
-    @Override
-    public void onPause()
-    {
-        Log.i(TAG, "onPause");
-        upnpServiceController.pause();
-        upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
-        super.onPause();
-    }
+		// Use cling factory
+		if (factory == null)
+			factory = new org.droidupnp.controller.cling.Factory();
 
-    public void refresh()
-    {
-        upnpServiceController.getServiceListener().refresh();
-    }
+		// Upnp service
+		if (upnpServiceController == null)
+			upnpServiceController = factory.createUpnpServiceController(this);
 
-    public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
+		// Attach listener
+		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
+		if (contentDirectoryFragment != null && contentDirectoryFragment instanceof Observer)
+			upnpServiceController.addSelectedContentDirectoryObserver((Observer) contentDirectoryFragment);
+		else
+			Log.w(TAG, "No contentDirectoryFragment yet !");
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        restoreActionBar();
-        return true;
-    }
+		Fragment rendererFragment = getFragmentManager().findFragmentById(R.id.RendererFragment);
+		if (rendererFragment != null && rendererFragment instanceof Observer)
+			upnpServiceController.addSelectedRendererObserver((Observer) rendererFragment);
+		else
+			Log.w(TAG, "No rendererFragment yet !");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
 
-        // Handle item selection
-        switch (item.getItemId())
-        {
-            case R.id.menu_refresh:
-                refresh();
-                break;
-            case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
-                break;
-            case R.id.menu_quit:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+		mDrawerFragment = (DrawerFragment)
+				getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mTitle = getTitle();
 
-    public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException
-    {
-        WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        int ipAddress = wifiInfo.getIpAddress();
-        return InetAddress.getByName(String.format("%d.%d.%d.%d",
-                (ipAddress & 0xff), (ipAddress >> 8 & 0xff),
-                (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff)));
-    }
+		// Set up the drawer.
+		mDrawerFragment.setUp(
+				R.id.navigation_drawer,
+				(DrawerLayout) findViewById(R.id.drawer_layout));
+
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction()
+				.replace(R.id.container, new ContentDirectoryFragment())
+				.commit();
+	}
+
+	@Override
+	public void onResume()
+	{
+		Log.i(TAG, "onResume");
+		upnpServiceController.resume(this);
+		super.onResume();
+	}
+
+	@Override
+	public void onPause()
+	{
+		Log.i(TAG, "onPause");
+		upnpServiceController.pause();
+		upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
+		super.onPause();
+	}
+
+	public void refresh()
+	{
+		upnpServiceController.getServiceListener().refresh();
+	}
+
+	public void restoreActionBar() {
+		ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle(mTitle);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		restoreActionBar();
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+
+		// Handle item selection
+		switch (item.getItemId())
+		{
+			case R.id.menu_refresh:
+				refresh();
+				break;
+			case R.id.menu_settings:
+				startActivity(new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
+				break;
+			case R.id.menu_quit:
+				finish();
+				break;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+		int ipAddress = wifiInfo.getIpAddress();
+		return InetAddress.getByName(String.format("%d.%d.%d.%d",
+				(ipAddress & 0xff), (ipAddress >> 8 & 0xff),
+				(ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff)));
+	}
 }
