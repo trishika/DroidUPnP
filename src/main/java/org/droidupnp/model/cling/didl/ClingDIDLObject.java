@@ -19,13 +19,8 @@
 
 package org.droidupnp.model.cling.didl;
 
-import android.util.Log;
-
 import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.fourthline.cling.support.model.DIDLObject;
-import org.fourthline.cling.support.model.Res;
-
-import java.util.List;
 
 public class ClingDIDLObject implements IDIDLObject {
 
