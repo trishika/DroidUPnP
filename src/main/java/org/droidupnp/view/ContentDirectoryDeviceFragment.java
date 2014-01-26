@@ -89,6 +89,16 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment imple
 	@Override
 	public void update(Observable observable, Object o)
 	{
-		addedDevice(Main.upnpServiceController.getSelectedContentDirectory());
+		IUpnpDevice device = Main.upnpServiceController.getSelectedContentDirectory();
+		if(device==null)
+		{
+			// Uncheck device
+			getListView().clearChoices();
+			list.notifyDataSetChanged();
+		}
+		else
+		{
+			addedDevice(device);
+		}
 	}
 }

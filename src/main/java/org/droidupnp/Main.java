@@ -145,6 +145,12 @@ public class Main extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (mContentDirectoryFragment.goBack())
+			super.onBackPressed();
+	}
+
 	public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);

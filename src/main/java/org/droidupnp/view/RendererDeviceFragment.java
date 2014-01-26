@@ -89,6 +89,16 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment implements Ob
 	@Override
 	public void update(Observable observable, Object o)
 	{
-		addedDevice(Main.upnpServiceController.getSelectedRenderer());
+		IUpnpDevice device = Main.upnpServiceController.getSelectedRenderer();
+		if(device==null)
+		{
+			// Uncheck device
+			getListView().clearChoices();
+			list.notifyDataSetChanged();
+		}
+		else
+		{
+			addedDevice(device);
+		}
 	}
 }

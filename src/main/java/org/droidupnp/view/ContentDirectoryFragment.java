@@ -247,6 +247,31 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		super.onPause();
 	}
 
+	 public Boolean goBack()
+	 {
+		if(tree == null || tree.isEmpty())
+		{
+			if(Main.upnpServiceController.getSelectedContentDirectory() != null)
+			{
+				// Back on device root, unselect device
+				Main.upnpServiceController.setSelectedContentDirectory(null);
+				return false;
+			}
+			else
+			{
+				// Already at the upper level
+				return true;
+			}
+		}
+		else
+		{
+			// Go back in browsing
+			currentID = tree.pop();
+			update();
+			return false;
+		}
+	}
+
 	public void printCurrentContentDirectoryInfo()
 	{
 		Log.i(TAG, "Device : " + Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
