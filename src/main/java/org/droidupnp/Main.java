@@ -5,29 +5,36 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.upnp.IFactory;
 import org.droidupnp.view.ContentDirectoryFragment;
+import org.droidupnp.view.RendererFragment;
 import org.droidupnp.view.SettingsActivity;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Observer;
 
-public class Main extends Activity {
-
+public class Main extends Activity
+{
 	private static final String TAG = "Main";
 
 	// Controller
@@ -37,10 +44,27 @@ public class Main extends Activity {
 	private DrawerFragment mDrawerFragment;
 	private CharSequence mTitle;
 
-	private ContentDirectoryFragment mContentDirectoryFragment;
+	public ContentDirectoryFragment getContentDirectoryFragment()
+	{
+		FragmentManager fm = getFragmentManager();
+		Fragment f = fm.findFragmentById(R.id.ContentDirectoryFragment);
+		if(f != null)
+			return (ContentDirectoryFragment) f;
+		return null;
+	}
+
+	public RendererFragment getRenderer()
+	{
+		FragmentManager fm = getFragmentManager();
+		Fragment f = fm.findFragmentById(R.id.RendererFragment);
+		if(f != null)
+			return (RendererFragment) f;
+		return null;
+	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -67,7 +91,6 @@ public class Main extends Activity {
 		else
 			Log.w(TAG, "No rendererFragment yet !");
 
-
 		mDrawerFragment = (DrawerFragment)
 				getFragmentManager().findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
@@ -76,12 +99,12 @@ public class Main extends Activity {
 		mDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+	}
 
-		mContentDirectoryFragment = new ContentDirectoryFragment();
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.container, mContentDirectoryFragment)
-				.commit();
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
 	}
 
 	@Override
@@ -104,7 +127,9 @@ public class Main extends Activity {
 	public void refresh()
 	{
 		upnpServiceController.getServiceListener().refresh();
-		mContentDirectoryFragment.refresh();
+		ContentDirectoryFragment cd = getContentDirectoryFragment();
+		if(cd!=null)
+			cd.refresh();
 	}
 
 	public void restoreActionBar() {
@@ -146,9 +171,12 @@ public class Main extends Activity {
 	}
 
 	@Override
-	public void onBackPressed() {
-		if (mContentDirectoryFragment.goBack())
-			super.onBackPressed();
+	public void onBackPressed()
+	{
+		ContentDirectoryFragment cd = getContentDirectoryFragment();
+		if(cd!=null)
+			if (cd.goBack())
+				super.onBackPressed();
 	}
 
 	public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException

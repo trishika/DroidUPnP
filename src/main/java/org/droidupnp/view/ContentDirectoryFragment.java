@@ -190,6 +190,8 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		// This is the View which is created by ListFragment
 		ViewGroup viewGroup = (ViewGroup) view;
 
+		view.setBackgroundColor(getResources().getColor(R.color.grey));
+
 		// We need to create a PullToRefreshLayout manually
 		mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
 
@@ -212,7 +214,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		mPullToRefreshLayout.setRefreshComplete();
 		super.onDestroyView();
 	}
-
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState)
@@ -255,8 +256,8 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		super.onPause();
 	}
 
-	 public Boolean goBack()
-	 {
+	public Boolean goBack()
+	{
 		if(tree == null || tree.isEmpty())
 		{
 			if(Main.upnpServiceController.getSelectedContentDirectory() != null)

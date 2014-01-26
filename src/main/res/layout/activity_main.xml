@@ -24,10 +24,28 @@
 	android:layout_height="match_parent"
 	tools:context="org.droidupnp.Main">
 
-	<FrameLayout
-		android:id="@+id/container"
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent"
+		android:orientation="vertical" >
+
+		<fragment
+			android:id="@+id/ContentDirectoryFragment"
+			android:name="org.droidupnp.view.ContentDirectoryFragment"
+			android:layout_weight="1"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			style="@style/contentdirectory" />
+
+		<fragment
+			android:id="@+id/RendererFragment"
+			android:name="org.droidupnp.view.RendererFragment"
+			android:layout_weight="4"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			style="@style/renderer" />
+
+	</LinearLayout>
 
 	<fragment android:id="@+id/navigation_drawer"
 		android:layout_width="@dimen/navigation_drawer_width"

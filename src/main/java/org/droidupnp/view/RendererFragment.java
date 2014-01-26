@@ -37,15 +37,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RendererFragment extends Fragment implements Observer {
-
+public class RendererFragment extends Fragment implements Observer
+{
 	private static final String TAG = "RendererFragment";
 
 	private IUpnpDevice device;
@@ -53,17 +52,13 @@ public class RendererFragment extends Fragment implements Observer {
 	private IRendererCommand rendererCommand;
 
 	// NowPlaying Slide
-	private ImageView previousButton;
 	private ImageView stopButton;
 	private ImageView play_pauseButton;
 	private ImageView volumeButton;
-	private ImageView nextButton;
 
 	// Settings Slide
 	SeekBar progressBar;
 	SeekBar volume;
-	CheckBox shuffleCheckBox;
-	CheckBox repeatCheckBox;
 
 	TextView duration;
 	boolean durationRemaining;
@@ -236,11 +231,9 @@ public class RendererFragment extends Fragment implements Observer {
 	private void SetupButtons()
 	{
 		// Now_Playing Footer Buttons
-		// previousButton = (ImageView) getActivity().findViewById(R.id.previousButton);
 		play_pauseButton = (ImageView) getActivity().findViewById(R.id.play_pauseButton);
 		volumeButton = (ImageView) getActivity().findViewById(R.id.volumeIcon);
 		stopButton = (ImageView) getActivity().findViewById(R.id.stopButton);
-		// nextButton = (ImageView) getActivity().findViewById(R.id.nextButton);
 		progressBar = (SeekBar) getActivity().findViewById(R.id.progressBar);
 		volume = (SeekBar) getActivity().findViewById(R.id.volume);
 	}
@@ -274,26 +267,6 @@ public class RendererFragment extends Fragment implements Observer {
 				{
 					if (rendererCommand != null)
 						rendererCommand.toggleMute();
-				}
-			});
-
-		if (previousButton != null)
-			previousButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v)
-				{
-					// TODO implement
-					Toast.makeText(getActivity().getApplicationContext(), "Back !!!!", Toast.LENGTH_SHORT).show();
-				}
-			});
-
-		if (nextButton != null)
-			nextButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v)
-				{
-					// TODO implement
-					Toast.makeText(getActivity().getApplicationContext(), "Next !!!!", Toast.LENGTH_SHORT).show();
 				}
 			});
 

@@ -19,7 +19,8 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<color name="blue_text">#379293</color>
+	<color name="blue">#379293</color>
+	<color name="grey">#DDDDDD</color>
 
 	<drawable name="play">@drawable/ic_action_play</drawable>
 	<drawable name="pause">@drawable/ic_action_pause</drawable>
@@ -32,21 +33,25 @@
 		<item name="android:background">?android:attr/colorBackground</item>
 	</style>
 
-	<!-- Content browsing duration/count style -->
-	<style name="CountText" parent="@android:style/TextAppearance">
-		<item name="android:textColor">@color/blue_text</item>
-		<item name="android:textStyle">bold</item>
+	<!-- Content directory style -->
+	<style name="contentdirectory">
+		<item name="android:background">@color/grey</item>
 	</style>
 
-	<style name="AppTextView" parent="android:style/Widget.TextView">
-		<item name="android:textColor">@color/blue_text</item>
-		<item name="android:textSize">18sp</item>
+	<!-- Renderer style -->
+	<style name="renderer">
+		<item name="android:background">?android:attr/colorBackground</item>
+	</style>
+
+	<!-- Content browsing duration/count style -->
+	<style name="CountText" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/blue</item>
 		<item name="android:textStyle">bold</item>
 	</style>
 
 	<!-- Pull to refresh style -->
 	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
-		<item name="ptrProgressBarColor">@color/blue_text</item>
+		<item name="ptrProgressBarColor">@color/blue</item>
 	</style>
 
 	<!-- The light theme -->
