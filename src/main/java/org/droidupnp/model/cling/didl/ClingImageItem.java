@@ -69,4 +69,3 @@ public class ClingImageItem extends ClingDIDLItem
 		return R.drawable.ic_action_picture;
 	}
 }
-

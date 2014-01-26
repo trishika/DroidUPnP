@@ -34,16 +34,10 @@ public class Main extends Activity {
 	public static IUpnpServiceController upnpServiceController = null;
 	public static IFactory factory = null;
 
-
-	/**
-	 * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-	 */
 	private DrawerFragment mDrawerFragment;
-
-	/**
-	 * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-	 */
 	private CharSequence mTitle;
+
+	private ContentDirectoryFragment mContentDirectoryFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +77,10 @@ public class Main extends Activity {
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 
+		mContentDirectoryFragment = new ContentDirectoryFragment();
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
-				.replace(R.id.container, new ContentDirectoryFragment())
+				.replace(R.id.container, mContentDirectoryFragment)
 				.commit();
 	}
 
@@ -109,6 +104,7 @@ public class Main extends Activity {
 	public void refresh()
 	{
 		upnpServiceController.getServiceListener().refresh();
+		mContentDirectoryFragment.refresh();
 	}
 
 	public void restoreActionBar() {

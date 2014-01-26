@@ -232,6 +232,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		Log.d(TAG, "refresh ");
 
 		setListShown(false);
+		mPullToRefreshLayout.setRefreshComplete();
 		mPullToRefreshLayout.setRefreshing(true);
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
