@@ -21,15 +21,11 @@
 
 	<color name="blue_text">#379293</color>
 
-	<drawable name="play">@drawable/av_play</drawable>
-	<drawable name="pause">@drawable/av_pause</drawable>
-	<drawable name="stop">@drawable/av_stop</drawable>
-	<drawable name="next">@drawable/av_next</drawable>
-	<drawable name="previous">@drawable/av_previous</drawable>
-	<drawable name="shuffle">@drawable/av_shuffle</drawable>
-	<drawable name="repeat">@drawable/av_repeat</drawable>
-	<drawable name="volume">@drawable/device_access_volume_on</drawable>
-	<drawable name="volume_mute">@drawable/device_access_volume_muted</drawable>
+	<drawable name="play">@drawable/ic_action_play</drawable>
+	<drawable name="pause">@drawable/ic_action_pause</drawable>
+	<drawable name="stop">@drawable/ic_action_stop</drawable>
+	<drawable name="volume">@drawable/ic_action_volume_on</drawable>
+	<drawable name="volume_mute">@drawable/ic_action_volume_muted</drawable>
 
 	<!-- Drawer style -->
 	<style name="drawer">
