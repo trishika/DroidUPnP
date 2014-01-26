@@ -61,6 +61,7 @@
 	<string name="searchingLAN">Searching UPnP devices...</string>
 	<string name="loading">Loading...</string>
 	<string name="selectRenderer">Select a Renderer</string>
+	<string name="noRenderer">There is no renderer available</string>
 	<string name="selectContentDirectory">Select a Content directory</string>
 
 	<!-- Now Playing -->
