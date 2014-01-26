@@ -17,17 +17,12 @@
   You should have received a copy of the GNU General Public License
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"-->
-	<!--android:id="@android:id/text1"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="wrap_content"-->
-	<!--android:textAppearance="?android:attr/textAppearanceListItemSmall"-->
-	<!--android:gravity="center_vertical"-->
-	<!--android:minHeight="?android:attr/listPreferredItemHeightSmall" />-->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="?android:attr/listPreferredItemHeight"
+	android:background="?android:attr/activatedBackgroundIndicator"
+	android:textAppearance="?android:attr/textAppearanceListItemSmall"
+	android:id="@+id/custom_list_item"
 	android:padding="6dip" >
 
 	<ImageView
@@ -76,14 +71,5 @@
 		android:text=""
 		android:layout_marginRight="5dip"
 		android:textSize="12dip"
-		android:textColor="#10bcc9"
-		android:textStyle="bold"/>
-	<!--android:layout_alignTop="@id/text1"-->
-<!--
-	<ImageView android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/arrow"
-		android:layout_alignParentRight="true"
-		android:layout_centerVertical="true"/>
--->
+		style="@style/CountText" />
 </RelativeLayout>

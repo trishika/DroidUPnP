@@ -100,7 +100,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		public CustomAdapter(Context context) {
 			super(context, 0);
 			this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			this.layout = R.layout.custom_list_item;
+			this.layout = R.layout.browsing_list_item;
 		}
 
 //		@ViewById
