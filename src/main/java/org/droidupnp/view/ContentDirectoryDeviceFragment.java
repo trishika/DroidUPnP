@@ -27,7 +27,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
+import java.util.Observable;
+import java.util.Observer;
+
+public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment implements Observer {
 
 	protected static final String TAG = "ContentDirectoryDeviceFragment";
 
@@ -41,6 +44,7 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 	{
 		super.onActivityCreated(savedInstanceState);
 		Main.upnpServiceController.getContentDirectoryDiscovery().addObserver(this);
+		Main.upnpServiceController.addSelectedContentDirectoryObserver(this);
 		Log.d(TAG, "onActivityCreated");
 	}
 
@@ -49,6 +53,7 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 	{
 		super.onDestroy();
 		Main.upnpServiceController.getContentDirectoryDiscovery().removeObserver(this);
+		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
 		Log.d(TAG, "onDestroy");
 	}
 
@@ -79,5 +84,11 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment {
 		super.onListItemClick(l, v, position, id);
 		select(list.getItem(position).getDevice());
 		Log.d(TAG, "Set contentDirectory to " + list.getItem(position));
+	}
+
+	@Override
+	public void update(Observable observable, Object o)
+	{
+		addedDevice(Main.upnpServiceController.getSelectedContentDirectory());
 	}
 }

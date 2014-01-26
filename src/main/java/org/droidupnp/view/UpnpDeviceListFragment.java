@@ -125,7 +125,6 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 				@Override
 				public void run()
 				{
-
 					int position = list.getPosition(d);
 					if (position >= 0)
 					{
