@@ -19,20 +19,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<color name="black_background">#1A1A1A</color>
-	<color name="black_windows_background">#232323</color>
-	<color name="blue_text">#1E90FF</color>
-
-	<style name="AppThemeHolo" parent="android:Theme.Holo">
-		<item name="android:windowBackground">@color/black_windows_background</item>
-		<item name="android:colorBackground">@color/black_background</item>
-	</style>
-
-	<style name="AppTextView" parent="android:style/Widget.TextView">
-		<item name="android:textColor">@color/blue_text</item>
-		<item name="android:textSize">18sp</item>
-		<item name="android:textStyle">bold</item>
-	</style>
+	<color name="blue_text">#379293</color>
 
 	<drawable name="play">@drawable/av_play</drawable>
 	<drawable name="pause">@drawable/av_pause</drawable>
@@ -44,8 +31,35 @@
 	<drawable name="volume">@drawable/device_access_volume_on</drawable>
 	<drawable name="volume_mute">@drawable/device_access_volume_muted</drawable>
 
-	<style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar">
-
+	<!-- Drawer style -->
+	<style name="drawer">
+		<item name="android:background">?android:attr/colorBackground</item>
 	</style>
+
+	<!-- Content browsing duration/count style -->
+	<style name="CountText" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/blue_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="AppTextView" parent="android:style/Widget.TextView">
+		<item name="android:textColor">@color/blue_text</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<!-- Pull to refresh style -->
+	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
+		<item name="ptrProgressBarColor">@color/blue_text</item>
+	</style>
+
+	<!-- The light theme -->
+	<style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar" />
+
+	<!-- Style selection -->
+	<style name="AppTheme" parent="AppThemeLight">
+		<item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
+	</style>>
+
 
 </resources>

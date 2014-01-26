@@ -24,9 +24,7 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:drawSelectorOnTop="false"
-	android:divider="@android:color/transparent"
-	android:dividerHeight="0dp"
-	android:background="#cccc"
+	style="@style/drawer"
 	tools:context="org.droidupnp.DrawerFragment" >
 
 	<fragment

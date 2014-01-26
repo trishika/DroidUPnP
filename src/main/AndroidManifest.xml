@@ -36,7 +36,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@drawable/logo"
-        android:theme="@style/AppThemeLight" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="org.droidupnp.Main"
             android:label="@string/app_name" >
