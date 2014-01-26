@@ -207,6 +207,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	}
 
 	@Override
+	public void onDestroyView()
+	{
+		mPullToRefreshLayout.setRefreshComplete();
+		super.onDestroyView();
+	}
+
+
+	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState)
 	{
 		Log.i(TAG, "Save instance state");
@@ -293,9 +301,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	}
 
 //	@UiThread
-	public void refresh()
+	public synchronized void refresh()
 	{
-		Log.d(TAG, "refresh ");
+		Log.d(TAG, "refresh");
 
 		if (getActivity() != null)
 			getActivity().runOnUiThread(new Runnable() {
