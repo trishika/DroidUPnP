@@ -1,27 +1,37 @@
+/**
+ * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+ *
+ * This file is part of DroidUPNP.
+ *
+ * DroidUPNP is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DroidUPNP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.droidupnp;
 
 import android.app.Activity;
-;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.upnp.IFactory;
