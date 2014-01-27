@@ -24,28 +24,52 @@
 	android:layout_height="match_parent"
 	tools:context="org.droidupnp.Main">
 
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical" >
+		android:layout_height="match_parent">
 
-		<fragment
-			android:id="@+id/ContentDirectoryFragment"
-			android:name="org.droidupnp.view.ContentDirectoryFragment"
-			android:layout_weight="1"
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical" >
+
+			<fragment
+				android:id="@+id/ContentDirectoryFragment"
+				android:name="org.droidupnp.view.ContentDirectoryFragment"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@style/contentdirectory" />
+
+			<fragment
+				android:id="@+id/RendererFragment"
+				android:name="org.droidupnp.view.RendererFragment"
+				android:layout_width="match_parent"
+				android:layout_height="120dp"
+				android:layout_weight="0"
+				android:layout_gravity="bottom"
+				style="@style/renderer" />
+
+		</LinearLayout>
+
+		<View
+			android:id="@+id/separator"
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			style="@style/contentdirectory" />
+			android:layout_height="4dp"
+			android:layout_marginBottom="120dp"
+			android:background="@color/greyer"
+			android:layout_gravity="bottom" />
 
-		<fragment
-			android:id="@+id/RendererFragment"
-			android:name="org.droidupnp.view.RendererFragment"
-			android:layout_weight="4"
+		<SeekBar
+			android:id="@+id/progressBar"
 			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			style="@style/renderer" />
+			android:layout_height="40dp"
+			android:paddingLeft="-3dp"
+			android:paddingRight="-3dp"
+			android:layout_marginBottom="100dp"
+			android:layout_gravity="bottom" />
 
-	</LinearLayout>
+	</FrameLayout>
 
 	<fragment android:id="@+id/navigation_drawer"
 		android:layout_width="@dimen/navigation_drawer_width"

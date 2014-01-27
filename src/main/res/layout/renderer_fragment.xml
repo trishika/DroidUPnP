@@ -22,20 +22,27 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical" >
 
-	<View
-		android:layout_width="fill_parent"
-		android:layout_height="20dip"
-		android:layout_weight="0.5"
-		android:background="@android:color/transparent"/>
-
-	<SeekBar
-		android:id="@+id/progressBar"
-		android:layout_width="fill_parent"
+	<TextView
+		android:id="@+id/trackDurationElapse"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentRight="true"
 		android:layout_alignParentLeft="true"
-		android:layout_weight="1" />
+		android:layout_alignParentTop="true"
+		android:layout_gravity="center_vertical|fill_vertical"
+		android:layout_margin="10dp"
+		android:text="@string/duration"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	<TextView
+		android:id="@+id/trackDurationRemaining"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_gravity="center_vertical|fill_vertical"
+		android:layout_margin="10dp"
+		android:text="@string/duration"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	<TextView
 		android:id="@+id/title"
@@ -43,13 +50,12 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
-		android:layout_below="@id/progressBar"
+		android:layout_below="@id/trackDurationElapse"
 		android:ellipsize="marquee"
 		android:singleLine="true"
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
-		android:textSize="18sp"
-		android:textStyle="bold" />
+		android:textSize="18sp" />
 
 	<TextView
 		android:id="@+id/artist"
@@ -71,7 +77,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginRight="30dip"
 		android:layout_alignParentRight="true"
-		android:layout_below="@id/progressBar"
+		android:layout_below="@id/trackDurationRemaining"
 		android:contentDescription="@string/play"
 		android:paddingLeft="10dip"
 		android:paddingRight="10dip"
@@ -83,7 +89,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/play_pauseButton"
-		android:layout_below="@id/progressBar"
+		android:layout_below="@id/trackDurationRemaining"
 		android:contentDescription="@string/stop"
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
@@ -117,35 +123,5 @@
 			android:layout_width="match_parent" />
 
 	</LinearLayout>
-
-
-	<TextView
-		android:id="@+id/trackDurationElapse"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_vertical|fill_vertical"
-		android:layout_marginRight="10dp"
-		android:shadowColor="#000"
-		android:shadowDx="0"
-		android:shadowDy="0"
-		android:shadowRadius="5"
-		android:text="@string/duration"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:visibility="invisible" />
-
-	<TextView
-		android:id="@+id/trackDurationRemaining"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_vertical|fill_vertical"
-		android:layout_marginLeft="10dp"
-		android:shadowColor="#000"
-		android:shadowDx="0"
-		android:shadowDy="0"
-		android:shadowRadius="5"
-		android:text="@string/duration"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textStyle="bold"
-		android:visibility="invisible" />
 
 </RelativeLayout>
