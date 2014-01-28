@@ -39,6 +39,7 @@ import org.droidupnp.model.upnp.didl.IDIDLItem;
 import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -289,14 +290,16 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 	public class RefreshCallback implements Callable<Void> {
 		public Void call() throws java.lang.Exception {
-			if (getActivity() != null) // Visible
-				getActivity().runOnUiThread(new Runnable() {
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						setListShown(true);
 						mPullToRefreshLayout.setRefreshComplete();
 					}
 				});
+			}
 			return null;
 		}
 	}
@@ -306,8 +309,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	{
 		Log.d(TAG, "refresh");
 
-		if (getActivity() != null)
-			getActivity().runOnUiThread(new Runnable() {
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					setListShown(false);
@@ -315,17 +319,19 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 					mPullToRefreshLayout.setRefreshing(true);
 				}
 			});
+		}
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
-			if (getActivity() != null) // Visible
-				getActivity().runOnUiThread(new Runnable() {
+			if(a!=null) {
+				a.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						// Clear display list
 						contentList.clear();
 					}
 				});
+			}
 
 			if (device != null)
 			{
@@ -431,23 +437,23 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		if (Main.upnpServiceController.getSelectedRenderer() == null)
 		{
 			// No renderer selected yet, open a popup to select one
-			getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run()
-				{
-					RendererDialog rendererDialog = new RendererDialog();
-					rendererDialog.setCallback(new Callable<Void>() {
-
-						@Override
-						public Void call() throws Exception {
-							launchURIRenderer(uri);
-							return null;
-						}
-					});
-
-					rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
-				}
-			});
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable(){
+					@Override
+					public void run() {
+						RendererDialog rendererDialog = new RendererDialog();
+						rendererDialog.setCallback(new Callable<Void>() {
+							@Override
+							public Void call() throws Exception {
+								launchURIRenderer(uri);
+								return null;
+							}
+						});
+						rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
+					}
+				});
+			}
 		}
 		else
 		{
@@ -472,13 +478,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 	public void update()
 	{
-		if(getActivity()!=null)
-			getActivity().runOnUiThread(new Runnable() {
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
 				@Override
-				public void run()
-				{
+				public void run() {
 					refresh();
 				}
 			});
+		}
 	}
 }
