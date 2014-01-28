@@ -160,10 +160,39 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 		});
 	}
 
-	public void search()
+	public void search(String search, final String parent, final ContentDirectoryFragment.ContentCallback callback)
 	{
 		if (getContentDirectoryService() == null)
 			return;
+
+		controlPoint.execute(new Search(getContentDirectoryService(), parent, search)
+		{
+			@Override
+			public void received(ActionInvocation actionInvocation, final DIDLContent didl)
+			{
+				if(callback!=null)
+				{
+					try {
+						callback.setContent(buildContentList(parent, didl));
+						callback.call();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			@Override
+			public void updateStatus(Status status)
+			{
+				Log.i(TAG, "updateStatus ! ");
+			}
+
+			@Override
+			public void failure(ActionInvocation invocation, UpnpResponse operation, String defaultMsg)
+			{
+				Log.w(TAG, "Fail to browse ! " + defaultMsg);
+			}
+		});
 	}
 
 	public void getSearchCapabilities()
