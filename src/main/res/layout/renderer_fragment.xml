@@ -76,11 +76,11 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="30dip"
+		android:layout_marginLeft="7dip"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/trackDurationRemaining"
 		android:contentDescription="@string/play"
-		android:paddingLeft="10dip"
-		android:paddingRight="10dip"
+		android:padding="3dp"
 		android:background="@android:color/transparent"
 		android:src="@drawable/play" />
 
@@ -90,9 +90,9 @@
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/play_pauseButton"
 		android:layout_below="@id/trackDurationRemaining"
+		android:layout_marginRight="7dp"
 		android:contentDescription="@string/stop"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp"
+		android:padding="3dp"
 		android:background="@android:color/transparent"
 		android:src="@drawable/stop" />
 
@@ -100,20 +100,19 @@
 		android:id="@+id/volumeLayout"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginLeft="10dp"
 		android:layout_alignParentBottom="true"
-		android:layout_gravity="center_vertical|center_horizontal"
-		android:paddingBottom="5dp"
-		android:paddingTop="5dp"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp" >
+		android:layout_gravity="center_vertical|center_horizontal" >
 
 		<ImageButton
 			android:id="@+id/volumeIcon"
 			android:layout_width="40dp"
 			android:layout_height="match_parent"
+			android:layout_marginRight="15dp"
 			android:contentDescription="@string/mute"
-			android:paddingLeft="0dp"
-			android:paddingRight="15dp"
 			android:background="@android:color/transparent"
 			android:src="@drawable/volume" />
 
