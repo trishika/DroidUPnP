@@ -52,8 +52,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 @SuppressWarnings("rawtypes")
-public class ContentDirectoryCommand implements IContentDirectoryCommand {
-
+public class ContentDirectoryCommand implements IContentDirectoryCommand
+{
 	private static final String TAG = "ContentDirectoryCommand";
 
 	private final ControlPoint controlPoint;
@@ -80,12 +80,6 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 
 		return ((CDevice) Main.upnpServiceController.getSelectedContentDirectory()).getDevice().findService(
 				new UDAServiceType("ContentDirectory"));
-	}
-
-	public void getSystemUpdateID()
-	{
-		if (getContentDirectoryService() == null)
-			return;
 	}
 
 	private ArrayList<DIDLObjectDisplay> buildContentList(String parent, DIDLContent didl)
@@ -195,15 +189,11 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 		});
 	}
 
-	public void getSearchCapabilities()
+	public boolean isSearchAvailable()
 	{
 		if (getContentDirectoryService() == null)
-			return;
-	}
+			return false;
 
-	public void getSortCapabilities()
-	{
-		if (getContentDirectoryService() == null)
-			return;
+		return false;
 	}
 }

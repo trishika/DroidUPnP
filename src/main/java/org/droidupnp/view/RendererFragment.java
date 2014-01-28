@@ -69,26 +69,18 @@ public class RendererFragment extends Fragment implements Observer
 		durationRemaining = true;
 	}
 
-	public RendererFragment getRenderer()
-	{
-		Fragment f = getFragmentManager().findFragmentById(R.id.RendererFragment);
-		if(f != null)
-			return (RendererFragment) f;
-		return null;
-	}
-
-	public void hideRenderer()
+	public void hide()
 	{
 		getActivity().findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
 		getActivity().findViewById(R.id.separator).setVisibility(View.INVISIBLE);
-		getFragmentManager().beginTransaction().hide(getRenderer()).commit();
+		getFragmentManager().beginTransaction().hide(this).commit();
 	}
 
-	public void showRenderer()
+	public void show()
 	{
 		getActivity().findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 		getActivity().findViewById(R.id.separator).setVisibility(View.VISIBLE);
-		getFragmentManager().beginTransaction().show(getRenderer()).commit();
+		getFragmentManager().beginTransaction().show(this).commit();
 	}
 
 	@Override
@@ -103,7 +95,7 @@ public class RendererFragment extends Fragment implements Observer
 			Log.w(TAG, "upnpServiceController was not ready !!!");
 
 		// Initially hide renderer
-		hideRenderer();
+		hide();
 
 		Log.d(TAG, "Activity created");
 	}
@@ -168,7 +160,7 @@ public class RendererFragment extends Fragment implements Observer
 					@Override
 					public void run()
 					{
-						hideRenderer();
+						hide();
 					}
 				});
 			}
@@ -213,7 +205,7 @@ public class RendererFragment extends Fragment implements Observer
 				@Override
 				public void run()
 				{
-					showRenderer();
+					show();
 
 					TextView title = (TextView) a.findViewById(R.id.title);
 					TextView artist = (TextView) a.findViewById(R.id.artist);

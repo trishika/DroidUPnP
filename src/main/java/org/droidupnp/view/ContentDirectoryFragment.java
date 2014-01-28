@@ -56,8 +56,8 @@ import android.widget.TextView;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
-public class ContentDirectoryFragment extends ListFragment implements Observer {
-
+public class ContentDirectoryFragment extends ListFragment implements Observer
+{
 	private static final String TAG = "ContentDirectoryFragment";
 
 	private ArrayAdapter<DIDLObjectDisplay> contentList;
@@ -70,6 +70,20 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	static final String STATE_CONTENTDIRECTORY = "contentDirectory";
 	static final String STATE_TREE = "tree";
 	static final String STATE_CURRENT = "current";
+
+	/** This update the search visibility depending on current content directory capabilities */
+	public void updateSearchVisibility()
+	{
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					Main.setSearchVisibility(contentDirectoryCommand!=null && contentDirectoryCommand.isSearchAvailable());
+				}
+			});
+		}
+	}
 
 	private DeviceObserver deviceObserver;
 
@@ -356,6 +370,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 				}
 			});
 		}
+
+		// Update search visibility
+		updateSearchVisibility();
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{

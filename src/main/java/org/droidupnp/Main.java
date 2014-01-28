@@ -50,6 +50,8 @@ public class Main extends Activity
 	public static IUpnpServiceController upnpServiceController = null;
 	public static IFactory factory = null;
 
+	private static Menu actionBarMenu = null;
+
 	private DrawerFragment mDrawerFragment;
 	private CharSequence mTitle;
 
@@ -67,6 +69,17 @@ public class Main extends Activity
 		if(f != null)
 			return (RendererFragment) f;
 		return null;
+	}
+
+	public static void setSearchVisibility(boolean visibility)
+	{
+		if(actionBarMenu == null)
+			return;
+
+		MenuItem item = actionBarMenu.findItem(R.id.action_search);
+
+		if(item != null)
+			item.setVisible(visibility);
 	}
 
 	@Override
@@ -149,6 +162,7 @@ public class Main extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		actionBarMenu = menu;
 		restoreActionBar();
 		return true;
 	}
