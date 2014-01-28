@@ -22,7 +22,6 @@ package org.droidupnp;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
@@ -56,8 +55,7 @@ public class Main extends Activity
 
 	public ContentDirectoryFragment getContentDirectoryFragment()
 	{
-		FragmentManager fm = getFragmentManager();
-		Fragment f = fm.findFragmentById(R.id.ContentDirectoryFragment);
+		Fragment f = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
 		if(f != null)
 			return (ContentDirectoryFragment) f;
 		return null;
@@ -65,8 +63,7 @@ public class Main extends Activity
 
 	public RendererFragment getRenderer()
 	{
-		FragmentManager fm = getFragmentManager();
-		Fragment f = fm.findFragmentById(R.id.RendererFragment);
+		Fragment f = getFragmentManager().findFragmentById(R.id.RendererFragment);
 		if(f != null)
 			return (RendererFragment) f;
 		return null;
