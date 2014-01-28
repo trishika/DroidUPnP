@@ -28,6 +28,7 @@ import org.droidupnp.model.cling.didl.ClingDIDLParentContainer;
 import org.droidupnp.model.cling.didl.ClingImageItem;
 import org.droidupnp.model.cling.didl.ClingVideoItem;
 import org.droidupnp.model.upnp.IContentDirectoryCommand;
+import org.droidupnp.view.ContentDirectoryFragment;
 import org.droidupnp.view.DIDLObjectDisplay;
 import org.fourthline.cling.controlpoint.ControlPoint;
 import org.fourthline.cling.model.action.ActionInvocation;
@@ -35,6 +36,7 @@ import org.fourthline.cling.model.message.UpnpResponse;
 import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.model.types.UDAServiceType;
 import org.fourthline.cling.support.contentdirectory.callback.Browse;
+import org.fourthline.cling.support.contentdirectory.callback.Search;
 import org.fourthline.cling.support.model.BrowseFlag;
 import org.fourthline.cling.support.model.DIDLContent;
 import org.fourthline.cling.support.model.DIDLObject;
@@ -45,11 +47,9 @@ import org.fourthline.cling.support.model.item.ImageItem;
 import org.fourthline.cling.support.model.item.Item;
 import org.fourthline.cling.support.model.item.VideoItem;
 
-import android.app.Activity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import java.util.concurrent.Callable;
+import java.util.ArrayList;
 
 @SuppressWarnings("rawtypes")
 public class ContentDirectoryCommand implements IContentDirectoryCommand {
@@ -88,80 +88,62 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand {
 			return;
 	}
 
-	@Override
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID)
+	private ArrayList<DIDLObjectDisplay> buildContentList(String parent, DIDLContent didl)
 	{
-		browse(activity, contentList, directoryID, null, null);
+		ArrayList<DIDLObjectDisplay> list = new ArrayList<DIDLObjectDisplay>();
+
+		if (parent != null)
+			list.add(new DIDLObjectDisplay(new ClingDIDLParentContainer(parent)));
+
+		for (Container item : didl.getContainers())
+		{
+			list.add(new DIDLObjectDisplay(new ClingDIDLContainer(item)));
+			Log.v(TAG, "Add container : " + item.getTitle());
+		}
+
+		for (Item item : didl.getItems())
+		{
+			ClingDIDLItem clingItem = null;
+			if(item instanceof VideoItem)
+				clingItem = new ClingVideoItem((VideoItem)item);
+			else if(item instanceof AudioItem)
+				clingItem = new ClingAudioItem((AudioItem)item);
+			else if(item instanceof ImageItem)
+				clingItem = new ClingImageItem((ImageItem)item);
+			else
+				clingItem = new ClingDIDLItem(item);
+
+			list.add(new DIDLObjectDisplay(clingItem));
+			Log.v(TAG, "Add item : " + item.getTitle());
+
+			for (DIDLObject.Property p : item.getProperties())
+				Log.v(TAG, p.getDescriptorName() + " " + p.toString());
+		}
+
+		return list;
 	}
 
 	@Override
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-		final String parent)
-	{
-		browse(activity, contentList, directoryID, parent, null);
-	}
-
-	@Override
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-		final Callable<Void> callback)
-	{
-		browse(activity, contentList, directoryID, null, callback);
-	}
-
-	@Override
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-		final String parent, final Callable<Void> callback)
+	public void browse(String directoryID, final String parent, final ContentDirectoryFragment.ContentCallback callback)
 	{
 		if (getContentDirectoryService() == null)
 			return;
 
 		controlPoint.execute(new Browse(getContentDirectoryService(), directoryID, BrowseFlag.DIRECT_CHILDREN, "*", 0,
-				null, new SortCriterion(true, "dc:title")) {
+				null, new SortCriterion(true, "dc:title"))
+		{
 			@Override
 			public void received(ActionInvocation actionInvocation, final DIDLContent didl)
 			{
-				activity.runOnUiThread(new Runnable() {
-					@Override
-					public void run()
-					{
-						contentList.clear();
-
-						if (parent != null)
-							contentList.add(new DIDLObjectDisplay(new ClingDIDLParentContainer(parent)));
-
-						for (Container item : didl.getContainers())
-						{
-							contentList.add(new DIDLObjectDisplay(new ClingDIDLContainer(item)));
-							Log.v(TAG, "Add container : " + item.getTitle());
-						}
-
-						for (Item item : didl.getItems())
-						{
-							ClingDIDLItem clingItem = null;
-							if(item instanceof VideoItem)
-								clingItem = new ClingVideoItem((VideoItem)item);
-							else if(item instanceof AudioItem)
-								clingItem = new ClingAudioItem((AudioItem)item);
-							else if(item instanceof ImageItem)
-								clingItem = new ClingImageItem((ImageItem)item);
-							else
-								clingItem = new ClingDIDLItem(item);
-
-							contentList.add(new DIDLObjectDisplay(clingItem));
-							Log.v(TAG, "Add item : " + item.getTitle());
-
-							for (DIDLObject.Property p : item.getProperties())
-								Log.v(TAG, p.getDescriptorName() + " " + p.toString());
-						}
-
-						if(callback!=null)
-							try {
-								callback.call();
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
+				if(callback!=null)
+				{
+					try {
+						callback.setContent(buildContentList(parent, didl));
+						callback.call();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				});
+				}
 			}
 
 			@Override

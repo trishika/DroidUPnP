@@ -19,6 +19,7 @@
 
 package org.droidupnp.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -304,6 +305,41 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		}
 	}
 
+	public class ContentCallback extends RefreshCallback
+	{
+		private ArrayAdapter<DIDLObjectDisplay> contentList;
+		private ArrayList<DIDLObjectDisplay> content;
+
+		public ContentCallback(ArrayAdapter<DIDLObjectDisplay> contentList)
+		{
+			this.contentList = contentList;
+		}
+
+		public void setContent(ArrayList<DIDLObjectDisplay> content)
+		{
+			this.content = content;
+		}
+
+		public Void call() throws java.lang.Exception
+		{
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// Empty the list
+						contentList.clear();
+						// Fill the list
+						contentList.addAll(content);
+					}
+				});
+			}
+			// Refresh
+			return super.call();
+		}
+	}
+
+
 //	@UiThread
 	public synchronized void refresh()
 	{
@@ -323,16 +359,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
-			if(a!=null) {
-				a.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						// Clear display list
-						contentList.clear();
-					}
-				});
-			}
-
 			if (device != null)
 			{
 				Log.i(TAG, "Current content directory have been removed");
@@ -344,11 +370,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			final Collection<IUpnpDevice> upnpDevices = Main.upnpServiceController.getServiceListener()
 				.getFilteredDeviceList(new CallableContentDirectoryFilter());
 
+			ArrayList<DIDLObjectDisplay> list = new ArrayList<DIDLObjectDisplay>();
 			for (IUpnpDevice upnpDevice : upnpDevices)
-				contentList.add(new DIDLObjectDisplay(new DIDLDevice(upnpDevice)));
+				list.add(new DIDLObjectDisplay(new DIDLDevice(upnpDevice)));
 
-			try	{
-				(new RefreshCallback()).call();
+			try {
+				ContentCallback cc = new ContentCallback(contentList);
+				cc.setContent(list);
+				cc.call();
 			} catch (Exception e){e.printStackTrace();}
 
 			return;
@@ -371,7 +400,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			tree = new LinkedList<String>();
 
 			Log.i(TAG, "Browse root of a new device");
-			contentDirectoryCommand.browse(getActivity(), contentList, "0", new RefreshCallback()); // browse root
+			contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
 		}
 		else
 		{
@@ -379,12 +408,12 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			{
 				String parentID = (tree.size() > 0) ? tree.getLast() : null;
 				Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
-				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID, new RefreshCallback());
+				contentDirectoryCommand.browse(currentID, parentID, new ContentCallback(contentList));
 			}
 			else
 			{
 				Log.i(TAG, "Browse root");
-				contentDirectoryCommand.browse(getActivity(), contentList, "0", new RefreshCallback()); // browse root
+				contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
 			}
 		}
 	}
