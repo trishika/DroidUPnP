@@ -69,6 +69,28 @@ public class RendererFragment extends Fragment implements Observer
 		durationRemaining = true;
 	}
 
+	public RendererFragment getRenderer()
+	{
+		Fragment f = getFragmentManager().findFragmentById(R.id.RendererFragment);
+		if(f != null)
+			return (RendererFragment) f;
+		return null;
+	}
+
+	public void hideRenderer()
+	{
+		getActivity().findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+		getActivity().findViewById(R.id.separator).setVisibility(View.INVISIBLE);
+		getFragmentManager().beginTransaction().hide(getRenderer()).commit();
+	}
+
+	public void showRenderer()
+	{
+		getActivity().findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+		getActivity().findViewById(R.id.separator).setVisibility(View.VISIBLE);
+		getFragmentManager().beginTransaction().show(getRenderer()).commit();
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -79,6 +101,9 @@ public class RendererFragment extends Fragment implements Observer
 			Main.upnpServiceController.addSelectedRendererObserver(this);
 		else
 			Log.w(TAG, "upnpServiceController was not ready !!!");
+
+		// Initially hide renderer
+		hideRenderer();
 
 		Log.d(TAG, "Activity created");
 	}
@@ -134,6 +159,18 @@ public class RendererFragment extends Fragment implements Observer
 			{
 				Log.i(TAG, "Current renderer have been removed");
 				device = null;
+
+				final Activity a = getActivity();
+				if (a == null)
+					return;
+
+				a.runOnUiThread(new Runnable() {
+					@Override
+					public void run()
+					{
+						hideRenderer();
+					}
+				});
 			}
 			return;
 		}
@@ -176,6 +213,8 @@ public class RendererFragment extends Fragment implements Observer
 				@Override
 				public void run()
 				{
+					showRenderer();
+
 					TextView title = (TextView) a.findViewById(R.id.title);
 					TextView artist = (TextView) a.findViewById(R.id.artist);
 					SeekBar seek = (SeekBar) a.findViewById(R.id.progressBar);
