@@ -22,6 +22,7 @@ package org.droidupnp.view;
 import org.droidupnp.Main;
 import org.droidupnp.model.upnp.IUpnpDevice;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -89,16 +90,26 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment implements Ob
 	@Override
 	public void update(Observable observable, Object o)
 	{
-		IUpnpDevice device = Main.upnpServiceController.getSelectedRenderer();
-		if(device==null)
-		{
-			// Uncheck device
-			getListView().clearChoices();
-			list.notifyDataSetChanged();
-		}
-		else
-		{
-			addedDevice(device);
-		}
+		Activity a = getActivity();
+		if (a == null)
+			return;
+
+		a.runOnUiThread(new Runnable() {
+			@Override
+			public void run()
+			{
+				IUpnpDevice device = Main.upnpServiceController.getSelectedRenderer();
+				if (device == null)
+				{
+					// Uncheck device
+					getListView().clearChoices();
+					list.notifyDataSetChanged();
+				}
+				else
+				{
+					addedDevice(device);
+				}
+			}
+		});
 	}
 }
