@@ -34,8 +34,13 @@ upnp stack made in java and with an android support layer.
 Cling in licensed under the **LGPLv2**.
 Source code is available at [4thline.org](http://4thline.org/projects/cling/)
 
-DroidUPnP use also **NanoHttpd**. NanoHttpd is under a modify **BSD license**.
-Source code is available on [GitHub](https://github.com/NanoHttpd/nanohttpd).
+Other dependencies are :
+
+ * **NanoHttpd**, under a modify **BSD license**.
+   Source code is available on [GitHub](https://github.com/NanoHttpd/nanohttpd).
+
+ * **ActionBar-PullToRefresh**, under the **Apache License, Version 2.0**.
+   Source code is available on [GitHub](https://github.com/chrisbanes/ActionBar-PullToRefresh).
 
 Copying
 =======
