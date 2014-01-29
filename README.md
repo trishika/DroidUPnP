@@ -2,11 +2,14 @@
 Description
 ===========
 
-DroidUPnP is an upnp control point application for android.
-DroidUPnP discover your home UPnP device, content provider,
-connected television or any device controllable by UPnP
-and allow you to control those.
-It also allow you to share your local content to other UPnP capable device.
+DroidUPnP is an UPnP control point application for android.
+
+DroidUPnP discover your home UPnP device, content provider and renderer.
+It allow you to browse your UPnP content directory, select the media you want
+to use and allow you to play it on your connected television or any UPnP renderer
+compatible device.
+
+It also allow you to use your android device as a UPnP content provider.
 
 It is licensed under the **GPLv3**.
 
