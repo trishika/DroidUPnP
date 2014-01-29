@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,53 +19,74 @@
 
 package org.droidupnp;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Observer;
-
-import org.droidupnp.controller.upnp.IUpnpServiceController;
-import org.droidupnp.model.upnp.IFactory;
-import org.droidupnp.view.ContentDirectoryFragment;
-import org.droidupnp.view.DeviceFragment;
-import org.droidupnp.view.RendererFragment;
-import org.droidupnp.view.ServiceDiscoveryFragment;
-import org.droidupnp.view.SettingsActivity;
-
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.ActionBar;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+import android.support.v4.widget.DrawerLayout;
 
-public class Main extends Activity {
+import org.droidupnp.controller.upnp.IUpnpServiceController;
+import org.droidupnp.model.upnp.IFactory;
+import org.droidupnp.view.ContentDirectoryFragment;
+import org.droidupnp.view.RendererFragment;
+import org.droidupnp.view.SettingsActivity;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Observer;
+
+public class Main extends Activity
+{
 	private static final String TAG = "Main";
-	private static final boolean DISCOVERY_TAB = false;
-	private static final String STATE_SELECTEDTAB = "selectedTab";
-	private int tab = 0;
 
 	// Controller
 	public static IUpnpServiceController upnpServiceController = null;
 	public static IFactory factory = null;
 
+	private static Menu actionBarMenu = null;
+
+	private DrawerFragment mDrawerFragment;
+	private CharSequence mTitle;
+
+	public ContentDirectoryFragment getContentDirectoryFragment()
+	{
+		Fragment f = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
+		if(f != null)
+			return (ContentDirectoryFragment) f;
+		return null;
+	}
+
+	public RendererFragment getRenderer()
+	{
+		Fragment f = getFragmentManager().findFragmentById(R.id.RendererFragment);
+		if(f != null)
+			return (RendererFragment) f;
+		return null;
+	}
+
+	public static void setSearchVisibility(boolean visibility)
+	{
+		if(actionBarMenu == null)
+			return;
+
+		MenuItem item = actionBarMenu.findItem(R.id.action_search);
+
+		if(item != null)
+			item.setVisible(visibility);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.activity_main);
 
 		Log.d(TAG, "onCreated : " + savedInstanceState + factory + upnpServiceController);
 
@@ -90,102 +111,68 @@ public class Main extends Activity {
 		else
 			Log.w(TAG, "No rendererFragment yet !");
 
-		// View
-		final ActionBar bar = getActionBar();
+		mDrawerFragment = (DrawerFragment)
+				getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mTitle = getTitle();
 
-		bar.setDisplayShowHomeEnabled(false);
-		bar.setDisplayShowTitleEnabled(false);
-
-		if (savedInstanceState != null)
-			tab = savedInstanceState.getInt(STATE_SELECTEDTAB);
-		else
-			tab = 0;
+		// Set up the drawer.
+		mDrawerFragment.setUp(
+				R.id.navigation_drawer,
+				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle savedInstanceState)
+	public void onDestroy()
 	{
-		Log.i(TAG, "Save instance");
-		savedInstanceState.putInt(STATE_SELECTEDTAB, tab);
-		super.onSaveInstanceState(savedInstanceState);
-	}
-
-	@Override
-	public void onPause()
-	{
-		Log.i(TAG, "onPause");
-		tab = getActionBar().getSelectedNavigationIndex();
-		getActionBar().removeAllTabs(); // Clear tab onPause, to avoid bug due to use of nested fragment
-		upnpServiceController.pause();
-		upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
-		super.onPause();
+		super.onDestroy();
 	}
 
 	@Override
 	public void onResume()
 	{
 		Log.i(TAG, "onResume");
-
 		upnpServiceController.resume(this);
-
-		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL)
-		{
-			final ActionBar bar = getActionBar();
-
-			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-			bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-//			bar.setDisplayHomeAsUpEnabled(true);
-			bar.addTab(bar
-					.newTab()
-					.setText(getString(R.string.renderer))
-					.setTabListener(
-							new TabListener<RendererFragment>(this, getString(R.string.renderer),
-									RendererFragment.class)));
-
-			bar.addTab(bar
-					.newTab()
-					.setText(getString(R.string.browser))
-					.setTabListener(
-							new TabListener<ContentDirectoryFragment>(this, getString(R.string.browser),
-									ContentDirectoryFragment.class)));
-
-			bar.addTab(bar
-					.newTab()
-					.setText(getString(R.string.device))
-					.setTabListener(
-							new TabListener<DeviceFragment>(this, getString(R.string.device), DeviceFragment.class)));
-
-			if (DISCOVERY_TAB)
-				bar.addTab(bar
-						.newTab()
-						.setText(getString(R.string.discovery))
-						.setTabListener(
-								new TabListener<ServiceDiscoveryFragment>(this, getString(R.string.discovery),
-										ServiceDiscoveryFragment.class)));
-
-			bar.setSelectedNavigationItem(tab);
-		}
-
 		super.onResume();
 	}
 
 	@Override
-	protected void onDestroy()
+	public void onPause()
 	{
-		Log.i(TAG, "Destroy");
-		super.onDestroy();
+		Log.i(TAG, "onPause");
+		upnpServiceController.pause();
+		upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
+		super.onPause();
+	}
+
+	public void refresh()
+	{
+		upnpServiceController.getServiceListener().refresh();
+		ContentDirectoryFragment cd = getContentDirectoryFragment();
+		if(cd!=null)
+			cd.refresh();
+	}
+
+	public void restoreActionBar() {
+		ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle(mTitle);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		actionBarMenu = menu;
+		restoreActionBar();
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+
 		// Handle item selection
 		switch (item.getItemId())
 		{
@@ -201,83 +188,16 @@ public class Main extends Activity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+	public void onBackPressed()
 	{
-		super.onCreateContextMenu(menu, v, menuInfo);
-		@SuppressWarnings("unused")
-		MenuInflater inflater = getMenuInflater();
-		// inflater.inflate(R.menu.context_menu, menu);
-	}
-
-	public void refresh()
-	{
-		upnpServiceController.getServiceListener().refresh();
-	}
-
-	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
-
-		private final Activity mActivity;
-		private final String mTag;
-		private final Class<T> mClass;
-		private final Bundle mArgs;
-		private Fragment mFragment;
-
-		public TabListener(Activity activity, String tag, Class<T> clz)
-		{
-			this(activity, tag, clz, null);
-		}
-
-		public TabListener(Activity activity, String tag, Class<T> clz, Bundle args)
-		{
-			mActivity = activity;
-			mTag = tag;
-			mClass = clz;
-			mArgs = args;
-
-			// Check to see if we already have a fragment for this tab, probably
-			// from a previously saved state. If so, deactivate it, because our
-			// initial state is that a tab isn't shown.
-			mFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
-			if (mFragment != null && !mFragment.isDetached())
-			{
-				FragmentTransaction ft = mActivity.getFragmentManager().beginTransaction();
-				ft.detach(mFragment);
-				ft.commit();
-			}
-		}
-
-		@Override
-		public void onTabSelected(Tab tab, FragmentTransaction ft)
-		{
-			if (mFragment == null)
-			{
-				mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
-				ft.add(android.R.id.content, mFragment, mTag);
-			}
-			else
-			{
-				ft.attach(mFragment);
-			}
-		}
-
-		@Override
-		public void onTabUnselected(Tab tab, FragmentTransaction ft)
-		{
-			if (mFragment != null)
-			{
-				ft.detach(mFragment);
-			}
-		}
-
-		@Override
-		public void onTabReselected(Tab tab, FragmentTransaction ft)
-		{
-			// Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
-		}
+		ContentDirectoryFragment cd = getContentDirectoryFragment();
+		if(cd!=null)
+			if (cd.goBack())
+				super.onBackPressed();
 	}
 
 	public static InetAddress getLocalIpAddress(Context ctx) throws UnknownHostException

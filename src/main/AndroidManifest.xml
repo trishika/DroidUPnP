@@ -19,12 +19,12 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.droidupnp"
-    android:versionCode="7"
-    android:versionName="1.1.1" >
+    android:versionCode="9"
+    android:versionName="2.0.0a2" >
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -36,7 +36,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@drawable/logo"
-        android:theme="@style/AppThemeHolo" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="org.droidupnp.Main"
             android:label="@string/app_name" >

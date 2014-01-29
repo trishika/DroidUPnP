@@ -19,6 +19,9 @@
 -->
 <resources>
 
+	<string name="navigation_drawer_open">Open device list</string>
+	<string name="navigation_drawer_close">Close device list</string>
+
 	<!-- General -->
 	<string name="app_name">DroidUPnP</string>
 	<string name="app_url">https://github.com/trishika/DroidUPnP</string>
@@ -36,6 +39,7 @@
 	<string name="menu_about">About</string>
 	<string name="menu_refresh">Refresh</string>
 	<string name="menu_quit">Quit</string>
+	<string name="menu_search">Search</string>
 
 	<!-- Option -->
 	<string name="pref_contentdirectory_title">Content Directory</string>
@@ -57,6 +61,7 @@
 	<string name="searchingLAN">Searching UPnP devices...</string>
 	<string name="loading">Loading...</string>
 	<string name="selectRenderer">Select a Renderer</string>
+	<string name="noRenderer">There is no renderer available</string>
 	<string name="selectContentDirectory">Select a Content directory</string>
 
 	<!-- Now Playing -->
@@ -112,6 +117,12 @@
 		<![CDATA[
 		<p>DroidUPnP use <b>NanoHttpd</b>. NanoHttpd is under a modify BSD license.
 		Source code is available on <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
+		]]>
+	</string>
+	<string name="about_pulltorefresh">
+		<![CDATA[
+		<p>DroidUPnP use <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh is underthe Apache License, Version 2.0.
+		Source code is available on <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
 		]]>
 	</string>
 

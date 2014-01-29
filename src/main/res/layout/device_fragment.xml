@@ -20,10 +20,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/device_fragment"
-	android:baselineAligned="false"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent" >
+	android:drawSelectorOnTop="false"
+	style="@style/drawer"
+	tools:context="org.droidupnp.DrawerFragment" >
 
 	<fragment
 		android:id="@+id/ContentDirectoryDeviceFragment"

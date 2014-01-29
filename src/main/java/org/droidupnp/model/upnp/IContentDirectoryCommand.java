@@ -19,16 +19,13 @@
 
 package org.droidupnp.model.upnp;
 
-import org.droidupnp.view.DIDLObjectDisplay;
+import org.droidupnp.view.ContentDirectoryFragment;
 
-import android.app.Activity;
-import android.widget.ArrayAdapter;
+public interface IContentDirectoryCommand
+{
+	public void browse(String directoryID, final String parent, final ContentDirectoryFragment.ContentCallback callback);
 
-public interface IContentDirectoryCommand {
+	public void search(String search, final String parent, final ContentDirectoryFragment.ContentCallback callback);
 
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID);
-
-	public void browse(final Activity activity, final ArrayAdapter<DIDLObjectDisplay> contentList, String directoryID,
-			final String parent);
-
+	public boolean isSearchAvailable();
 }

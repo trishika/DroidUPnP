@@ -19,33 +19,50 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<color name="black_background">#1A1A1A</color>
-	<color name="black_windows_background">#232323</color>
-	<color name="blue_text">#1E90FF</color>
+	<color name="blue">#379293</color>
+	<color name="blue_trans">#77379293</color>
+	<color name="grey">#DDDDDD</color>
+	<color name="greyer">#CCCCCC</color>
 
-	<style name="AppThemeHolo" parent="android:Theme.Holo">
-		<item name="android:windowBackground">@color/black_windows_background</item>
-		<item name="android:colorBackground">@color/black_background</item>
+	<drawable name="play">@drawable/ic_action_play</drawable>
+	<drawable name="pause">@drawable/ic_action_pause</drawable>
+	<drawable name="stop">@drawable/ic_action_stop</drawable>
+	<drawable name="volume">@drawable/ic_action_volume_on</drawable>
+	<drawable name="volume_mute">@drawable/ic_action_volume_muted</drawable>
+
+	<!-- Drawer style -->
+	<style name="drawer">
+		<item name="android:background">?android:attr/colorBackground</item>
 	</style>
 
-	<style name="AppTextView" parent="android:style/Widget.TextView">
-		<item name="android:textColor">@color/blue_text</item>
-		<item name="android:textSize">18sp</item>
+	<!-- Content directory style -->
+	<style name="contentdirectory">
+		<item name="android:background">@color/grey</item>
+	</style>
+
+	<!-- Renderer style -->
+	<style name="renderer">
+		<item name="android:background">?android:attr/colorBackground</item>
+	</style>
+
+	<!-- Content browsing duration/count style -->
+	<style name="CountText" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/blue</item>
 		<item name="android:textStyle">bold</item>
 	</style>
 
-	<drawable name="play">@drawable/av_play</drawable>
-	<drawable name="pause">@drawable/av_pause</drawable>
-	<drawable name="stop">@drawable/av_stop</drawable>
-	<drawable name="next">@drawable/av_next</drawable>
-	<drawable name="previous">@drawable/av_previous</drawable>
-	<drawable name="shuffle">@drawable/av_shuffle</drawable>
-	<drawable name="repeat">@drawable/av_repeat</drawable>
-	<drawable name="volume">@drawable/device_access_volume_on</drawable>
-	<drawable name="volume_mute">@drawable/device_access_volume_muted</drawable>
-
-	<style name="AppThemeLight" parent="android:Theme.Holo.Light">
-
+	<!-- Pull to refresh style -->
+	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
+		<item name="ptrProgressBarColor">@color/blue</item>
 	</style>
+
+	<!-- The light theme -->
+	<style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar" />
+
+	<!-- Style selection -->
+	<style name="AppTheme" parent="AppThemeLight">
+		<item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
+	</style>>
+
 
 </resources>

@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,13 +19,19 @@
 
 package org.droidupnp.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.Callable;
 
 import org.droidupnp.Main;
+import org.droidupnp.R;
+import org.droidupnp.model.upnp.IDeviceDiscoveryObserver;
+import org.droidupnp.model.upnp.didl.DIDLDevice;
+import org.droidupnp.model.upnp.CallableContentDirectoryFilter;
 import org.droidupnp.model.upnp.IContentDirectoryCommand;
 import org.droidupnp.model.upnp.IRendererCommand;
 import org.droidupnp.model.upnp.IUpnpDevice;
@@ -34,15 +40,24 @@ import org.droidupnp.model.upnp.didl.IDIDLItem;
 import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
+import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class ContentDirectoryFragment extends ListFragment implements Observer {
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 
+public class ContentDirectoryFragment extends ListFragment implements Observer
+{
 	private static final String TAG = "ContentDirectoryFragment";
 
 	private ArrayAdapter<DIDLObjectDisplay> contentList;
@@ -56,14 +71,93 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	static final String STATE_TREE = "tree";
 	static final String STATE_CURRENT = "current";
 
+	/** This update the search visibility depending on current content directory capabilities */
+	public void updateSearchVisibility()
+	{
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					Main.setSearchVisibility(contentDirectoryCommand!=null && contentDirectoryCommand.isSearchAvailable());
+				}
+			});
+		}
+	}
+
+	private DeviceObserver deviceObserver;
+
+	public class DeviceObserver implements IDeviceDiscoveryObserver
+	{
+		ContentDirectoryFragment cdf;
+
+		public DeviceObserver(ContentDirectoryFragment cdf){
+			this.cdf = cdf;
+		}
+
+		@Override
+		public void addedDevice(IUpnpDevice device) {
+			if(Main.upnpServiceController.getSelectedContentDirectory() == null)
+				cdf.update();
+		}
+
+		@Override
+		public void removedDevice(IUpnpDevice device) {
+			if(Main.upnpServiceController.getSelectedContentDirectory() == null)
+				cdf.update();
+		}
+	}
+
+	public class CustomAdapter extends ArrayAdapter<DIDLObjectDisplay>
+	{
+		private final int layout;
+		private LayoutInflater inflater;
+
+		public CustomAdapter(Context context) {
+			super(context, 0);
+			this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			this.layout = R.layout.browsing_list_item;
+		}
+
+//		@ViewById
+//		TextView text1;
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			if (convertView == null)
+				convertView = inflater.inflate(layout, null);
+
+			// Item
+			final DIDLObjectDisplay entry = getItem(position);
+
+			ImageView imageView = (ImageView) convertView.findViewById(R.id.icon);
+			imageView.setImageResource(entry.getIcon());
+
+			TextView text1 = (TextView) convertView.findViewById(R.id.text1);
+			text1.setText(entry.getTitle());
+
+			TextView text2 = (TextView) convertView.findViewById(R.id.text2);
+			text2.setText(entry.getDescription());
+
+			TextView text3 = (TextView) convertView.findViewById(R.id.text3);
+			text3.setText(entry.getCount());
+
+			return convertView;
+		}
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		contentList = new ArrayAdapter<DIDLObjectDisplay>(this.getView().getContext(),
-				android.R.layout.simple_list_item_1);
+		contentList = new CustomAdapter(this.getView().getContext());
+
 		setListAdapter(contentList);
+
+		deviceObserver = new DeviceObserver(this);
+		Main.upnpServiceController.getContentDirectoryDiscovery().addObserver(deviceObserver);
 
 		// Listen to content directory change
 		if (Main.upnpServiceController != null)
@@ -72,10 +166,10 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			Log.w(TAG, "upnpServiceController was not ready !!!");
 
 		if (savedInstanceState != null
-				&& savedInstanceState.getStringArray(STATE_TREE) != null
-				&& Main.upnpServiceController.getSelectedContentDirectory() != null
-				&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
-						.compareTo(savedInstanceState.getString(STATE_CONTENTDIRECTORY)))
+			&& savedInstanceState.getStringArray(STATE_TREE) != null
+			&& Main.upnpServiceController.getSelectedContentDirectory() != null
+			&& 0 == Main.upnpServiceController.getSelectedContentDirectory().getUID()
+			.compareTo(savedInstanceState.getString(STATE_CONTENTDIRECTORY)))
 		{
 			Log.i(TAG, "Restore previews state");
 
@@ -88,9 +182,53 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		}
 
 		Log.i(TAG, "Force refresh");
-		refresh(true);
+		refresh();
 
 		Log.d(TAG, "Activity created");
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		Log.i(TAG, "onDestroy");
+		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
+		Main.upnpServiceController.getContentDirectoryDiscovery().removeObserver(deviceObserver);
+	}
+
+	private PullToRefreshLayout mPullToRefreshLayout;
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		// This is the View which is created by ListFragment
+		ViewGroup viewGroup = (ViewGroup) view;
+
+		view.setBackgroundColor(getResources().getColor(R.color.grey));
+
+		// We need to create a PullToRefreshLayout manually
+		mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
+
+		// We can now setup the PullToRefreshLayout
+		ActionBarPullToRefresh.from(getActivity())
+			.insertLayoutInto(viewGroup)
+			.theseChildrenArePullable(getListView(), getListView().getEmptyView())
+			.listener(new uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener() {
+				@Override
+				public void onRefreshStarted(View view) {
+					refresh();
+				}
+			})
+			.setup(mPullToRefreshLayout);
+	}
+
+	@Override
+	public void onDestroyView()
+	{
+		mPullToRefreshLayout.setRefreshComplete();
+		super.onDestroyView();
 	}
 
 	@Override
@@ -102,7 +240,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			return;
 
 		savedInstanceState.putString(STATE_CONTENTDIRECTORY, Main.upnpServiceController.getSelectedContentDirectory()
-				.getUID());
+			.getUID());
 
 		if (tree != null)
 		{
@@ -134,12 +272,29 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		super.onPause();
 	}
 
-	@Override
-	public void onDestroy()
+	public Boolean goBack()
 	{
-		Log.i(TAG, "onDestroy");
-		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
-		super.onDestroy();
+		if(tree == null || tree.isEmpty())
+		{
+			if(Main.upnpServiceController.getSelectedContentDirectory() != null)
+			{
+				// Back on device root, unselect device
+				Main.upnpServiceController.setSelectedContentDirectory(null);
+				return false;
+			}
+			else
+			{
+				// Already at the upper level
+				return true;
+			}
+		}
+		else
+		{
+			// Go back in browsing
+			currentID = tree.pop();
+			update();
+			return false;
+		}
 	}
 
 	public void printCurrentContentDirectoryInfo()
@@ -148,14 +303,76 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		Main.upnpServiceController.getSelectedContentDirectory().printService();
 	}
 
-	public void refresh()
-	{
-		refresh(false);
+	public class RefreshCallback implements Callable<Void> {
+		public Void call() throws java.lang.Exception {
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						setListShown(true);
+						mPullToRefreshLayout.setRefreshComplete();
+					}
+				});
+			}
+			return null;
+		}
 	}
 
-	public void refresh(boolean force)
+	public class ContentCallback extends RefreshCallback
 	{
-		Log.d(TAG, "refresh " + force);
+		private ArrayAdapter<DIDLObjectDisplay> contentList;
+		private ArrayList<DIDLObjectDisplay> content;
+
+		public ContentCallback(ArrayAdapter<DIDLObjectDisplay> contentList)
+		{
+			this.contentList = contentList;
+		}
+
+		public void setContent(ArrayList<DIDLObjectDisplay> content)
+		{
+			this.content = content;
+		}
+
+		public Void call() throws java.lang.Exception
+		{
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// Empty the list
+						contentList.clear();
+						// Fill the list
+						contentList.addAll(content);
+					}
+				});
+			}
+			// Refresh
+			return super.call();
+		}
+	}
+
+
+//	@UiThread
+	public synchronized void refresh()
+	{
+		Log.d(TAG, "refresh");
+
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					setListShown(false);
+					mPullToRefreshLayout.setRefreshComplete();
+					mPullToRefreshLayout.setRefreshing(true);
+				}
+			});
+		}
+
+		// Update search visibility
+		updateSearchVisibility();
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
@@ -163,19 +380,23 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			{
 				Log.i(TAG, "Current content directory have been removed");
 				device = null;
-
-				if (getActivity() != null) // Visible
-					getActivity().runOnUiThread(new Runnable() {
-						@Override
-						public void run()
-						{
-							// Clear display list
-							contentList.clear();
-						}
-					});
-
 				tree = null;
 			}
+
+			// Fill with the content directory list
+			final Collection<IUpnpDevice> upnpDevices = Main.upnpServiceController.getServiceListener()
+				.getFilteredDeviceList(new CallableContentDirectoryFilter());
+
+			ArrayList<DIDLObjectDisplay> list = new ArrayList<DIDLObjectDisplay>();
+			for (IUpnpDevice upnpDevice : upnpDevices)
+				list.add(new DIDLObjectDisplay(new DIDLDevice(upnpDevice)));
+
+			try {
+				ContentCallback cc = new ContentCallback(contentList);
+				cc.setContent(list);
+				cc.call();
+			} catch (Exception e){e.printStackTrace();}
+
 			return;
 		}
 
@@ -191,21 +412,26 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 			device = Main.upnpServiceController.getSelectedContentDirectory();
 
 			Log.i(TAG, "Content directory changed !!! "
-					+ Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
+				+ Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
 
 			tree = new LinkedList<String>();
 
-			contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
+			Log.i(TAG, "Browse root of a new device");
+			contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
 		}
-		else if (force || contentList.isEmpty())
+		else
 		{
-			if (tree.size() > 0)
+			if (tree != null && tree.size() > 0)
 			{
 				String parentID = (tree.size() > 0) ? tree.getLast() : null;
-				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+				Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
+				contentDirectoryCommand.browse(currentID, parentID, new ContentCallback(contentList));
 			}
 			else
-				contentDirectoryCommand.browse(getActivity(), contentList, "0"); // browse root
+			{
+				Log.i(TAG, "Browse root");
+				contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
+			}
 		}
 	}
 
@@ -215,36 +441,38 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		super.onListItemClick(l, v, position, id);
 
 		IDIDLObject didl = contentList.getItem(position).getDIDLObject();
-		String parentID = null;
 
-		try
-		{
-			if (didl instanceof IDIDLContainer)
+		try {
+			if(didl instanceof DIDLDevice)
 			{
-				// Browsing
+				Main.upnpServiceController.setSelectedContentDirectory( ((DIDLDevice)didl).getDevice(), false );
+
+				// Refresh display
+				refresh();
+			}
+			else if (didl instanceof IDIDLContainer)
+			{
+				// Update position
 				if (didl instanceof IDIDLParentContainer)
 				{
 					currentID = tree.pop();
-					parentID = (tree.size() > 0) ? tree.getLast() : null;
 				}
 				else
 				{
 					currentID = didl.getId();
-					parentID = didl.getParentID();
+					String parentID = didl.getParentID();
 					tree.push(parentID);
 				}
 
-				Log.d(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
-				contentDirectoryCommand.browse(getActivity(), contentList, currentID, parentID);
+				// Refresh display
+				refresh();
 			}
 			else if (didl instanceof IDIDLItem)
 			{
 				// Launch item
 				launchURI((IDIDLItem) didl);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.e(TAG, "Unable to finish action after item click");
 			e.printStackTrace();
 		}
@@ -255,25 +483,23 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 		if (Main.upnpServiceController.getSelectedRenderer() == null)
 		{
 			// No renderer selected yet, open a popup to select one
-			getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run()
-				{
-					RendererDialog rendererDialog = new RendererDialog();
-					rendererDialog.setCallback(new Callable<Void>() {
-
-						@Override
-						public Void call() throws Exception
-						{
-							launchURIRenderer(uri);
-							return null;
-						}
-					});
-
-					rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
-				}
-			});
-
+			final Activity a = getActivity();
+			if(a!=null) {
+				a.runOnUiThread(new Runnable(){
+					@Override
+					public void run() {
+						RendererDialog rendererDialog = new RendererDialog();
+						rendererDialog.setCallback(new Callable<Void>() {
+							@Override
+							public Void call() throws Exception {
+								launchURIRenderer(uri);
+								return null;
+							}
+						});
+						rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
+					}
+				});
+			}
 		}
 		else
 		{
@@ -293,6 +519,19 @@ public class ContentDirectoryFragment extends ListFragment implements Observer {
 	public void update(Observable observable, Object data)
 	{
 		Log.i(TAG, "ContentDirectory have changed");
-		refresh();
+		update();
+	}
+
+	public void update()
+	{
+		final Activity a = getActivity();
+		if(a!=null) {
+			a.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					refresh();
+				}
+			});
+		}
 	}
 }

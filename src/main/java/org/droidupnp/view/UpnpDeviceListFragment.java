@@ -116,7 +116,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 	@Override
 	public void addedDevice(IUpnpDevice device)
 	{
-		Log.i(TAG, "New device detected : " + device.getDisplayString());
+		Log.v(TAG, "New device detected : " + device.getDisplayString());
 
 		final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
 
@@ -125,7 +125,6 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 				@Override
 				public void run()
 				{
-
 					int position = list.getPosition(d);
 					if (position >= 0)
 					{
@@ -151,7 +150,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 	@Override
 	public void removedDevice(IUpnpDevice device)
 	{
-		Log.i(TAG, "Device removed : " + device.getFriendlyName());
+		Log.v(TAG, "Device removed : " + device.getFriendlyName());
 
 		final DeviceDisplay d = new DeviceDisplay(device, extendedInformation);
 

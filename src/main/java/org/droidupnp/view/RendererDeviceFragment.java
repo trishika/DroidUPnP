@@ -22,12 +22,16 @@ package org.droidupnp.view;
 import org.droidupnp.Main;
 import org.droidupnp.model.upnp.IUpnpDevice;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-public class RendererDeviceFragment extends UpnpDeviceListFragment {
+import java.util.Observable;
+import java.util.Observer;
+
+public class RendererDeviceFragment extends UpnpDeviceListFragment implements Observer {
 
 	protected static final String TAG = "RendererDeviceFragment";
 
@@ -41,6 +45,7 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	{
 		super.onActivityCreated(savedInstanceState);
 		Main.upnpServiceController.getRendererDiscovery().addObserver(this);
+		Main.upnpServiceController.addSelectedRendererObserver(this);
 		Log.d(TAG, "onActivityCreated");
 	}
 
@@ -49,6 +54,7 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 	{
 		super.onDestroy();
 		Main.upnpServiceController.getRendererDiscovery().removeObserver(this);
+		Main.upnpServiceController.delSelectedRendererObserver(this);
 		Log.d(TAG, "onDestroy");
 	}
 
@@ -79,5 +85,31 @@ public class RendererDeviceFragment extends UpnpDeviceListFragment {
 		super.onListItemClick(l, v, position, id);
 		select(list.getItem(position).getDevice());
 		Log.d(TAG, "Set renderer to " + list.getItem(position));
+	}
+
+	@Override
+	public void update(Observable observable, Object o)
+	{
+		Activity a = getActivity();
+		if (a == null)
+			return;
+
+		a.runOnUiThread(new Runnable() {
+			@Override
+			public void run()
+			{
+				IUpnpDevice device = Main.upnpServiceController.getSelectedRenderer();
+				if (device == null)
+				{
+					// Uncheck device
+					getListView().clearChoices();
+					list.notifyDataSetChanged();
+				}
+				else
+				{
+					addedDevice(device);
+				}
+			}
+		});
 	}
 }

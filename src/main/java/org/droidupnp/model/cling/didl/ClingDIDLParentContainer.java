@@ -31,6 +31,12 @@ public class ClingDIDLParentContainer extends ClingDIDLObject implements IDIDLPa
 	}
 
 	@Override
+	public String getTitle()
+	{
+		return "..";
+	}
+
+	@Override
 	public int getChildCount()
 	{
 		return 0;

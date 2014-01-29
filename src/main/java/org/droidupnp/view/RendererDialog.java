@@ -32,24 +32,37 @@ public class RendererDialog extends DialogFragment {
 		for (IUpnpDevice upnpDevice : upnpDevices)
 			list.add(new DeviceDisplay(upnpDevice));
 
-		ArrayAdapter<DeviceDisplay> rendererList = new ArrayAdapter<DeviceDisplay>(getActivity(),
+		final DialogFragment dialog = this;
+
+		if(list.size()==0)
+		{
+			builder.setTitle(R.string.selectRenderer)
+				.setMessage(R.string.noRenderer)
+				.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				});
+		}
+		else
+		{
+			ArrayAdapter<DeviceDisplay> rendererList = new ArrayAdapter<DeviceDisplay>(getActivity(),
 				android.R.layout.simple_list_item_1, list);
-		builder.setTitle(R.string.selectRenderer).setAdapter(rendererList, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				Main.upnpServiceController.setSelectedRenderer((IUpnpDevice) upnpDevices.toArray()[which]);
-				try
-				{
-					if (callback != null)
-						callback.call();
+			builder.setTitle(R.string.selectRenderer).setAdapter(rendererList, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Main.upnpServiceController.setSelectedRenderer((IUpnpDevice) upnpDevices.toArray()[which]);
+					try {
+						if (callback != null)
+							callback.call();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		});
+			});
+		}
 		return builder.create();
 	}
 

@@ -63,7 +63,7 @@ public abstract class DeviceDiscovery {
 		@Override
 		public void deviceAdded(final IUpnpDevice device)
 		{
-			Log.i(TAG, "New device detected : " + device.getDisplayString());
+			Log.v(TAG, "New device detected : " + device.getDisplayString());
 
 			if (device.isFullyHydrated() && filter(device))
 			{
@@ -80,7 +80,7 @@ public abstract class DeviceDiscovery {
 		@Override
 		public void deviceRemoved(final IUpnpDevice device)
 		{
-			Log.i(TAG, "Device removed : " + device.getFriendlyName());
+			Log.v(TAG, "Device removed : " + device.getFriendlyName());
 
 			if (filter(device))
 			{

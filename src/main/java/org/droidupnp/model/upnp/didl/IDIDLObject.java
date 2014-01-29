@@ -23,7 +23,11 @@ public interface IDIDLObject {
 
 	public String getTitle();
 
-	public String getArtist();
+	public String getDescription();
+
+	public String getCount();
+
+	public int getIcon();
 
 	public String getParentID();
 

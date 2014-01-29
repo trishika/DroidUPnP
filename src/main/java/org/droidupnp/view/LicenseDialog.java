@@ -71,6 +71,13 @@ public class LicenseDialog extends DialogFragment {
 			textView.setText(Html.fromHtml(getString(R.string.about_nanohttpd)));
 		}
 
+		textView = (TextView) d.findViewById(R.id.about_pulltorefresh);
+		if (textView != null)
+		{
+			textView.setMovementMethod(LinkMovementMethod.getInstance());
+			textView.setText(Html.fromHtml(getString(R.string.about_pulltorefresh)));
+		}
+
 		return d;
 	}
 }

@@ -24,6 +24,8 @@ import org.fourthline.cling.support.model.DIDLObject;
 
 public class ClingDIDLObject implements IDIDLObject {
 
+	private static final String TAG = "ClingDIDLObject";
+
 	protected DIDLObject item;
 
 	public ClingDIDLObject(DIDLObject item)
@@ -43,9 +45,21 @@ public class ClingDIDLObject implements IDIDLObject {
 	}
 
 	@Override
-	public String getArtist()
+	public String getDescription()
 	{
-		return item.getCreator();
+		return "";
+	}
+
+	@Override
+	public String getCount()
+	{
+		return "";
+	}
+
+	@Override
+	public int getIcon()
+	{
+		return android.R.color.transparent;
 	}
 
 	@Override
@@ -59,5 +73,4 @@ public class ClingDIDLObject implements IDIDLObject {
 	{
 		return item.getId();
 	}
-
 }
