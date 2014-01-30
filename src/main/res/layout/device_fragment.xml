@@ -32,13 +32,15 @@
 		android:name="org.droidupnp.view.ContentDirectoryDeviceFragment"
 		android:layout_weight="1"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" />
+		android:layout_height="fill_parent"
+		tools:layout="@layout/sub_device_fragment"/>
 
 	<fragment
 		android:id="@+id/RendererDeviceFragment"
 		android:name="org.droidupnp.view.RendererDeviceFragment"
 		android:layout_weight="1"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" />
+		android:layout_height="fill_parent"
+		tools:layout="@layout/sub_device_fragment"/>
 
 </LinearLayout>
