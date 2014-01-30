@@ -58,6 +58,8 @@ public class ImageContainer extends DynamicContainer
 			MediaStore.Images.Media.DATA,
 			MediaStore.Images.Media.MIME_TYPE,
 			MediaStore.Images.Media.SIZE,
+			MediaStore.Images.Media.HEIGHT,
+			MediaStore.Images.Media.WIDTH,
 		};
 
 		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
@@ -70,6 +72,8 @@ public class ImageContainer extends DynamicContainer
 				String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
 				String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.MIME_TYPE));
 				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE));
+				long height = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT));
+				long width = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH));
 
 				String extension = "";
 				int dot = filePath.lastIndexOf('.');
@@ -78,6 +82,7 @@ public class ImageContainer extends DynamicContainer
 
 				Res res = new Res(new MimeType(mimeType.substring(0, mimeType.indexOf('/')),
 						mimeType.substring(mimeType.indexOf('/') + 1)), size, "http://" + baseURL + "/" + id + extension);
+				res.setResolution((int)width, (int)height);
 
 				addItem(new ImageItem(id, parentID, title, "", res));
 

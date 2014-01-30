@@ -62,6 +62,8 @@ public class VideoContainer extends DynamicContainer
 			MediaStore.Video.Media.MIME_TYPE,
 			MediaStore.Video.Media.SIZE,
 			MediaStore.Video.Media.DURATION,
+			MediaStore.Images.Media.HEIGHT,
+			MediaStore.Images.Media.WIDTH,
 		};
 
 		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
@@ -76,6 +78,8 @@ public class VideoContainer extends DynamicContainer
 				String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
 				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
 				long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+				long height = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT));
+				long width = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH));
 
 				String extension = "";
 				int dot = filePath.lastIndexOf('.');
@@ -87,6 +91,7 @@ public class VideoContainer extends DynamicContainer
 				res.setDuration(duration / (1000 * 60 * 60) + ":"
 						+ (duration % (1000 * 60 * 60)) / (1000 * 60) + ":"
 						+ (duration % (1000 * 60)) / 1000);
+				res.setResolution((int)width, (int)height);
 
 				addItem(new VideoItem(id, parentID, title, creator, res));
 
