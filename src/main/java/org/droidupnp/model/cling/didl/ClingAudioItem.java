@@ -22,6 +22,7 @@ package org.droidupnp.model.cling.didl;
 import org.droidupnp.R;
 import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.item.AudioItem;
+import org.fourthline.cling.support.model.item.MusicTrack;
 
 import java.util.List;
 
@@ -35,6 +36,12 @@ public class ClingAudioItem extends ClingDIDLItem
 	@Override
 	public String getDescription()
 	{
+		if(item instanceof MusicTrack)
+		{
+			MusicTrack track = (MusicTrack) item;
+			return ( (track.getFirstArtist()!=null && track.getFirstArtist().getName()!=null) ? track.getFirstArtist().getName() : "") +
+				((track.getAlbum()!=null) ?  (" - " + track.getAlbum()) : "");
+		}
 		return ((AudioItem) item).getDescription();
 	}
 
