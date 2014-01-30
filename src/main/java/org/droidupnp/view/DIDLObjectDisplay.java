@@ -19,10 +19,8 @@
 
 package org.droidupnp.view;
 
-import org.droidupnp.R;
 import org.droidupnp.model.upnp.didl.IDIDLContainer;
 import org.droidupnp.model.upnp.didl.IDIDLObject;
-import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
 public class DIDLObjectDisplay {
 
