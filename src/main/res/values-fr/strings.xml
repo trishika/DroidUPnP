@@ -23,12 +23,9 @@
 	<string name="app_name">DroidUPnP</string>
 	<string name="version">Version</string>
 
-	<!--  TAB -->
-	<string name="renderer">Player</string>
-	<string name="playlist">Playlist</string>
-	<string name="browser">Explorer</string>
-	<string name="device">Équipement</string>
-	<string name="discovery">Découverte</string>
+	<!-- Navigation drawer -->
+	<string name="navigation_drawer_open">Ouvrir la liste d\'appareil</string>
+	<string name="navigation_drawer_close">Fermer qla liste d\'appareil</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Paramètres</string>
@@ -36,11 +33,29 @@
 	<string name="menu_refresh">Refraichir</string>
 	<string name="menu_quit">Quitter</string>
 
+	<!-- Option -->
+	<string name="pref_contentdirectory_title">Serveur de contenus</string>
+	<string name="pref_contentdirectory_desc">Activer le serveur de contenus local</string>
+	<string name="pref_contentDirectory_display_name">Nom du serveur</string>
+	<string name="pref_contentDirectory_share_contentdirectory">Partage des médias</string>
+	<string name="pref_contentDirectory_share_contentdirectory_desc">Partage des médias avec les autres appareils du réseau</string>
+	<string name="pref_share_media_title">TYpe de média à partager</string>
+	<string name="pref_contentDirectory_audio_title">Musique</string>
+	<string name="pref_contentDirectory_audio_desc">Partager les musiques</string>
+	<string name="pref_contentDirectory_image_title">Image</string>
+	<string name="pref_contentDirectory_image_desc">Partager les images</string>
+	<string name="pref_contentDirectory_video_title">Video</string>
+	<string name="pref_contentDirectory_video_desc">Partager les videos</string>
+	<string name="pref_about_title">À propos</string>
+	<string name="pref_about_desc"></string>
+	<string name="pref_theme_title">Thème</string>
+	<string name="pref_theme_desc"></string>
+
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="searchingLAN">Recherche des équipements UPNP...</string>
 	<string name="loading">Chargement...</string>
 	<string name="selectRenderer">Choisissez un écran</string>
+	<string name="noRenderer">Il n\'y a pas d\'écran disponible</string>
 	<string name="selectContentDirectory">Choissisez un serveur de contenus</string>
 
 	<!-- Now Playing -->
@@ -84,8 +99,14 @@
 	</string>
 	<string name="about_nanohttpd">
 		<![CDATA[
-		<p>DroidUPnP utilise <b>NanoHttpd</b>. NanoHttpd est sous license BSD modifi�.
+		<p>DroidUPnP utilise <b>NanoHttpd</b>. NanoHttpd est sous une license BSD modifi�.
 		Le code source est disponible à <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a></p>
+		]]>
+	</string>
+	<string name="about_pulltorefresh">
+		<![CDATA[
+		<p>DroidUPnP utilise <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh est sous une license Apache License, Version 2.0.
+		Le code source est disponible à <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
 		]]>
 	</string>
 

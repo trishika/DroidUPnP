@@ -23,12 +23,9 @@
 	<string name="app_name">DroidUPnP</string>
 	<string name="version">Versie</string>
 
-	<!--  TAB -->
-	<string name="renderer">Speler</string>
-	<string name="playlist">Playlist</string>
-	<string name="browser">Browser</string>
-	<string name="device">Apparaat</string>
-	<string name="discovery">Ontdekking</string>
+	<!-- Navigation drawer -->
+	<string name="navigation_drawer_open">Lijst Open apparaat</string>
+	<string name="navigation_drawer_close">Sluiten apparaat lijst</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Instellingen</string>
@@ -36,11 +33,29 @@
 	<string name="menu_refresh">Verversen</string>
 	<string name="menu_quit">Ophouden</string>
 
+	<!-- Option -->
+	<string name="pref_contentdirectory_title">Content Provider</string>
+	<string name="pref_contentdirectory_desc">Activeer een lokale content provider</string>
+	<string name="pref_contentDirectory_display_name">Weergavenaam</string>
+	<string name="pref_contentDirectory_share_contentdirectory">Delen media</string>
+	<string name="pref_contentDirectory_share_contentdirectory_desc">Media delen met andere apparaten in het netwerk</string>
+	<string name="pref_share_media_title">Type media te afbeelding</string>
+	<string name="pref_contentDirectory_audio_title">Muziek</string>
+	<string name="pref_contentDirectory_audio_desc">Afbeelding muziek</string>
+	<string name="pref_contentDirectory_image_title">Image</string>
+	<string name="pref_contentDirectory_image_desc">Afbeelding delen</string>
+	<string name="pref_contentDirectory_video_title">Video</string>
+	<string name="pref_contentDirectory_video_desc">Afbeelding video</string>
+	<string name="pref_about_title">Over</string>
+	<string name="pref_about_desc"></string>
+	<string name="pref_theme_title">Thema</string>
+	<string name="pref_theme_desc"></string>
+
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="searchingLAN">Zoeken UPnP-apparaten...</string>
 	<string name="loading">Het laden...</string>
 	<string name="selectRenderer">Selecteer een Renderer</string>
+	<string name="noRenderer">Er is geen renderer beschikbaar</string>
 	<string name="selectContentDirectory">Selecteer een Content directory</string>
 
 	<!-- Now Playing -->
@@ -86,6 +101,12 @@
 		<![CDATA[
 		<p>DroidUPnP gebruik <b>NanoHttpd</b>. NanoHttpd is onder een modify BSD licentie.
 		Broncode is beschikbaar op <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
+		]]>
+	</string>
+	<string name="about_pulltorefresh">
+		<![CDATA[
+		<p>DroidUPnP gebruik <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh is gelicenseerd onder Apache License, Version 2.0.
+		Broncode is beschikbaar op <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
 		]]>
 	</string>
 

@@ -29,14 +29,14 @@ along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 
 	<EditTextPreference
 		android:key="pref_contentDirectoryService_name"
-		android:title="@string/display_name"
+		android:title="@string/pref_contentDirectory_display_name"
 		android:summary=""
 		android:defaultValue="" />
 
 	<CheckBoxPreference
 		android:key="pref_contentDirectoryService_share"
-		android:title="@string/share_contentdirectory"
-		android:summary="@string/share_contentdirectory_desc"
+		android:title="@string/pref_contentDirectory_share_contentdirectory"
+		android:summary="@string/pref_contentDirectory_share_contentdirectory_desc"
 		android:defaultValue="true" />
 
 	<PreferenceCategory
