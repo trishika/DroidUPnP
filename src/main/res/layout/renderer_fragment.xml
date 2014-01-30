@@ -20,7 +20,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical" >
+	android:orientation="vertical"
+	style="@style/renderer" >
 
 	<TextView
 		android:id="@+id/trackDurationElapse"
@@ -31,6 +32,7 @@
 		android:layout_gravity="center_vertical|fill_vertical"
 		android:layout_margin="10dp"
 		android:text="@string/duration"
+		style="@style/rendererText"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	<TextView
@@ -42,6 +44,7 @@
 		android:layout_gravity="center_vertical|fill_vertical"
 		android:layout_margin="10dp"
 		android:text="@string/duration"
+		style="@style/rendererText"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	<TextView
@@ -55,6 +58,7 @@
 		android:singleLine="true"
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
+		style="@style/rendererText"
 		android:textSize="18sp" />
 
 	<TextView
@@ -69,7 +73,8 @@
 		android:paddingLeft="10dip"
 		android:paddingRight="10dip"
 		android:textSize="15sp"
-		android:textStyle="italic" />
+		android:textStyle="italic"
+		style="@style/rendererText" />
 
 	<ImageButton
 		android:id="@+id/play_pauseButton"

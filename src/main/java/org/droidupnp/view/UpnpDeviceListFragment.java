@@ -58,8 +58,7 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		list = new ArrayAdapter<DeviceDisplay>(this.getView().getContext(),
-				android.R.layout.simple_list_item_single_choice);
+		list = new ArrayAdapter<DeviceDisplay>(this.getView().getContext(), R.layout.device_list_item);
 		setListAdapter(list);
 
 		Log.d(TAG, "Activity created");
