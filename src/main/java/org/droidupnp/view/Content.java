@@ -1,8 +1,8 @@
 /**
  * Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
- * 
+ *
  * This file is part of DroidUPNP.
- * 
+ *
  * DroidUPNP is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,11 +27,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DeviceFragment extends Fragment
+public class Content extends Fragment
 {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return inflater.inflate(R.layout.device_fragment, container, false);
+		return inflater.inflate(R.layout.content, container, false);
 	}
 }
