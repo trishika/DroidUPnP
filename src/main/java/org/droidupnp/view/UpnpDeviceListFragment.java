@@ -124,23 +124,27 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 				@Override
 				public void run()
 				{
-					int position = list.getPosition(d);
-					if (position >= 0)
-					{
-						// Device already in the list, re-set new value at same position
-						list.remove(d);
-						list.insert(d, position);
-					}
-					else
-					{
-						list.add(d);
-					}
-					if (isSelected(d.getDevice()))
-					{
-						position = list.getPosition(d);
-						getListView().setItemChecked(position, true);
+					try {
+						int position = list.getPosition(d);
+						if (position >= 0)
+						{
+							// Device already in the list, re-set new value at same position
+							list.remove(d);
+							list.insert(d, position);
+						}
+						else
+						{
+							list.add(d);
+						}
+						if (isSelected(d.getDevice()))
+						{
+							position = list.getPosition(d);
+							getListView().setItemChecked(position, true);
 
-						Log.i(TAG, d.toString() + " is selected at position " + position);
+							Log.i(TAG, d.toString() + " is selected at position " + position);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			});
@@ -158,8 +162,12 @@ public abstract class UpnpDeviceListFragment extends ListFragment implements IDe
 				@Override
 				public void run()
 				{
-					// Remove device from list
-					list.remove(d);
+					try {
+						// Remove device from list
+						list.remove(d);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 	}

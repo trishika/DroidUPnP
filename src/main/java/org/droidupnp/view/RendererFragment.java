@@ -75,15 +75,21 @@ public class RendererFragment extends Fragment implements Observer
 
 	public void hide()
 	{
-		getActivity().findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
-		getActivity().findViewById(R.id.separator).setVisibility(View.INVISIBLE);
+		Activity a = getActivity();
+		if (a==null)
+			return;
+		a.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+		a.findViewById(R.id.separator).setVisibility(View.INVISIBLE);
 		getFragmentManager().beginTransaction().hide(this).commit();
 	}
 
 	public void show()
 	{
-		getActivity().findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-		getActivity().findViewById(R.id.separator).setVisibility(View.VISIBLE);
+		Activity a = getActivity();
+		if (a==null)
+			return;
+		a.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+		a.findViewById(R.id.separator).setVisibility(View.VISIBLE);
 		getFragmentManager().beginTransaction().show(this).commit();
 	}
 
@@ -164,7 +170,11 @@ public class RendererFragment extends Fragment implements Observer
 					@Override
 					public void run()
 					{
-						hide();
+						try {
+							hide();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				});
 			}
@@ -209,40 +219,45 @@ public class RendererFragment extends Fragment implements Observer
 				@Override
 				public void run()
 				{
-					show();
+					try {
+						show();
 
-					TextView title = (TextView) a.findViewById(R.id.title);
-					TextView artist = (TextView) a.findViewById(R.id.artist);
-					SeekBar seek = (SeekBar) a.findViewById(R.id.progressBar);
-					SeekBar volume = (SeekBar) a.findViewById(R.id.volume);
-					TextView durationElapse = (TextView) a.findViewById(R.id.trackDurationElapse);
+						TextView title = (TextView) a.findViewById(R.id.title);
+						TextView artist = (TextView) a.findViewById(R.id.artist);
+						SeekBar seek = (SeekBar) a.findViewById(R.id.progressBar);
+						SeekBar volume = (SeekBar) a.findViewById(R.id.volume);
+						TextView durationElapse = (TextView) a.findViewById(R.id.trackDurationElapse);
 
-					if (title == null || artist == null || seek == null || duration == null || durationElapse == null)
-						return;
+						if (title == null || artist == null || seek == null || duration == null || durationElapse == null)
+							return;
 
-					if (durationRemaining)
-						duration.setText(rendererState.getRemainingDuration());
-					else
-						duration.setText(rendererState.getDuration());
+						if (durationRemaining)
+							duration.setText(rendererState.getRemainingDuration());
+						else
+							duration.setText(rendererState.getDuration());
 
-					durationElapse.setText(rendererState.getPosition());
+						durationElapse.setText(rendererState.getPosition());
 
-					seek.setProgress(rendererState.getElapsedPercent());
+						seek.setProgress(rendererState.getElapsedPercent());
 
-					title.setText(rendererState.getTitle());
-					artist.setText(rendererState.getArtist());
+						title.setText(rendererState.getTitle());
+						artist.setText(rendererState.getArtist());
 
-					if (rendererState.getState() == RendererState.State.PLAY)
-						play_pauseButton.setImageResource(R.drawable.pause);
-					else
-						play_pauseButton.setImageResource(R.drawable.play);
+						if (rendererState.getState() == RendererState.State.PLAY)
+							play_pauseButton.setImageResource(R.drawable.pause);
+						else
+							play_pauseButton.setImageResource(R.drawable.play);
 
-					if (rendererState.isMute())
-						volumeButton.setImageResource(R.drawable.volume_mute);
-					else
-						volumeButton.setImageResource(R.drawable.volume);
+						if (rendererState.isMute())
+							volumeButton.setImageResource(R.drawable.volume_mute);
+						else
+							volumeButton.setImageResource(R.drawable.volume);
 
-					volume.setProgress(rendererState.getVolume());
+						volume.setProgress(rendererState.getVolume());
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 

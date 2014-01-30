@@ -79,7 +79,11 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			a.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					Main.setSearchVisibility(contentDirectoryCommand!=null && contentDirectoryCommand.isSearchAvailable());
+					try {
+						Main.setSearchVisibility(contentDirectoryCommand!=null && contentDirectoryCommand.isSearchAvailable());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
@@ -310,8 +314,12 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				a.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						setListShown(true);
-						mPullToRefreshLayout.setRefreshComplete();
+						try {
+							setListShown(true);
+							mPullToRefreshLayout.setRefreshComplete();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				});
 			}
@@ -341,10 +349,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				a.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						// Empty the list
-						contentList.clear();
-						// Fill the list
-						contentList.addAll(content);
+						try {
+							// Empty the list
+							contentList.clear();
+							// Fill the list
+							contentList.addAll(content);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				});
 			}
@@ -364,9 +376,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			a.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					setListShown(false);
-					mPullToRefreshLayout.setRefreshComplete();
-					mPullToRefreshLayout.setRefreshing(true);
+					try {
+						setListShown(false);
+						mPullToRefreshLayout.setRefreshComplete();
+						mPullToRefreshLayout.setRefreshing(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
@@ -488,15 +504,19 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				a.runOnUiThread(new Runnable(){
 					@Override
 					public void run() {
-						RendererDialog rendererDialog = new RendererDialog();
-						rendererDialog.setCallback(new Callable<Void>() {
-							@Override
-							public Void call() throws Exception {
-								launchURIRenderer(uri);
-								return null;
-							}
-						});
-						rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
+						try {
+							RendererDialog rendererDialog = new RendererDialog();
+							rendererDialog.setCallback(new Callable<Void>() {
+								@Override
+								public Void call() throws Exception {
+									launchURIRenderer(uri);
+									return null;
+								}
+							});
+							rendererDialog.show(getActivity().getFragmentManager(), "RendererDialog");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				});
 			}
