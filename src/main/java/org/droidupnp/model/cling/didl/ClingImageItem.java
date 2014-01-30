@@ -41,7 +41,7 @@ public class ClingImageItem extends ClingDIDLItem
 	{
 		List<Res> res = item.getResources();
 		if(res!=null && res.size()>0)
-			return "" + res.get(0).getResolution();
+			return "" + ((res.get(0).getResolution()!=null) ? res.get(0).getResolution() : "");
 
 		return "";
 	}
@@ -56,10 +56,7 @@ public class ClingImageItem extends ClingDIDLItem
 			DateFormat formatOut = DateFormat.getDateTimeInstance();
 			return formatOut.format(date);
 		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		catch (Exception e) {}
 		return "";
 	}
 

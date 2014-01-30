@@ -138,7 +138,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			text1.setText(entry.getTitle());
 
 			TextView text2 = (TextView) convertView.findViewById(R.id.text2);
-			text2.setText(entry.getDescription());
+			text2.setText((entry.getDescription()!=null) ? entry.getDescription() : "");
 
 			TextView text3 = (TextView) convertView.findViewById(R.id.text3);
 			text3.setText(entry.getCount());
