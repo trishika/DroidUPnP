@@ -22,7 +22,7 @@
 	<color name="blue">#379293</color>
 	<color name="blue_trans">#77379293</color>
 	<color name="grey">#DDDDDD</color>
-	<color name="greyer">#CCCCCC</color>
+	<color name="greyer">#AACCCCCC</color>
 
 	<drawable name="play">@drawable/ic_action_play</drawable>
 	<drawable name="pause">@drawable/ic_action_pause</drawable>

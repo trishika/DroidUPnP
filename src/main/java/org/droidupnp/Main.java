@@ -111,14 +111,17 @@ public class Main extends Activity
 		else
 			Log.w(TAG, "No rendererFragment yet !");
 
-		mDrawerFragment = (DrawerFragment)
-				getFragmentManager().findFragmentById(R.id.navigation_drawer);
-		mTitle = getTitle();
+		if(getFragmentManager().findFragmentById(R.id.navigation_drawer) instanceof DrawerFragment)
+		{
+			mDrawerFragment = (DrawerFragment)
+					getFragmentManager().findFragmentById(R.id.navigation_drawer);
+			mTitle = getTitle();
 
-		// Set up the drawer.
-		mDrawerFragment.setUp(
+			// Set up the drawer.
+			mDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		}
 	}
 
 	@Override

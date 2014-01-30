@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/drawer_layout"
@@ -24,9 +24,19 @@
 	android:layout_height="match_parent"
 	tools:context="org.droidupnp.Main">
 
+	<fragment
+		android:id="@+id/DeviceFragment"
+		android:name="org.droidupnp.view.DeviceFragment"
+		android:layout_width="@dimen/navigation_drawer_width"
+		android:layout_height="match_parent"
+		android:layout_alignParentLeft="true" />
+
 	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/content"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/DeviceFragment" >
 
 		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="match_parent"
@@ -71,10 +81,4 @@
 
 	</FrameLayout>
 
-	<fragment android:id="@+id/navigation_drawer"
-		android:layout_width="@dimen/navigation_drawer_width"
-		android:layout_height="match_parent"
-		android:layout_gravity="start"
-		android:name="org.droidupnp.DrawerFragment" />
-
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

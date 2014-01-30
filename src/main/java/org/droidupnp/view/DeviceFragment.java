@@ -22,52 +22,18 @@ package org.droidupnp.view;
 import org.droidupnp.R;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DeviceFragment extends Fragment {
-
+public class DeviceFragment extends Fragment
+{
 	private static final String TAG = "DeviceFragment";
-
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.device_fragment, container, false);
 	}
-
-	@Override
-	public void onDestroyView()
-	{
-		super.onDestroyView();
-
-		// Destroy containing stuff
-		FragmentManager fm = getActivity().getFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		Fragment f1 = fm.findFragmentById(R.id.RendererDeviceFragment);
-		if (f1 != null)
-		{
-			Log.i(TAG, "Remove RendererDeviceFragment");
-			ft.remove(f1);
-		}
-		Fragment f2 = fm.findFragmentById(R.id.ContentDirectoryDeviceFragment);
-		if (f2 != null)
-		{
-			Log.i(TAG, "Remove RendererDeviceFragment");
-			ft.remove(f2);
-		}
-
-		ft.commit();
-	}
-
 }
