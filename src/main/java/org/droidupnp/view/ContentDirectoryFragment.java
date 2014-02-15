@@ -335,6 +335,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		public ContentCallback(ArrayAdapter<DIDLObjectDisplay> contentList)
 		{
 			this.contentList = contentList;
+			this.content = new ArrayList<DIDLObjectDisplay>();
 		}
 
 		public void setContent(ArrayList<DIDLObjectDisplay> content)

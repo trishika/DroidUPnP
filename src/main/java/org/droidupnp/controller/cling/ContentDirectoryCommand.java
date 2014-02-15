@@ -129,15 +129,7 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand
 			@Override
 			public void received(ActionInvocation actionInvocation, final DIDLContent didl)
 			{
-				if(callback!=null)
-				{
-					try {
-						callback.setContent(buildContentList(parent, didl));
-						callback.call();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
+				callBack(didl);
 			}
 
 			@Override
@@ -150,6 +142,21 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand
 			public void failure(ActionInvocation invocation, UpnpResponse operation, String defaultMsg)
 			{
 				Log.w(TAG, "Fail to browse ! " + defaultMsg);
+				callBack(null);
+			}
+
+			public void callBack(final DIDLContent didl)
+			{
+				if(callback!=null)
+				{
+					try {
+						if(didl!=null)
+							callback.setContent(buildContentList(parent, didl));
+						callback.call();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 	}
