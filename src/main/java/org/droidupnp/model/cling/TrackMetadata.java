@@ -112,30 +112,48 @@ public class TrackMetadata {
 			s.attribute(null, "parentID", "");
 			s.attribute(null, "restricted", "1");
 
-			s.startTag(null, "dc:title");
-			s.text(title);
-			s.endTag(null, "dc:title");
+			if(title!=null)
+			{
+				s.startTag(null, "dc:title");
+				s.text(title);
+				s.endTag(null, "dc:title");
+			}
 
-			s.startTag(null, "dc:creator");
-			s.text(artist);
-			s.endTag(null, "dc:creator");
+			if(artist!=null)
+			{
+				s.startTag(null, "dc:creator");
+				s.text(artist);
+				s.endTag(null, "dc:creator");
+			}
 
-			s.startTag(null, "upnp:genre");
-			s.text(genre);
-			s.endTag(null, "upnp:genre");
+			if(genre!=null)
+			{
+				s.startTag(null, "upnp:genre");
+				s.text(genre);
+				s.endTag(null, "upnp:genre");
+			}
 
-			s.startTag(null, "upnp:albumArtURI");
-			s.attribute(null, "dlna:profileID", "JPEG_TN");
-			s.text(artURI);
-			s.endTag(null, "upnp:albumArtURI");
+			if(artURI!=null)
+			{
+				s.startTag(null, "upnp:albumArtURI");
+				s.attribute(null, "dlna:profileID", "JPEG_TN");
+				s.text(artURI);
+				s.endTag(null, "upnp:albumArtURI");
+			}
 
-			s.startTag(null, "res");
-			s.text(res);
-			s.endTag(null, "res");
+			if(res!=null)
+			{
+				s.startTag(null, "res");
+				s.text(res);
+				s.endTag(null, "res");
+			}
 
-			s.startTag(null, "upnp:class");
-			s.text(itemClass);
-			s.endTag(null, "upnp:class");
+			if(itemClass!=null)
+			{
+				s.startTag(null, "upnp:class");
+				s.text(itemClass);
+				s.endTag(null, "upnp:class");
+			}
 
 			s.endTag(null, "item");
 
@@ -145,8 +163,8 @@ public class TrackMetadata {
 			s.flush();
 
 		} catch (Exception e) {
-			Log.e(TAG, "error occurred while creating xml file");
-			Log.e(TAG, e.toString());
+			Log.e(TAG, "error occurred while creating xml file : " + e.toString() );
+			e.printStackTrace();
 		}
 
 		String xml = sw.toString();

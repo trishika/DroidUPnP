@@ -48,7 +48,7 @@ public class ClingDIDLItem extends ClingDIDLObject implements IDIDLItem {
 	{
 		if (item != null)
 		{
-			Log.e(TAG, "Item : " + item.getFirstResource().getValue());
+			Log.d(TAG, "Item : " + item.getFirstResource().getValue());
 			if (item.getFirstResource() != null && item.getFirstResource().getValue() != null)
 				return item.getFirstResource().getValue();
 		}

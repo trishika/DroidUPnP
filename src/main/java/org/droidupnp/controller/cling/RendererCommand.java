@@ -325,7 +325,7 @@ public class RendererCommand implements Runnable, IRendererCommand {
 				upnpItem.getCreator(), "", "", upnpItem.getFirstResource().getValue(),
 				"object.item." + type);
 
-		Log.e(TAG, "TrackMetadata : "+trackMetadata.toString());
+		Log.i(TAG, "TrackMetadata : "+trackMetadata.toString());
 
 		// Stop playback before setting URI
 		controlPoint.execute(new Stop(getAVTransportService()) {
