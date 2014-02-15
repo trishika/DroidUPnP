@@ -4,11 +4,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.8.+'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
     }
 }
 apply plugin: 'android'
-apply plugin: 'android-apt'
 
 repositories {
     mavenCentral()
@@ -18,26 +16,20 @@ repositories {
     }
 }
 
-def aa_version = '3.0.1'
-
 dependencies {
+    // Android support
+    compile 'com.android.support:support-v4:+'
+
+    // Cling
     compile group: 'org.fourthline.cling', name: 'cling-core', version:'2.0-alpha3'
     compile group: 'org.fourthline.cling', name: 'cling-support', version:'2.0-alpha3'
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'8.1.12.v20130726'
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'8.1.12.v20130726'
     compile group: 'org.eclipse.jetty', name: 'jetty-client', version:'8.1.12.v20130726'
     compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.5'
-    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
-    compile 'com.android.support:support-v4:+'
-    apt "org.androidannotations:androidannotations:$aa_version"
-    compile "org.androidannotations:androidannotations-api:$aa_version"
-}
 
-apt {
-    arguments {
-        resourcePackageName 'org.droidupnp'
-        androidManifestFile variant.processResources.manifestFile
-    }
+    // Pull To Refresh
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }
 
 android {
