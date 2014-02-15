@@ -105,7 +105,7 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 			String filter, long firstResult, long maxResults,
 			SortCriterion[] orderby) throws ContentDirectoryException
 	{
-		Log.e(TAG, "Will browse " + objectID);
+		Log.d(TAG, "Will browse " + objectID);
 
 		try
 		{
@@ -133,7 +133,7 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 
 			Container container = null;
 
-			Log.e(TAG, "Browsing type " + type);
+			Log.d(TAG, "Browsing type " + type);
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 
 			Container rootContainer = new CustomContainer( "" + ROOT_ID, "" + ROOT_ID,
