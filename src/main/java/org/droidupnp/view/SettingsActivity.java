@@ -94,6 +94,12 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	@Override
+	protected boolean isValidFragment (String fragmentName)
+	{
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			// Respond to the action bar's Up/Home button
