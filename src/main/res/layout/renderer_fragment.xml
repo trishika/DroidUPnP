@@ -30,7 +30,10 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"
 		android:layout_gravity="center_vertical|fill_vertical"
-		android:layout_margin="10dp"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginBottom="5dp"
 		android:text="@string/duration"
 		style="@style/rendererText"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -42,45 +45,52 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
 		android:layout_gravity="center_vertical|fill_vertical"
-		android:layout_margin="10dp"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginBottom="5dp"
 		android:text="@string/duration"
 		style="@style/rendererText"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	<TextView
-		android:id="@+id/title"
-		android:textIsSelectable="false"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_below="@id/trackDurationElapse"
-		android:ellipsize="marquee"
-		android:singleLine="true"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp"
-		style="@style/rendererText"
-		android:textSize="18sp" />
 
-	<TextView
-		android:id="@+id/artist"
-		android:textIsSelectable="false"
+	<LinearLayout
+		android:id="@+id/descriptionLayout"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="110dp"
+		android:layout_below="@id/trackDurationElapse"
 		android:layout_alignParentLeft="true"
-		android:layout_below="@id/title"
-		android:ellipsize="marquee"
-		android:singleLine="true"
-		android:paddingLeft="10dip"
-		android:paddingRight="10dip"
-		android:textSize="15sp"
-		android:textStyle="italic"
-		style="@style/rendererText" />
+		android:orientation="vertical"
+		android:layout_gravity="center_vertical|center_horizontal" >
+
+		<TextView
+			android:id="@+id/title"
+			android:textIsSelectable="false"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ellipsize="marquee"
+			android:singleLine="true"
+			style="@style/rendererTitle" />
+
+		<TextView
+			android:id="@+id/subtitle"
+			android:textIsSelectable="false"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:ellipsize="marquee"
+			android:singleLine="true"
+			style="@style/rendererSubtitle" />
+
+	</LinearLayout>
 
 	<ImageButton
 		android:id="@+id/play_pauseButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginRight="30dip"
+		android:layout_marginRight="10dip"
 		android:layout_marginLeft="7dip"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/trackDurationRemaining"
@@ -105,7 +115,7 @@
 		android:id="@+id/volumeLayout"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="5dp"
+		android:layout_marginTop="10dp"
 		android:layout_marginBottom="5dp"
 		android:layout_marginRight="10dp"
 		android:layout_marginLeft="10dp"

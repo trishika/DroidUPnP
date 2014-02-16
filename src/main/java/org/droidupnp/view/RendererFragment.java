@@ -40,7 +40,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -223,7 +222,7 @@ public class RendererFragment extends Fragment implements Observer
 						show();
 
 						TextView title = (TextView) a.findViewById(R.id.title);
-						TextView artist = (TextView) a.findViewById(R.id.artist);
+						TextView artist = (TextView) a.findViewById(R.id.subtitle);
 						SeekBar seek = (SeekBar) a.findViewById(R.id.progressBar);
 						SeekBar volume = (SeekBar) a.findViewById(R.id.volume);
 						TextView durationElapse = (TextView) a.findViewById(R.id.trackDurationElapse);

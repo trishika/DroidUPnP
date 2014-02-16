@@ -55,6 +55,15 @@
 		<item name="android:textColor">@android:color/black</item>
 	</style>
 
+	<style name="rendererTitle" parent="rendererText">
+		<item name="android:textSize">18sp</item>
+	</style>
+
+	<style name="rendererSubtitle" parent="rendererText">
+		<item name="android:textStyle">italic</item>
+		<item name="android:textSize">15sp</item>
+	</style>
+
 	<!-- Content browsing duration/count style -->
 	<style name="CountText" parent="@android:style/TextAppearance">
 		<item name="android:textColor">@color/blue</item>
