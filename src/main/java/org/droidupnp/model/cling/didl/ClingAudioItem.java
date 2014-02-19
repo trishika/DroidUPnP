@@ -50,7 +50,7 @@ public class ClingAudioItem extends ClingDIDLItem
 	{
 		List<Res> res = item.getResources();
 		if(res!=null && res.size()>0)
-			return "" + res.get(0).getDuration().split("\\.")[0];
+			return "" + ((res.get(0).getDuration()!=null) ? res.get(0).getDuration().split("\\.")[0] : "");
 
 		return "";
 	}
