@@ -24,6 +24,8 @@
 	<string name="version">Version</string>
 
 	<!-- Navigation drawer -->
+	<string name="contentdirectory">Browser</string>
+	<string name="renderer">Player</string>
 	<string name="navigation_drawer_open">Öffnen Sie Geräteliste</string>
 	<string name="navigation_drawer_close">Schließen Geräteliste</string>
 

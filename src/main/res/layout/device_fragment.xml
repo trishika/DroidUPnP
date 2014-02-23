@@ -27,6 +27,17 @@
 	style="@style/drawer"
 	tools:context="org.droidupnp.DrawerFragment" >
 
+	<TextView
+		android:id="@+id/label_contentDirectory"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:text="@string/contentdirectory"
+		style="@style/deviceListLabel" />
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		style="@style/deviceListSeparator" />
 	<fragment
 		android:id="@+id/ContentDirectoryDeviceFragment"
 		android:name="org.droidupnp.view.ContentDirectoryDeviceFragment"
@@ -35,6 +46,17 @@
 		android:layout_height="fill_parent"
 		tools:layout="@layout/sub_device_fragment"/>
 
+	<TextView
+		android:id="@+id/label_renderer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:text="@string/renderer"
+		style="@style/deviceListLabel" />
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		style="@style/deviceListSeparator" />
 	<fragment
 		android:id="@+id/RendererDeviceFragment"
 		android:name="org.droidupnp.view.RendererDeviceFragment"

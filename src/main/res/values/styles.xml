@@ -23,6 +23,7 @@
 	<color name="blue_trans">#77379293</color>
 	<color name="grey">#DDDDDD</color>
 	<color name="greyer">#AACCCCCC</color>
+	<color name="light_grey">#E5E5E5</color>
 	<color name="dark">#444444</color>
 	<color name="darker">#222222</color>
 
@@ -39,6 +40,14 @@
 
 	<style name="DrawerText" parent="@android:style/TextAppearance">
 		<item name="android:textColor">@android:color/white</item>
+	</style>
+
+	<style name="deviceListLabel">
+		<item name="android:textColor">@color/greyer</item>
+	</style>
+
+	<style name="deviceListSeparator">
+		<item name="android:background">@color/greyer</item>
 	</style>
 
 	<!-- Content directory style -->

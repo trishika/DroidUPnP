@@ -24,8 +24,10 @@
 	<string name="version">Version</string>
 
 	<!-- Navigation drawer -->
+	<string name="contentdirectory">Serveur de contenus</string>
+	<string name="renderer">Écran</string>
 	<string name="navigation_drawer_open">Ouvrir la liste d\'appareil</string>
-	<string name="navigation_drawer_close">Fermer qla liste d\'appareil</string>
+	<string name="navigation_drawer_close">Fermer la liste d\'appareil</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Paramètres</string>
@@ -39,7 +41,7 @@
 	<string name="pref_contentDirectory_display_name">Nom du serveur</string>
 	<string name="pref_contentDirectory_share_contentdirectory">Partage des médias</string>
 	<string name="pref_contentDirectory_share_contentdirectory_desc">Partage des médias avec les autres appareils du réseau</string>
-	<string name="pref_share_media_title">TYpe de média à partager</string>
+	<string name="pref_share_media_title">Type de média à partager</string>
 	<string name="pref_contentDirectory_audio_title">Musique</string>
 	<string name="pref_contentDirectory_audio_desc">Partager les musiques</string>
 	<string name="pref_contentDirectory_image_title">Image</string>

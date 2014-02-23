@@ -25,6 +25,8 @@
 	<string name="version">Version</string>
 
 	<!-- Navigation drawer -->
+	<string name="contentdirectory">Content directory</string>
+	<string name="renderer">Renderer</string>
 	<string name="navigation_drawer_open">Open device list</string>
 	<string name="navigation_drawer_close">Close device list</string>
 
