@@ -26,6 +26,7 @@
 	<!-- Navigation drawer -->
 	<string name="contentdirectory">Browser</string>
 	<string name="renderer">Speler</string>
+	<string name="device_list_empty">Geen apparaat beschikbaar</string>
 	<string name="navigation_drawer_open">Lijst Open apparaat</string>
 	<string name="navigation_drawer_close">Sluiten apparaat lijst</string>
 

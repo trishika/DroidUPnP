@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+  Copyright (C) 2014 Aurélien Chabot <aurelien@chabot.fr>
 
   This file is part of DroidUPNP.
 
@@ -18,24 +18,24 @@
   along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="vertical"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingLeft="8dp"
+	android:paddingRight="8dp">
+
+	<ListView android:id="@id/android:list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingLeft="8dp"
-		android:paddingRight="8dp">
-
-	 <ListView android:id="@id/android:list"
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="1"
-			android:drawSelectorOnTop="false"
-			android:choiceMode="singleChoice" />
+		android:layout_weight="1"
+		android:drawSelectorOnTop="false"/>
 
 	<TextView android:id="@id/android:empty"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			style="@style/deviceListLabel"
-			android:layout_marginTop="10dp"
-			android:text="@string/device_list_empty"/>
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:text="@string/device_list_empty"
+		android:textAlignment="center"
+		android:textSize="15sp"
+		android:paddingTop="20dp"/>
 
 </LinearLayout>

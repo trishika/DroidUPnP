@@ -71,6 +71,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	static final String STATE_TREE = "tree";
 	static final String STATE_CURRENT = "current";
 
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.browsing_list_fragment, container, false);
+	}
+
 	/** This update the search visibility depending on current content directory capabilities */
 	public void updateSearchVisibility()
 	{

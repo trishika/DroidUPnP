@@ -26,6 +26,7 @@
 	<!-- Navigation drawer -->
 	<string name="contentdirectory">Serveur de contenus</string>
 	<string name="renderer">Écran</string>
+	<string name="device_list_empty">Pas d\'appareil disponible</string>
 	<string name="navigation_drawer_open">Ouvrir la liste d\'appareil</string>
 	<string name="navigation_drawer_close">Fermer la liste d\'appareil</string>
 

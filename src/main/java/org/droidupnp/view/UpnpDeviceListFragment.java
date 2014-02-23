@@ -35,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public abstract class UpnpDeviceListFragment extends ListFragment implements IDeviceDiscoveryObserver {
 
