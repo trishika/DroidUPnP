@@ -333,13 +333,19 @@ public class RendererCommand implements Runnable, IRendererCommand {
 			public void success(ActionInvocation invocation)
 			{
 				Log.v(TAG, "Success stopping ! ");
-				setURI(item.getURI(), trackMetadata);
+				callback();
 			}
 
 			@Override
 			public void failure(ActionInvocation arg0, UpnpResponse arg1, String arg2)
 			{
 				Log.w(TAG, "Fail to stop ! " + arg2);
+				callback();
+			}
+
+			public void callback()
+			{
+				setURI(item.getURI(), trackMetadata);
 			}
 		});
 
