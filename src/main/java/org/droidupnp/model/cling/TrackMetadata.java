@@ -84,8 +84,8 @@ public class TrackMetadata {
 		catch (Exception e)
 		{
 			// e.printStackTrace();
-			Log.e(TAG, "Error while parsing metadata !");
-			Log.e(TAG, "XML : " + xml);
+			Log.w(TAG, "Error while parsing metadata !");
+			Log.w(TAG, "XML : " + xml);
 		}
 	}
 

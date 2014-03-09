@@ -105,8 +105,6 @@ public class RendererFragment extends Fragment implements Observer
 
 		// Initially hide renderer
 		hide();
-
-		Log.d(TAG, "Activity created");
 	}
 
 	@Override
@@ -131,7 +129,6 @@ public class RendererFragment extends Fragment implements Observer
 	@Override
 	public void onPause()
 	{
-		Log.d(TAG, "Pause Renderer");
 		device = null;
 		if (rendererCommand != null)
 			rendererCommand.pause();
@@ -141,7 +138,6 @@ public class RendererFragment extends Fragment implements Observer
 	@Override
 	public void onDestroy()
 	{
-		Log.i(TAG, "Destroy");
 		Main.upnpServiceController.delSelectedRendererObserver(this);
 		super.onDestroy();
 	}
@@ -267,7 +263,6 @@ public class RendererFragment extends Fragment implements Observer
 	@Override
 	public void update(Observable observable, Object data)
 	{
-		Log.d(TAG, "Renderer have changed");
 		startControlPoint();
 	}
 

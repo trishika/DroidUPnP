@@ -135,7 +135,7 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand
 			@Override
 			public void updateStatus(Status status)
 			{
-				Log.i(TAG, "updateStatus ! ");
+				Log.v(TAG, "updateStatus ! ");
 			}
 
 			@Override
@@ -185,7 +185,7 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand
 			@Override
 			public void updateStatus(Status status)
 			{
-				Log.i(TAG, "updateStatus ! ");
+				Log.v(TAG, "updateStatus ! ");
 			}
 
 			@Override

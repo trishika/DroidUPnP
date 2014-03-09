@@ -136,7 +136,7 @@ public class Main extends Activity
 	@Override
 	public void onResume()
 	{
-		Log.i(TAG, "onResume");
+		Log.v(TAG, "Resume activity");
 		upnpServiceController.resume(this);
 		super.onResume();
 	}
@@ -144,7 +144,7 @@ public class Main extends Activity
 	@Override
 	public void onPause()
 	{
-		Log.i(TAG, "onPause");
+		Log.v(TAG, "Pause activity");
 		upnpServiceController.pause();
 		upnpServiceController.getServiceListener().getServiceConnexion().onServiceDisconnected(null);
 		super.onPause();

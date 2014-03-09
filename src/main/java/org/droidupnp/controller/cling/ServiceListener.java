@@ -73,9 +73,10 @@ public class ServiceListener implements IServiceListener
 	public Collection<IUpnpDevice> getDeviceList()
 	{
 		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
-		for (Device device : upnpService.getRegistry().getDevices())
-		{
-			deviceList.add(new CDevice(device));
+		if(upnpService != null && upnpService.getRegistry() != null) {
+			for (Device device : upnpService.getRegistry().getDevices()) {
+				deviceList.add(new CDevice(device));
+			}
 		}
 		return deviceList;
 	}
@@ -86,13 +87,14 @@ public class ServiceListener implements IServiceListener
 		ArrayList<IUpnpDevice> deviceList = new ArrayList<IUpnpDevice>();
 		try
 		{
-			for (Device device : upnpService.getRegistry().getDevices())
-			{
-				IUpnpDevice upnpDevice = new CDevice(device);
-				filter.setDevice(upnpDevice);
+			if(upnpService != null && upnpService.getRegistry() != null) {
+				for (Device device : upnpService.getRegistry().getDevices()) {
+					IUpnpDevice upnpDevice = new CDevice(device);
+					filter.setDevice(upnpDevice);
 
-				if (filter.call())
-					deviceList.add(upnpDevice);
+					if (filter.call())
+						deviceList.add(upnpDevice);
+				}
 			}
 		}
 		catch (Exception e)

@@ -192,17 +192,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			contentDirectoryCommand = Main.factory.createContentDirectoryCommand();
 		}
 
-		Log.i(TAG, "Force refresh");
+		Log.d(TAG, "Force refresh");
 		refresh();
-
-		Log.d(TAG, "Activity created");
 	}
 
 	@Override
 	public void onDestroy()
 	{
 		super.onDestroy();
-		Log.i(TAG, "onDestroy");
 		Main.upnpServiceController.delSelectedContentDirectoryObserver(this);
 		Main.upnpServiceController.getContentDirectoryDiscovery().removeObserver(deviceObserver);
 	}
@@ -270,17 +267,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	@Override
 	public void onResume()
 	{
-		Log.i(TAG, "onResume");
 		super.onResume();
 		contentList.clear();
 		refresh();
-	}
-
-	@Override
-	public void onPause()
-	{
-		Log.i(TAG, "onPause");
-		super.onPause();
 	}
 
 	public Boolean goBack()
