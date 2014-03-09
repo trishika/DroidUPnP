@@ -63,6 +63,10 @@
 	<string name="noRenderer">There is no renderer available</string>
 	<string name="selectContentDirectory">Select a Content directory</string>
 
+	<!-- Long click options -->
+	<string name="launch_local_viewer">Launch local viewer</string>
+	<string name="nothing_on_device_can_open_item">Nothing on your device can view/open this item</string>
+
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 
