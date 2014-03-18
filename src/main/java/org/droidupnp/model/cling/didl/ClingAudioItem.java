@@ -31,6 +31,7 @@ public class ClingAudioItem extends ClingDIDLItem
 	public ClingAudioItem(AudioItem item)
 	{
 		super(item);
+		defaultIcon = R.drawable.ic_action_headphones;
 	}
 
 	@Override
@@ -53,11 +54,5 @@ public class ClingAudioItem extends ClingDIDLItem
 			return "" + ((res.get(0).getDuration()!=null) ? res.get(0).getDuration().split("\\.")[0] : "");
 
 		return "";
-	}
-
-	@Override
-	public int getIcon()
-	{
-		return R.drawable.ic_action_headphones;
 	}
 }

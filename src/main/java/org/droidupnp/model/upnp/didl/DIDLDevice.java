@@ -26,6 +26,7 @@ import org.droidupnp.view.DeviceDisplay;
 public class DIDLDevice implements IDIDLObject {
 
 	IUpnpDevice device;
+	protected int defaultIcon = R.drawable.ic_action_collection;
 
 	public DIDLDevice(IUpnpDevice device)
 	{
@@ -53,7 +54,7 @@ public class DIDLDevice implements IDIDLObject {
 	}
 
 	@Override
-	public int getIcon() {
+	public Object getIcon() {
 		return R.drawable.ic_action_collection;
 	}
 

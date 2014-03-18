@@ -30,6 +30,7 @@ public class ClingVideoItem extends ClingDIDLItem
 	public ClingVideoItem(VideoItem item)
 	{
 		super(item);
+		defaultIcon = R.drawable.ic_action_video;
 	}
 
 	@Override
@@ -50,11 +51,5 @@ public class ClingVideoItem extends ClingDIDLItem
 			return "" + ((res.get(0).getDuration()!=null) ? res.get(0).getDuration().split("\\.")[0] : "");
 
 		return "";
-	}
-
-	@Override
-	public int getIcon()
-	{
-		return R.drawable.ic_action_video;
 	}
 }

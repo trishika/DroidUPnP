@@ -53,7 +53,7 @@ public class DIDLObjectDisplay {
 		return didl.getCount();
 	}
 
-	public int getIcon()
+	public Object getIcon()
 	{
 		return didl.getIcon();
 	}

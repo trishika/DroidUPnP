@@ -19,6 +19,9 @@
 
 package org.droidupnp.view;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,6 +46,9 @@ import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -143,7 +149,12 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			final DIDLObjectDisplay entry = getItem(position);
 
 			ImageView imageView = (ImageView) convertView.findViewById(R.id.icon);
-			imageView.setImageResource(entry.getIcon());
+			if(entry.getIcon() instanceof  Integer)
+				imageView.setImageResource((Integer) entry.getIcon());
+			else if(entry.getIcon() instanceof URI)
+				new DownloadImageTask(imageView).execute(entry.getIcon().toString());
+			else
+				imageView.setImageResource(android.R.color.transparent);
 
 			TextView text1 = (TextView) convertView.findViewById(R.id.text1);
 			text1.setText(entry.getTitle());
@@ -155,6 +166,39 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			text3.setText(entry.getCount());
 
 			return convertView;
+		}
+	}
+
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView imageView;
+		int height = getResources().getDrawable(R.drawable.ic_action_collection).getIntrinsicHeight();
+		int width = getResources().getDrawable(R.drawable.ic_action_collection).getIntrinsicWidth();
+
+		public DownloadImageTask(ImageView imageView) {
+			this.imageView = imageView;
+			imageView.setImageResource(android.R.color.transparent);
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			try {
+				InputStream in = new java.net.URL(urls[0]).openStream();
+				Bitmap bitmap = BitmapFactory.decodeStream(in);
+
+				if(bitmap.getHeight() > bitmap.getWidth())
+					width = (int) (1.0 * height / bitmap.getHeight() * bitmap.getWidth());
+				else
+					height = (int) (1.0 * width / bitmap.getWidth() * bitmap.getHeight());
+
+				return bitmap.createScaledBitmap(bitmap, width, height, false);
+			} catch (IOException e) {
+				Log.e("Error", e.getMessage());
+				return null;
+			}
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			if(result != null)
+				imageView.setImageBitmap(result);
 		}
 	}
 

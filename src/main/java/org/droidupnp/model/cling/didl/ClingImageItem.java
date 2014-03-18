@@ -24,7 +24,6 @@ import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.item.ImageItem;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +33,7 @@ public class ClingImageItem extends ClingDIDLItem
 	public ClingImageItem(ImageItem item)
 	{
 		super(item);
+		defaultIcon = R.drawable.ic_action_picture;
 	}
 
 	@Override
@@ -58,11 +58,5 @@ public class ClingImageItem extends ClingDIDLItem
 		}
 		catch (Exception e) {}
 		return "";
-	}
-
-	@Override
-	public int getIcon()
-	{
-		return R.drawable.ic_action_picture;
 	}
 }
