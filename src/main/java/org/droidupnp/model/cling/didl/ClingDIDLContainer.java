@@ -24,21 +24,15 @@ import org.droidupnp.model.upnp.didl.IDIDLContainer;
 import org.fourthline.cling.support.model.container.Container;
 
 public class ClingDIDLContainer extends ClingDIDLObject implements IDIDLContainer {
-
 	public ClingDIDLContainer(Container item)
 	{
 		super(item);
+		defaultIcon = R.drawable.ic_action_collection;
 	}
 
 	public String getCount()
 	{
 		return "" + getChildCount();
-	}
-
-	@Override
-	public int getIcon()
-	{
-		return R.drawable.ic_action_collection;
 	}
 
 	@Override
