@@ -230,9 +230,12 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
                     if (didl instanceof ClingImageItem)
                         intent.setDataAndType(uri, "image/*");
 
+                    final String launch_local_viewer = getResources().getString(R.string.launch_local_viewer);
+                    final String nothing_on_device_can_open_item = getResources().getString(R.string.nothing_on_device_can_open_item);
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(a);
                     CharSequence[] list = new CharSequence[1];
-                    list[0] = "Launch local viewer";
+                    list[0] = launch_local_viewer;
                     builder.setItems(list, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -240,7 +243,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
                                 a.startActivity(intent);
                             }
                             catch (ActivityNotFoundException ex) {
-                                Toast.makeText(getActivity(), "Nothing on your device can view/open this item", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), nothing_on_device_can_open_item, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
