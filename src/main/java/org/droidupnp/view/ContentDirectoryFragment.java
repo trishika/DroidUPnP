@@ -20,7 +20,6 @@
 package org.droidupnp.view;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,8 +170,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		ImageView imageView;
-		int height = getResources().getDrawable(R.drawable.ic_action_collection).getIntrinsicHeight();
-		int width = getResources().getDrawable(R.drawable.ic_action_collection).getIntrinsicWidth();
 
 		public DownloadImageTask(ImageView imageView) {
 			this.imageView = imageView;
@@ -181,15 +178,8 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 		protected Bitmap doInBackground(String... urls) {
 			try {
-				InputStream in = new java.net.URL(urls[0]).openStream();
-				Bitmap bitmap = BitmapFactory.decodeStream(in);
+				return BitmapFactory.decodeStream(new java.net.URL(urls[0]).openStream());
 
-				if(bitmap.getHeight() > bitmap.getWidth())
-					width = (int) (1.0 * height / bitmap.getHeight() * bitmap.getWidth());
-				else
-					height = (int) (1.0 * width / bitmap.getWidth() * bitmap.getHeight());
-
-				return bitmap.createScaledBitmap(bitmap, width, height, false);
 			} catch (IOException e) {
 				Log.e("Error", e.getMessage());
 				return null;
