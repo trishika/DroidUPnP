@@ -150,8 +150,10 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			ImageView imageView = (ImageView) convertView.findViewById(R.id.icon);
 			if(entry.getIcon() instanceof  Integer)
 				imageView.setImageResource((Integer) entry.getIcon());
-			else if(entry.getIcon() instanceof URI)
-				new DownloadImageTask(imageView).execute(entry.getIcon().toString());
+			else if(entry.getIcon() instanceof URI) {
+				imageView.setTag(entry.getIcon().toString());
+				new DownloadImageTask(imageView, entry.getIcon().toString()).execute();
+			}
 			else
 				imageView.setImageResource(android.R.color.transparent);
 
@@ -168,26 +170,29 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 	}
 
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	private class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
 		ImageView imageView;
+		String url;
 
-		public DownloadImageTask(ImageView imageView) {
+		public DownloadImageTask(ImageView imageView, String url) {
 			this.imageView = imageView;
+			this.url = url;
 			imageView.setImageResource(android.R.color.transparent);
 		}
 
-		protected Bitmap doInBackground(String... urls) {
+		@Override
+		protected Bitmap doInBackground(Void... voids) {
 			try {
-				return BitmapFactory.decodeStream(new java.net.URL(urls[0]).openStream());
-
+				return BitmapFactory.decodeStream(new java.net.URL(url).openStream());
 			} catch (IOException e) {
 				Log.e("Error", e.getMessage());
 				return null;
 			}
 		}
 
+		@Override
 		protected void onPostExecute(Bitmap result) {
-			if(result != null)
+			if(result != null && imageView.getTag().equals(url))
 				imageView.setImageBitmap(result);
 		}
 	}
