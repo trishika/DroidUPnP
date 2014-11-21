@@ -61,24 +61,24 @@ public class Renderer
 		localService.setManager(new DefaultServiceManager<AVTransportService>(
 			localService, AVTransportService.class));
 
-		localService.setManager(
-			new DefaultServiceManager<AVTransportService>(localService, null) {
-				@Override
-				protected AVTransportService createServiceInstance() throws Exception {
-					return new AVTransportService(
-						MyRendererStateMachine.class,   // All states
-						MyRendererNoMediaPresent.class  // Initial state
-					);
-				}
-			}
-		);
+//		localService.setManager(
+//			new DefaultServiceManager<AVTransportService>(localService, null) {
+//				@Override
+//				protected AVTransportService createServiceInstance() throws Exception {
+//					return new AVTransportService(
+//						MyRendererStateMachine.class,   // All states
+//						MyRendererNoMediaPresent.class  // Initial state
+//					);
+//				}
+//			}
+//		);
 
 		udn = UDN.valueOf(new UUID(0,10).toString());
 		this.localAddress = localAddress;
 		this.ctx = ctx;
 		createLocalDevice();
 
-		AVTransportService avTransportService = (AVTransportService ) localService.getManager().getImplementation();
+//		AVTransportService avTransportService = (AVTransportService) localService.getManager().getImplementation();
 //		avTransportService.fireLastChange();
 
 //		avTransportServiceService.setContext(ctx);

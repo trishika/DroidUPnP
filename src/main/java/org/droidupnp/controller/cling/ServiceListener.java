@@ -29,6 +29,7 @@ import org.droidupnp.model.cling.CDevice;
 import org.droidupnp.model.cling.CRegistryListener;
 import org.droidupnp.model.mediaserver.ContentDirectoryService;
 import org.droidupnp.model.mediaserver.MediaServer;
+import org.droidupnp.model.renderer.Renderer;
 import org.droidupnp.model.upnp.ICallableFilter;
 import org.droidupnp.model.upnp.IRegistryListener;
 import org.droidupnp.model.upnp.IServiceListener;
@@ -55,6 +56,7 @@ public class ServiceListener implements IServiceListener
 	protected ArrayList<IRegistryListener> waitingListener;
 
 	private MediaServer mediaServer = null;
+	private Renderer renderer = null;
 	private Context ctx = null;
 
 	public ServiceListener(Context ctx)
@@ -112,12 +114,12 @@ public class ServiceListener implements IServiceListener
 			Log.i(TAG, "Service connexion");
 			upnpService = (AndroidUpnpService) service;
 
+			// Create local content directory service
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 			if(sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_SERVICE, true))
 			{
 				try
 				{
-					// Local content directory
 					if(mediaServer == null)
 					{
 						mediaServer = new MediaServer(Main.getLocalIpAddress(ctx), ctx);
@@ -131,12 +133,12 @@ public class ServiceListener implements IServiceListener
 				}
 				catch (UnknownHostException e1)
 				{
-					Log.e(TAG, "Creating demo device failed");
+					Log.e(TAG, "Creating content directory device failed");
 					Log.e(TAG, "exception", e1);
 				}
 				catch (ValidationException e2)
 				{
-					Log.e(TAG, "Creating demo device failed");
+					Log.e(TAG, "Creating content directory device failed");
 					Log.e(TAG, "exception", e2);
 				}
 				catch (IOException e3)
@@ -149,6 +151,24 @@ public class ServiceListener implements IServiceListener
 			{
 				mediaServer.stop();
 				mediaServer = null;
+			}
+
+			// Create local renderer service
+			try {
+				if (renderer == null) {
+					renderer = new Renderer(Main.getLocalIpAddress(ctx), ctx);
+				}
+				upnpService.getRegistry().addDevice(renderer.getDevice());
+			}
+			catch (UnknownHostException e1)
+			{
+				Log.e(TAG, "Creating renderer device failed");
+				Log.e(TAG, "exception", e1);
+			}
+			catch (ValidationException e2)
+			{
+				Log.e(TAG, "Creating renderer device failed");
+				Log.e(TAG, "exception", e2);
 			}
 
 			for (IRegistryListener registryListener : waitingListener)

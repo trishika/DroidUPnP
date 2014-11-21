@@ -311,7 +311,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 					@Override
 					public void run() {
 						try {
-							setListShown(true);
+//							setListShown(true);
 							mPullToRefreshLayout.setRefreshComplete();
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -374,7 +374,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				@Override
 				public void run() {
 					try {
-						setListShown(false);
+//						setListShown(false);
 						mPullToRefreshLayout.setRefreshComplete();
 						mPullToRefreshLayout.setRefreshing(true);
 					} catch (Exception e) {
