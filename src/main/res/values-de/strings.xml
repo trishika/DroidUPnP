@@ -104,7 +104,7 @@
 		<![CDATA[
 		<p><b>DroidUPnP ist freie Software und unter GPLv3 lizenziert.</b>
 		Der Quellcode steht auf <a href="https://github.com/trishika/DroidUPnP">GitHub</a> zur Verfügung.
-		Wenn sie Entwickler sind dürfen sie gern beitragen!</p>
+		Wenn sie Entwickler sind dürfen sie gern dazu beitragen!</p>
 		]]>
 	</string>
 	<string name="about_cling">
@@ -121,7 +121,7 @@
 	</string>
 	<string name="about_pulltorefresh">
 		<![CDATA[
-		<p>DroidUPnP nutzt <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh unter einer Apache License, Version 2.0.
+		<p>DroidUPnP nutzt <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh unter einer Apache Lizenz, Version 2.0.
 		SDer Quellcode steht auf <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a> zur Verfügung.
 		]]>
 	</string>
