@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ClingImageItem extends ClingDIDLItem
 {
@@ -51,7 +52,7 @@ public class ClingImageItem extends ClingDIDLItem
 	{
 		try
 		{
-			SimpleDateFormat formatIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			SimpleDateFormat formatIn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
 			Date date = formatIn.parse(((ImageItem) item).getDate());
 			DateFormat formatOut = DateFormat.getDateTimeInstance();
 			return formatOut.format(date);
