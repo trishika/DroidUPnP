@@ -48,9 +48,9 @@ along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 	</Preference>
 
 	<Preference
-		android:key="license_other"
-		android:title="@string/license_other"
-		android:summary="@string/about_license_other" >
+		android:key="licenses_other"
+		android:title="@string/licenses_other"
+		android:summary="@string/about_licenses_other" >
 	</Preference>
 
 </PreferenceScreen>

@@ -94,23 +94,5 @@
 		Wenn sie Entwickler sind dürfen sie gern beitragen!</p>
 		]]>
 	</string>
-	<string name="about_cling">
-		<![CDATA[
-		<p>DroidUPnP nutzt die Java/Android UPnP Bibliothek <b>Cling</b>. Cling ist lizenziert unter LGPLv2.
-		Der Quellcode steht auf <a href="http://4thline.org/projects/cling/">4thline.org</a> zur Verfügung.</p>
-		]]>
-	</string>
-	<string name="about_nanohttpd">
-		<![CDATA[
-		<p>DroidUPnP nutzt <b>NanoHttpd</b>. NanoHttpd ist lizenziert unter einer angepassten BSD Lizenz.
-		Der Quellcode steht auf <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a> zur Verfügung.
-		]]>
-	</string>
-	<string name="about_pulltorefresh">
-		<![CDATA[
-		<p>DroidUPnP nutzt <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh unter einer Apache License, Version 2.0.
-		SDer Quellcode steht auf <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a> zur Verfügung.
-		]]>
-	</string>
 
 </resources>

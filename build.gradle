@@ -30,6 +30,10 @@ dependencies {
 
     // Pull To Refresh
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
+
+    compile('de.psdev.licensesdialog:licensesdialog:1.6.0') {
+        exclude module: 'support-v4'
+    }
 }
 
 android {
