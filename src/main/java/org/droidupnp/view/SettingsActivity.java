@@ -19,7 +19,6 @@
 
 package org.droidupnp.view;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,14 +30,15 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -57,11 +57,41 @@ public class SettingsActivity extends PreferenceActivity {
 	public static final String CONTENTDIRECTORY_AUDIO = "pref_contentDirectoryService_audio";
 	public static final String CONTENTDIRECTORY_IMAGE = "pref_contentDirectoryService_image";
 
+	private Toolbar mActionBar;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		mActionBar.setTitle(getTitle());
+//		mActionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public void setContentView(int layoutResID)
+	{
+		ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(
+				R.layout.preference_activity, new LinearLayout(this), false);
+
+		mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
+		mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+		ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
+		LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
+
+		getWindow().setContentView(contentView);
+	}
+
 	public static String getSettingContentDirectoryName(Context ctx)
 	{
 		String value = PreferenceManager.getDefaultSharedPreferences(ctx)
-				.getString(SettingsActivity.CONTENTDIRECTORY_NAME, "");
-		return (value!="") ? value : android.os.Build.MODEL;
+			.getString(SettingsActivity.CONTENTDIRECTORY_NAME, "");
+		return (value != "") ? value : android.os.Build.MODEL;
 	}
 
 	private static final String TAG = "SettingsActivity";
@@ -84,13 +114,6 @@ public class SettingsActivity extends PreferenceActivity {
 
 		if (getListAdapter() instanceof MyPrefsHeaderAdapter)
 			((MyPrefsHeaderAdapter) getListAdapter()).pause();
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -145,6 +168,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 			Switch actionBarSwitch = new Switch(activity);
 
+/*
 			if(activity instanceof PreferenceActivity)
 			{
 				PreferenceActivity preferenceActivity = (PreferenceActivity) activity;
@@ -157,6 +181,7 @@ public class SettingsActivity extends PreferenceActivity {
 						Gravity.CENTER_VERTICAL | Gravity.END));
 				}
 			}
+			*/
 			enabler = new ContentDirectoryEnabler(getActivity(), actionBarSwitch);
 			updateSettings();
 
