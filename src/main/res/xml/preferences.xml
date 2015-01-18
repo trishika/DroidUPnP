@@ -24,13 +24,7 @@
 		android:fragment="org.droidupnp.view.SettingsActivity$ContentDirectorySettingsFragment"
 		android:title="@string/pref_contentdirectory_title"
 		android:summary="@string/pref_contentdirectory_desc" />
-<!--
-	<header
-		android:id="@+id/theme_settings"
-		android:fragment="org.droidupnp.view.SettingsActivity$ThemeSettingsFragment"
-		android:title="@string/pref_theme_title"
-		android:summary="@string/pref_theme_desc" />
--->
+
 	<header
 		android:id="@+id/about_settings"
 		android:fragment="org.droidupnp.view.SettingsActivity$AboutSettingsFragment"

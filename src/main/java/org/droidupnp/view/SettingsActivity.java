@@ -100,7 +100,8 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		switch (item.getItemId()) {
 			// Respond to the action bar's Up/Home button
 			case android.R.id.home:
@@ -119,17 +120,16 @@ public class SettingsActivity extends PreferenceActivity {
 
 	public void setListAdapter(ListAdapter adapter)
 	{
-		if(mHeaders == null)
-		{
-			mHeaders = new ArrayList<Header>();
+		if (mHeaders == null) {
+			mHeaders = new ArrayList<>();
 			for (int i = 0; i < adapter.getCount(); ++i)
 				mHeaders.add((Header) adapter.getItem(i));
 		}
 		super.setListAdapter(new MyPrefsHeaderAdapter(this, mHeaders));
 	}
 
-	public static class ContentDirectorySettingsFragment extends PreferenceFragment implements SharedPreferences
-			.OnSharedPreferenceChangeListener
+	public static class ContentDirectorySettingsFragment extends PreferenceFragment
+		implements SharedPreferences.OnSharedPreferenceChangeListener
 	{
 		private ContentDirectoryEnabler enabler;
 
@@ -223,7 +223,7 @@ public class SettingsActivity extends PreferenceActivity {
 			}
 
 			// Dialog for external license
-			Preference customPref = (Preference) findPreference("license_other");
+			Preference customPref = findPreference("license_other");
 			customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				public boolean onPreferenceClick(Preference preference) {
 					LicenseDialog.showDialog(getActivity());
@@ -231,16 +231,6 @@ public class SettingsActivity extends PreferenceActivity {
 				}
 			});
 
-		}
-	}
-
-	public static class ThemeSettingsFragment extends PreferenceFragment
-	{
-		@Override
-		public void onCreate(Bundle savedInstanceState)
-		{
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.theme);
 		}
 	}
 

@@ -130,9 +130,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			this.layout = R.layout.browsing_list_item;
 		}
 
-//		@ViewById
-//		TextView text1;
-
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
@@ -185,7 +182,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			Log.i(TAG, "Restore previews state");
 
 			// Content directory is still the same => reload context
-			tree = new LinkedList<String>(Arrays.asList(savedInstanceState.getStringArray(STATE_TREE)));
+			tree = new LinkedList<>(Arrays.asList(savedInstanceState.getStringArray(STATE_TREE)));
 			currentID = savedInstanceState.getString(STATE_CURRENT);
 
 			device = Main.upnpServiceController.getSelectedContentDirectory();
@@ -331,7 +328,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		public ContentCallback(ArrayAdapter<DIDLObjectDisplay> contentList)
 		{
 			this.contentList = contentList;
-			this.content = new ArrayList<DIDLObjectDisplay>();
+			this.content = new ArrayList<>();
 		}
 
 		public void setContent(ArrayList<DIDLObjectDisplay> content)
@@ -362,8 +359,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 	}
 
-
-//	@UiThread
 	public synchronized void refresh()
 	{
 		Log.d(TAG, "refresh");

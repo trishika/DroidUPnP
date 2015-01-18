@@ -87,10 +87,6 @@ public class DrawerFragment extends Fragment {
 		return mDrawerView;
 	}
 
-	public boolean isDrawerOpen() {
-		return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-	}
-
 	/**
 	 * Users of this fragment must call this method to set up the navigation drawer interactions.
 	 *
@@ -170,17 +166,6 @@ public class DrawerFragment extends Fragment {
 		super.onConfigurationChanged(newConfig);
 		// Forward the new configuration the drawer toggle component.
 		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// If the drawer is open, show the global app actions in the action bar. See also
-		// showGlobalContextActionBar, which controls the top-left area of the action bar.
-//		if (mDrawerLayout != null && isDrawerOpen()) {
-//			inflater.inflate(R.menu.global, menu);
-//			showGlobalContextActionBar();
-//		}
-		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override

@@ -128,12 +128,6 @@ public class Main extends Activity
 	}
 
 	@Override
-	public void onDestroy()
-	{
-		super.onDestroy();
-	}
-
-	@Override
 	public void onResume()
 	{
 		Log.v(TAG, "Resume activity");
