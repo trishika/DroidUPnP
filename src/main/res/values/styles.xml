@@ -20,6 +20,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<color name="blue">#379293</color>
+	<color name="blue_dark">#1C7475</color>
 	<color name="blue_trans">#77379293</color>
 	<color name="grey">#DDDDDD</color>
 	<color name="greyer">#AACCCCCC</color>
@@ -35,19 +36,19 @@
 
 	<!-- Drawer style -->
 	<style name="drawer">
-		<item name="android:background">@color/dark</item>
+		<item name="android:background">@color/light_grey</item>
 	</style>
 
 	<style name="DrawerText" parent="@android:style/TextAppearance">
-		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textColor">@color/darker</item>
 	</style>
 
 	<style name="deviceListLabel">
-		<item name="android:textColor">@color/greyer</item>
+		<item name="android:textColor">@color/dark</item>
 	</style>
 
 	<style name="deviceListSeparator">
-		<item name="android:background">@color/greyer</item>
+		<item name="android:background">@color/dark</item>
 	</style>
 
 	<!-- Content directory style -->
@@ -81,15 +82,16 @@
 
 	<!-- Pull to refresh style -->
 	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
-		<item name="ptrProgressBarColor">@color/blue</item>
+		<item name="ptrProgressBarColor">@color/blue_dark</item>
 	</style>
 
-	<!-- The light theme -->
-	<style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar" />
+	<!-- The app theme -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/blue</item>
+		<item name="colorPrimaryDark">@color/blue_dark</item>
+		<item name="colorAccent">@color/blue</item>
 
-	<!-- Style selection -->
-	<style name="AppTheme" parent="AppThemeLight">
 		<item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
-	</style>>
+	</style>
 
 </resources>

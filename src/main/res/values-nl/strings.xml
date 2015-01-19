@@ -94,23 +94,5 @@
 		Als je een develloper bijdrage zijn van harte welkom !</p>
 		]]>
 	</string>
-	<string name="about_cling">
-		<![CDATA[
-		<p>DroidUPnP gebruik <b>Cling</b> dat is een Java/Android UPnP bibliotheek. Cling is gelicenseerd onder LGPLv2.
-		Broncode is beschikbaar op <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
-		]]>
-	</string>
-	<string name="about_nanohttpd">
-		<![CDATA[
-		<p>DroidUPnP gebruik <b>NanoHttpd</b>. NanoHttpd is onder een modify BSD licentie.
-		Broncode is beschikbaar op <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
-		]]>
-	</string>
-	<string name="about_pulltorefresh">
-		<![CDATA[
-		<p>DroidUPnP gebruik <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh is gelicenseerd onder Apache License, Version 2.0.
-		Broncode is beschikbaar op <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
-		]]>
-	</string>
 
 </resources>

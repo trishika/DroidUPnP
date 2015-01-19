@@ -19,7 +19,6 @@
 
 package org.droidupnp;
 
-import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -27,6 +26,7 @@ import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +45,7 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Observer;
 
-public class Main extends Activity
+public class Main extends ActionBarActivity
 {
 	private static final String TAG = "Main";
 
@@ -128,12 +128,6 @@ public class Main extends Activity
 	}
 
 	@Override
-	public void onDestroy()
-	{
-		super.onDestroy();
-	}
-
-	@Override
 	public void onResume()
 	{
 		Log.v(TAG, "Resume activity");
@@ -160,9 +154,10 @@ public class Main extends Activity
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(mTitle);
+		if(actionBar!=null) {
+			actionBar.setDisplayShowTitleEnabled(true);
+			actionBar.setTitle(mTitle);
+		}
 	}
 
 	@Override
@@ -170,7 +165,7 @@ public class Main extends Activity
 		getMenuInflater().inflate(R.menu.main, menu);
 		actionBarMenu = menu;
 		restoreActionBar();
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override

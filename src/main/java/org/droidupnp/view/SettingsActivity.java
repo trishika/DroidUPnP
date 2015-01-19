@@ -19,7 +19,6 @@
 
 package org.droidupnp.view;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,14 +30,15 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -47,6 +47,13 @@ import org.droidupnp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.psdev.licensesdialog.LicensesDialog;
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
+import de.psdev.licensesdialog.licenses.BSD3ClauseLicense;
+import de.psdev.licensesdialog.licenses.GnuLesserGeneralPublicLicense21;
+import de.psdev.licensesdialog.model.Notice;
+import de.psdev.licensesdialog.model.Notices;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -57,11 +64,41 @@ public class SettingsActivity extends PreferenceActivity {
 	public static final String CONTENTDIRECTORY_AUDIO = "pref_contentDirectoryService_audio";
 	public static final String CONTENTDIRECTORY_IMAGE = "pref_contentDirectoryService_image";
 
+	private Toolbar mActionBar;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		mActionBar.setTitle(getTitle());
+//		mActionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public void setContentView(int layoutResID)
+	{
+		ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(
+				R.layout.preference_activity, new LinearLayout(this), false);
+
+		mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
+		mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+
+		ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
+		LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
+
+		getWindow().setContentView(contentView);
+	}
+
 	public static String getSettingContentDirectoryName(Context ctx)
 	{
 		String value = PreferenceManager.getDefaultSharedPreferences(ctx)
-				.getString(SettingsActivity.CONTENTDIRECTORY_NAME, "");
-		return (value!="") ? value : android.os.Build.MODEL;
+			.getString(SettingsActivity.CONTENTDIRECTORY_NAME, "");
+		return (value != "") ? value : android.os.Build.MODEL;
 	}
 
 	private static final String TAG = "SettingsActivity";
@@ -87,20 +124,14 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	}
-
-	@Override
 	protected boolean isValidFragment (String fragmentName)
 	{
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		switch (item.getItemId()) {
 			// Respond to the action bar's Up/Home button
 			case android.R.id.home:
@@ -119,17 +150,16 @@ public class SettingsActivity extends PreferenceActivity {
 
 	public void setListAdapter(ListAdapter adapter)
 	{
-		if(mHeaders == null)
-		{
-			mHeaders = new ArrayList<Header>();
+		if (mHeaders == null) {
+			mHeaders = new ArrayList<>();
 			for (int i = 0; i < adapter.getCount(); ++i)
 				mHeaders.add((Header) adapter.getItem(i));
 		}
 		super.setListAdapter(new MyPrefsHeaderAdapter(this, mHeaders));
 	}
 
-	public static class ContentDirectorySettingsFragment extends PreferenceFragment implements SharedPreferences
-			.OnSharedPreferenceChangeListener
+	public static class ContentDirectorySettingsFragment extends PreferenceFragment
+		implements SharedPreferences.OnSharedPreferenceChangeListener
 	{
 		private ContentDirectoryEnabler enabler;
 
@@ -145,6 +175,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 			Switch actionBarSwitch = new Switch(activity);
 
+/*
 			if(activity instanceof PreferenceActivity)
 			{
 				PreferenceActivity preferenceActivity = (PreferenceActivity) activity;
@@ -157,6 +188,7 @@ public class SettingsActivity extends PreferenceActivity {
 						Gravity.CENTER_VERTICAL | Gravity.END));
 				}
 			}
+			*/
 			enabler = new ContentDirectoryEnabler(getActivity(), actionBarSwitch);
 			updateSettings();
 
@@ -223,24 +255,34 @@ public class SettingsActivity extends PreferenceActivity {
 			}
 
 			// Dialog for external license
-			Preference customPref = (Preference) findPreference("license_other");
-			customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+			Preference pref = findPreference("licenses_other");
+			pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				public boolean onPreferenceClick(Preference preference) {
-					LicenseDialog.showDialog(getActivity());
+					Notices notices = new Notices();
+					notices.addNotice(new Notice(
+						"AppCompat", "http://developer.android.com/tools/support-library/",
+						"Copyright (C) The Android Open Source Project", new ApacheSoftwareLicense20()));
+					notices.addNotice(new Notice(
+						"Cling", "http://4thline.org/projects/cling/",
+						"Copyright (C) 4th Line GmbH", new GnuLesserGeneralPublicLicense21()));
+					notices.addNotice(new Notice(
+						"NanoHttpd", "https://github.com/NanoHttpd/nanohttpd",
+						"Copyright (C) 2012-2013 by Paul S. Hawke, 2001,2005-2013 by Jarno Elonen, 2010 by Konstantinos Togias", new BSD3ClauseLicense()));
+					notices.addNotice(new Notice(
+						"ActionBar-PullToRefresh", "https://github.com/chrisbanes/ActionBar-PullToRefresh",
+						"Copyright (C) Chris Banes", new ApacheSoftwareLicense20()));
+					notices.addNotice(new Notice(
+						"LicenseDialog", "http://psdev.de/LicensesDialog/",
+						"Copyright (C) Philip Schiffer", new ApacheSoftwareLicense20()));
+
+					LicensesDialog.Builder licensesDialog = new LicensesDialog.Builder(getActivity());
+					licensesDialog.setNotices(notices);
+					licensesDialog.setTitle(R.string.licenses_other);
+					licensesDialog.build().show();
 					return false;
 				}
+
 			});
-
-		}
-	}
-
-	public static class ThemeSettingsFragment extends PreferenceFragment
-	{
-		@Override
-		public void onCreate(Bundle savedInstanceState)
-		{
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.theme);
 		}
 	}
 

@@ -88,13 +88,13 @@
 
 	<!-- About -->
 	<string name="copyright">Copyright</string>
-	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
+	<string name="about_copyright">Copyright © 2014 Aurélien Chabot</string>
 	<string name="about_contact">Contact : aurelien@chabot.fr</string>
 	<string name="license">License</string>
 	<string name="about_license">GPLv3</string>
 	<string name="link_license">http://www.gnu.org/licenses/gpl-3.0.html</string>
-	<string name="license_other">Library license</string>
-	<string name="about_license_other"></string>
+	<string name="licenses_other">Library licenses</string>
+	<string name="about_licenses_other"></string>
 	<string name="source">Source Code</string>
 	<string name="source_url">http://github.com/trishika/droidupnp</string>
 	<string name="more">More information</string>
@@ -104,24 +104,6 @@
 		<p><b>DroidUPnP is free software licensed under GPLv3.</b>
 		Source code is available on <a href="https://github.com/trishika/DroidUPnP">GitHub</a>.
 		If you\'re a develloper contribution are welcome !</p>
-		]]>
-	</string>
-	<string name="about_cling">
-		<![CDATA[
-		<p>DroidUPnP use <b>Cling</b> which is a Java/Android UPnP library. Cling is licensed under LGPLv2.
-		Source code is available at <a href="http://4thline.org/projects/cling/">4thline.org</a></p>
-		]]>
-	</string>
-	<string name="about_nanohttpd">
-		<![CDATA[
-		<p>DroidUPnP use <b>NanoHttpd</b>. NanoHttpd is under a modify BSD license.
-		Source code is available on <a href="https://github.com/NanoHttpd/nanohttpd">GitHub</a>.
-		]]>
-	</string>
-	<string name="about_pulltorefresh">
-		<![CDATA[
-		<p>DroidUPnP use <b>ActionBar-PullToRefresh</b>. ActionBar-PullToRefresh is under the Apache License, Version 2.0.
-		Source code is available on <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh">GitHub</a>.
 		]]>
 	</string>
 
