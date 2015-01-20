@@ -72,6 +72,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	static final String STATE_CURRENT = "current";
 
 	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+	   Main.setContentDirectoryFragment(this);
+	   super.onCreate(savedInstanceState);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		// Inflate the layout for this fragment
@@ -287,7 +294,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 		else
 		{
-			// Go back in browsing
+			Log.d(TAG, "Go back in browsing");
 			currentID = tree.pop();
 			update();
 			return false;
