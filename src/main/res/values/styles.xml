@@ -51,9 +51,26 @@
 		<item name="android:background">@color/dark</item>
 	</style>
 
-	<!-- Content directory style -->
+	<!-- Content browsing style -->
 	<style name="contentdirectory">
 		<item name="android:background">@color/grey</item>
+	</style>
+
+	<style name="browsingItemText" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/darker</item>
+		<item name="android:textSize">12sp</item>
+	</style>
+
+	<style name="browsingItemTitle" parent="@style/browsingItemText">
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="browsingItemSubtitle" parent="@style/browsingItemText">
+	</style>
+
+	<style name="browsingItemCount" parent="@style/browsingItemText">
+		<item name="android:textColor">@color/blue</item>
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<!-- Renderer style -->
@@ -72,12 +89,6 @@
 	<style name="rendererSubtitle" parent="rendererText">
 		<item name="android:textStyle">italic</item>
 		<item name="android:textSize">15sp</item>
-	</style>
-
-	<!-- Content browsing duration/count style -->
-	<style name="CountText" parent="@android:style/TextAppearance">
-		<item name="android:textColor">@color/blue</item>
-		<item name="android:textStyle">bold</item>
 	</style>
 
 	<!-- Pull to refresh style -->

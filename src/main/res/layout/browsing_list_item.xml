@@ -48,7 +48,7 @@
 		android:ellipsize="marquee"
 		android:singleLine="true"
 		android:text=""
-		android:textSize="16sp" />
+		style="@style/browsingItemTitle" />
 
 	<TextView
 		android:id="@+id/text2"
@@ -62,7 +62,7 @@
 		android:ellipsize="marquee"
 		android:singleLine="true"
 		android:text=""
-		android:textSize="12sp" />
+		style="@style/browsingItemSubtitle" />
 
 	<TextView
 		android:id="@+id/text3"
@@ -77,6 +77,6 @@
 		android:text=""
 		android:layout_marginRight="5dip"
 		android:layout_marginEnd="5dip"
-		android:textSize="12sp"
-		style="@style/CountText" />
+		style="@style/browsingItemCount" />
+
 </RelativeLayout>
