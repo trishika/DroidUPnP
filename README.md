@@ -45,7 +45,7 @@ Other dependencies are :
 Copying
 =======
 
-Copyright (C) 2013, Aurélien Chabot <aurelien@chabot.fr>
+Copyright (C) 2015, Aurélien Chabot <aurelien@chabot.fr>
 
 Licensed under **GPLv3**
 
