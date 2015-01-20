@@ -81,7 +81,7 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 
 	public ContentDirectoryService()
 	{
-		Log.e(TAG, "Call default constructor...");
+		Log.v(TAG, "Call default constructor...");
 	}
 
 	public ContentDirectoryService(Context ctx, String baseURL)

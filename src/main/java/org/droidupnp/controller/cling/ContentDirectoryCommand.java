@@ -152,7 +152,7 @@ public class ContentDirectoryCommand implements IContentDirectoryCommand
 					try {
 						if(didl!=null)
 							callback.setContent(buildContentList(parent, didl));
-						callback.call();
+							callback.call();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

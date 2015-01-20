@@ -216,7 +216,7 @@ public class Main extends ActionBarActivity
 				}
 			}
 		} catch (Exception e) {
-			Log.e(TAG, "Unable to get ip adress for interface " + intfName);
+			Log.w(TAG, "Unable to get ip adress for interface " + intfName);
 		}
 		return null;
 	}
