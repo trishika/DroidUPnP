@@ -44,7 +44,10 @@ public class ArtistContainer extends DynamicContainer
 	public Integer getChildCount()
 	{
 		String[] columns = { MediaStore.Audio.Artists._ID };
-		return ctx.getContentResolver().query(uri, columns, null, null, null).getCount();
+		Cursor cursor = ctx.getContentResolver().query(uri, columns, null, null, null);
+		if(cursor == null)
+			return 0;
+		return cursor.getCount();
 	}
 
 	@Override
@@ -58,19 +61,22 @@ public class ArtistContainer extends DynamicContainer
 		};
 
 		Cursor cursor =  ctx.getContentResolver().query(uri, columns, null, null, null);
-		if (cursor.moveToFirst())
+		if(cursor!=null)
 		{
-			do
+			if (cursor.moveToFirst())
 			{
-				String artistId = "" + cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Artists._ID));
-				String artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST));
+				do
+				{
+					String artistId = "" + cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Artists._ID));
+					String artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Artists.ARTIST));
 
-				Log.d(TAG, " artistId : " + artistId + " artistArtist : " + artist);
-				containers.add(new AlbumContainer(artistId, id, artist, artist, baseURL, ctx, artistId));
+					Log.d(TAG, " artistId : " + artistId + " artistArtist : " + artist);
+					containers.add(new AlbumContainer(artistId, id, artist, artist, baseURL, ctx, artistId));
 
-			} while (cursor.moveToNext());
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
 		}
-		cursor.close();
 
 		return containers;
 	}

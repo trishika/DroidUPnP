@@ -38,7 +38,7 @@ public class AudioContainer extends DynamicContainer
 	private static final String TAG = "AudioContainer";
 
 	public AudioContainer(String id, String parentID, String title, String creator, String baseURL, Context ctx,
-	                      String artist, String albumId)
+						  String artist, String albumId)
 	{
 		super(id, parentID, title, creator, baseURL, ctx, null, null);
 		uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -62,7 +62,10 @@ public class AudioContainer extends DynamicContainer
 	public Integer getChildCount()
 	{
 		String[] columns = { MediaStore.Audio.Media._ID };
-		return ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy).getCount();
+		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
+		if(cursor == null)
+			return 0;
+		return cursor.getCount();
 	}
 
 	@Override
@@ -80,38 +83,41 @@ public class AudioContainer extends DynamicContainer
 		};
 
 		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
-		if (cursor.moveToFirst())
+		if(cursor!=null)
 		{
-			do
+			if (cursor.moveToFirst())
 			{
-				String id = ContentDirectoryService.AUDIO_PREFIX + cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-				String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));
-				String creator = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
-				String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
-				String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE));
-				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE));
-				long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
-				String album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM));
+				do
+				{
+					String id = ContentDirectoryService.AUDIO_PREFIX + cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
+					String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));
+					String creator = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
+					String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
+					String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE));
+					long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE));
+					long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
+					String album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM));
 
-				String extension = "";
-				int dot = filePath.lastIndexOf('.');
-				if (dot >= 0)
-					extension = filePath.substring(dot).toLowerCase();
+					String extension = "";
+					int dot = filePath.lastIndexOf('.');
+					if (dot >= 0)
+						extension = filePath.substring(dot).toLowerCase();
 
-				Res res = new Res(new MimeType(mimeType.substring(0, mimeType.indexOf('/')),
+					Res res = new Res(new MimeType(mimeType.substring(0, mimeType.indexOf('/')),
 						mimeType.substring(mimeType.indexOf('/') + 1)), size, "http://" + baseURL + "/" + id + extension);
 
-				res.setDuration(duration / (1000 * 60 * 60) + ":"
+					res.setDuration(duration / (1000 * 60 * 60) + ":"
 						+ (duration % (1000 * 60 * 60)) / (1000 * 60) + ":"
 						+ (duration % (1000 * 60)) / 1000);
 
-				addItem(new MusicTrack(id, parentID, title, creator, album, new PersonWithRole(creator, "Performer"), res));
+					addItem(new MusicTrack(id, parentID, title, creator, album, new PersonWithRole(creator, "Performer"), res));
 
-				Log.v(TAG, "Added audio item " + title + " from " + filePath);
+					Log.v(TAG, "Added audio item " + title + " from " + filePath);
 
-			} while (cursor.moveToNext());
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
 		}
-		cursor.close();
 
 		return containers;
 	}
