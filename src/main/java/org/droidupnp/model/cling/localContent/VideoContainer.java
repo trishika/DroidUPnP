@@ -25,10 +25,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import org.droidupnp.model.mediaserver.ContentDirectoryService;
-import org.fourthline.cling.support.model.PersonWithRole;
 import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.container.Container;
-import org.fourthline.cling.support.model.item.MusicTrack;
 import org.fourthline.cling.support.model.item.VideoItem;
 import org.seamless.util.MimeType;
 

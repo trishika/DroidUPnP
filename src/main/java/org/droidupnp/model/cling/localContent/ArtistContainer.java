@@ -24,7 +24,6 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import org.droidupnp.model.mediaserver.ContentDirectoryService;
 import org.fourthline.cling.support.model.container.Container;
 
 import java.util.List;
