@@ -374,7 +374,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				@Override
 				public void run() {
 					try {
-						mPullToRefreshLayout.setRefreshComplete();
 						mPullToRefreshLayout.setRefreshing(true);
 					} catch (Exception e) {
 						e.printStackTrace();
