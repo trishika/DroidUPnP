@@ -308,7 +308,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 					@Override
 					public void run() {
 						try {
-							setListShown(true);
 							mPullToRefreshLayout.setRefreshComplete();
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -359,9 +358,15 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 	}
 
+	public void setEmptyText(CharSequence text) {
+		((TextView)getListView().getEmptyView()).setText(text);
+	}
+
 	public synchronized void refresh()
 	{
 		Log.d(TAG, "refresh");
+
+		setEmptyText(getString(R.string.loading));
 
 		final Activity a = getActivity();
 		if(a!=null) {
@@ -369,7 +374,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				@Override
 				public void run() {
 					try {
-						setListShown(false);
 						mPullToRefreshLayout.setRefreshComplete();
 						mPullToRefreshLayout.setRefreshing(true);
 					} catch (Exception e) {
@@ -384,6 +388,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
+			// List here the content directory devices
+			setEmptyText(getString(R.string.device_list_empty));
+
 			if (device != null)
 			{
 				Log.i(TAG, "Current content directory have been removed");
