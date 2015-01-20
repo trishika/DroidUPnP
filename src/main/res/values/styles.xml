@@ -83,6 +83,12 @@
 	<!-- Pull to refresh style -->
 	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
 		<item name="ptrProgressBarColor">@color/blue_dark</item>
+		<item name="ptrHeaderTitleTextAppearance">@style/TextAppearance.Custom.PtrHeader.Title</item>
+	</style>
+
+	<style name="TextAppearance.Custom.PtrHeader.Title" parent="android:TextAppearance.Large.Inverse">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">20dp</item>
 	</style>
 
 	<!-- The app theme -->
