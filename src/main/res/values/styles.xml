@@ -51,9 +51,26 @@
 		<item name="android:background">@color/dark</item>
 	</style>
 
-	<!-- Content directory style -->
+	<!-- Content browsing style -->
 	<style name="contentdirectory">
 		<item name="android:background">@color/grey</item>
+	</style>
+
+	<style name="browsingItemText" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/darker</item>
+		<item name="android:textSize">12sp</item>
+	</style>
+
+	<style name="browsingItemTitle" parent="@style/browsingItemText">
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="browsingItemSubtitle" parent="@style/browsingItemText">
+	</style>
+
+	<style name="browsingItemCount" parent="@style/browsingItemText">
+		<item name="android:textColor">@color/blue</item>
+		<item name="android:textStyle">bold</item>
 	</style>
 
 	<!-- Renderer style -->
@@ -61,28 +78,28 @@
 		<item name="android:background">?android:attr/colorBackground</item>
 	</style>
 
-	<style name="rendererText">
+	<style name="rendererText" parent="@android:style/TextAppearance">
 		<item name="android:textColor">@android:color/black</item>
 	</style>
 
-	<style name="rendererTitle" parent="rendererText">
+	<style name="rendererTitle" parent="@style/rendererText">
 		<item name="android:textSize">18sp</item>
 	</style>
 
-	<style name="rendererSubtitle" parent="rendererText">
+	<style name="rendererSubtitle" parent="@style/rendererText">
 		<item name="android:textStyle">italic</item>
 		<item name="android:textSize">15sp</item>
-	</style>
-
-	<!-- Content browsing duration/count style -->
-	<style name="CountText" parent="@android:style/TextAppearance">
-		<item name="android:textColor">@color/blue</item>
-		<item name="android:textStyle">bold</item>
 	</style>
 
 	<!-- Pull to refresh style -->
 	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
 		<item name="ptrProgressBarColor">@color/blue_dark</item>
+		<item name="ptrHeaderTitleTextAppearance">@style/TextAppearance.Custom.PtrHeader.Title</item>
+	</style>
+
+	<style name="TextAppearance.Custom.PtrHeader.Title" parent="android:TextAppearance.Large.Inverse">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">20dp</item>
 	</style>
 
 	<!-- The app theme -->

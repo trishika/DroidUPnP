@@ -25,10 +25,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import org.droidupnp.model.mediaserver.ContentDirectoryService;
-import org.fourthline.cling.support.model.PersonWithRole;
 import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.container.Container;
-import org.fourthline.cling.support.model.item.MusicTrack;
 import org.fourthline.cling.support.model.item.VideoItem;
 import org.seamless.util.MimeType;
 
@@ -48,7 +46,10 @@ public class VideoContainer extends DynamicContainer
 	public Integer getChildCount()
 	{
 		String[] columns = { MediaStore.Video.Media._ID };
-		return ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy).getCount();
+		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
+		if(cursor == null)
+			return 0;
+		return cursor.getCount();
 	}
 
 	@Override
@@ -67,39 +68,42 @@ public class VideoContainer extends DynamicContainer
 		};
 
 		Cursor cursor = ctx.getContentResolver().query(uri, columns, where, whereVal, orderBy);
-		if (cursor.moveToFirst())
+		if(cursor!=null)
 		{
-			do
+			if (cursor.moveToFirst())
 			{
-				String id = ContentDirectoryService.VIDEO_PREFIX + cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
-				String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
-				String creator = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST));
-				String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-				String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
-				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
-				long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-				long height = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT));
-				long width = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH));
+				do
+				{
+					String id = ContentDirectoryService.VIDEO_PREFIX + cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
+					String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+					String creator = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST));
+					String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+					String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
+					long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
+					long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+					long height = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT));
+					long width = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH));
 
-				String extension = "";
-				int dot = filePath.lastIndexOf('.');
-				if (dot >= 0)
-					extension = filePath.substring(dot).toLowerCase();
+					String extension = "";
+					int dot = filePath.lastIndexOf('.');
+					if (dot >= 0)
+						extension = filePath.substring(dot).toLowerCase();
 
-				Res res = new Res(new MimeType(mimeType.substring(0, mimeType.indexOf('/')),
+					Res res = new Res(new MimeType(mimeType.substring(0, mimeType.indexOf('/')),
 						mimeType.substring(mimeType.indexOf('/') + 1)), size, "http://" + baseURL + "/" + id + extension);
-				res.setDuration(duration / (1000 * 60 * 60) + ":"
+					res.setDuration(duration / (1000 * 60 * 60) + ":"
 						+ (duration % (1000 * 60 * 60)) / (1000 * 60) + ":"
 						+ (duration % (1000 * 60)) / 1000);
-				res.setResolution((int)width, (int)height);
+					res.setResolution((int) width, (int) height);
 
-				addItem(new VideoItem(id, parentID, title, creator, res));
+					addItem(new VideoItem(id, parentID, title, creator, res));
 
-				Log.v(TAG, "Added video item " + title + " from " + filePath);
+					Log.v(TAG, "Added video item " + title + " from " + filePath);
 
-			} while (cursor.moveToNext());
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
 		}
-		cursor.close();
 
 		return containers;
 	}

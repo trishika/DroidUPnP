@@ -58,20 +58,14 @@ public class Main extends ActionBarActivity
 	private DrawerFragment mDrawerFragment;
 	private CharSequence mTitle;
 
-	public ContentDirectoryFragment getContentDirectoryFragment()
-	{
-		Fragment f = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
-		if(f != null)
-			return (ContentDirectoryFragment) f;
-		return null;
+	private static ContentDirectoryFragment mContentDirectoryFragment;
+
+	public static void setContentDirectoryFragment(ContentDirectoryFragment f) {
+		mContentDirectoryFragment = f;
 	}
 
-	public RendererFragment getRenderer()
-	{
-		Fragment f = getFragmentManager().findFragmentById(R.id.RendererFragment);
-		if(f != null)
-			return (RendererFragment) f;
-		return null;
+	public static ContentDirectoryFragment getContentDirectoryFragment() {
+		return mContentDirectoryFragment;
 	}
 
 	public static void setSearchVisibility(boolean visibility)
@@ -100,19 +94,6 @@ public class Main extends ActionBarActivity
 		// Upnp service
 		if (upnpServiceController == null)
 			upnpServiceController = factory.createUpnpServiceController(this);
-
-		// Attach listener
-		Fragment contentDirectoryFragment = getFragmentManager().findFragmentById(R.id.ContentDirectoryFragment);
-		if (contentDirectoryFragment != null && contentDirectoryFragment instanceof Observer)
-			upnpServiceController.addSelectedContentDirectoryObserver((Observer) contentDirectoryFragment);
-		else
-			Log.w(TAG, "No contentDirectoryFragment yet !");
-
-		Fragment rendererFragment = getFragmentManager().findFragmentById(R.id.RendererFragment);
-		if (rendererFragment != null && rendererFragment instanceof Observer)
-			upnpServiceController.addSelectedRendererObserver((Observer) rendererFragment);
-		else
-			Log.w(TAG, "No rendererFragment yet !");
 
 		if(getFragmentManager().findFragmentById(R.id.navigation_drawer) instanceof DrawerFragment)
 		{
@@ -196,9 +177,10 @@ public class Main extends ActionBarActivity
 	public void onBackPressed()
 	{
 		ContentDirectoryFragment cd = getContentDirectoryFragment();
-		if(cd!=null)
-			if (cd.goBack())
-				super.onBackPressed();
+		if (cd!=null && !cd.goBack()) {
+			return;
+		}
+		super.onBackPressed();
 	}
 
 	private static InetAddress getLocalIpAdressFromIntf(String intfName)
@@ -216,7 +198,7 @@ public class Main extends ActionBarActivity
 				}
 			}
 		} catch (Exception e) {
-			Log.e(TAG, "Unable to get ip adress for interface " + intfName);
+			Log.w(TAG, "Unable to get ip adress for interface " + intfName);
 		}
 		return null;
 	}

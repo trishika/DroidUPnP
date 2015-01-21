@@ -72,6 +72,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	static final String STATE_CURRENT = "current";
 
 	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+	   Main.setContentDirectoryFragment(this);
+	   super.onCreate(savedInstanceState);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		// Inflate the layout for this fragment
@@ -287,7 +294,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 		else
 		{
-			// Go back in browsing
+			Log.d(TAG, "Go back in browsing");
 			currentID = tree.pop();
 			update();
 			return false;
@@ -308,7 +315,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 					@Override
 					public void run() {
 						try {
-							setListShown(true);
 							mPullToRefreshLayout.setRefreshComplete();
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -359,9 +365,15 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 	}
 
+	public void setEmptyText(CharSequence text) {
+		((TextView)getListView().getEmptyView()).setText(text);
+	}
+
 	public synchronized void refresh()
 	{
 		Log.d(TAG, "refresh");
+
+		setEmptyText(getString(R.string.loading));
 
 		final Activity a = getActivity();
 		if(a!=null) {
@@ -369,8 +381,6 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				@Override
 				public void run() {
 					try {
-						setListShown(false);
-						mPullToRefreshLayout.setRefreshComplete();
 						mPullToRefreshLayout.setRefreshing(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -384,6 +394,9 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 		if (Main.upnpServiceController.getSelectedContentDirectory() == null)
 		{
+			// List here the content directory devices
+			setEmptyText(getString(R.string.device_list_empty));
+
 			if (device != null)
 			{
 				Log.i(TAG, "Current content directory have been removed");

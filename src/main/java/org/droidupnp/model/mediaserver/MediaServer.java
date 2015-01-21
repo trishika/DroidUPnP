@@ -65,7 +65,7 @@ public class MediaServer extends fi.iki.elonen.SimpleWebServer
 	{
 		super(null, port, null, true);
 
-		Log.e(TAG, "Creating media server !");
+		Log.i(TAG, "Creating media server !");
 
 		localService = new AnnotationLocalServiceBinder()
 				.read(ContentDirectoryService.class);
@@ -220,7 +220,7 @@ public class MediaServer extends fi.iki.elonen.SimpleWebServer
 	{
 		Response res = null;
 
-		Log.e(TAG, "Serve uri : " + uri);
+		Log.i(TAG, "Serve uri : " + uri);
 
 		for(Map.Entry<String, String> entry : header.entrySet())
 			Log.d(TAG, "Header : key=" + entry.getKey() + " value=" + entry.getValue());
