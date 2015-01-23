@@ -42,6 +42,9 @@ Other dependencies are :
  * **ActionBar-PullToRefresh**, under the **Apache License, Version 2.0**.
    Source code is available on [GitHub](https://github.com/chrisbanes/ActionBar-PullToRefresh).
 
+ * **Licensesdialog**, under the **Apache license, Version 2.0**.
+   Source code is available on [GitHub](https://github.com/PSDev/LicensesDialog).
+
 Copying
 =======
 
