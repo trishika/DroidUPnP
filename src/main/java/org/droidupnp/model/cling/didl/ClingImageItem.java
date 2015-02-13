@@ -38,6 +38,12 @@ public class ClingImageItem extends ClingDIDLItem
 	}
 
 	@Override
+	public String getDataType()
+	{
+		return "image/*";
+	}
+
+	@Override
 	public String getDescription()
 	{
 		List<Res> res = item.getResources();

@@ -61,6 +61,10 @@
 	<string name="noRenderer">Es ist kein Renderer verfügbar</string>
 	<string name="selectContentDirectory">Server auswählen</string>
 
+	<!-- Long click options -->
+	<string name="no_action_available">Keine Aktion verfügbar</string>
+	<string name="failed_action">Fehler beim Laden der Artikel lesen</string>
+
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 

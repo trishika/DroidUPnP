@@ -39,6 +39,12 @@ public class ClingDIDLObject implements IDIDLObject {
 	}
 
 	@Override
+	public String getDataType()
+	{
+		return "";
+	}
+
+	@Override
 	public String getTitle()
 	{
 		return item.getTitle();

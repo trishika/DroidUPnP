@@ -61,6 +61,10 @@
 	<string name="noRenderer">Er is geen renderer beschikbaar</string>
 	<string name="selectContentDirectory">Selecteer een Content directory</string>
 
+	<!-- Long click options -->
+	<string name="no_action_available">Geen actie beschikbaar</string>
+	<string name="failed_action">Nagelaten om het item te lezen</string>
+
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 

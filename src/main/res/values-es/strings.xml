@@ -61,6 +61,10 @@
 	<string name="noRenderer">No hay visualización disponible</string>
 	<string name="selectContentDirectory">Seleccione un directorio de contenido</string>
 
+	<!-- Long click options -->
+	<string name="no_action_available">Ninguna acción disponible</string>
+	<string name="failed_action">Error al leer el artículo</string>
+
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 

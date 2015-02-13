@@ -21,6 +21,8 @@ package org.droidupnp.model.upnp.didl;
 
 public interface IDIDLObject {
 
+    public String getDataType();
+
 	public String getTitle();
 
 	public String getDescription();

@@ -29,9 +29,6 @@ import java.util.concurrent.Callable;
 
 import org.droidupnp.Main;
 import org.droidupnp.R;
-import org.droidupnp.model.cling.didl.ClingAudioItem;
-import org.droidupnp.model.cling.didl.ClingImageItem;
-import org.droidupnp.model.cling.didl.ClingVideoItem;
 import org.droidupnp.model.upnp.IDeviceDiscoveryObserver;
 import org.droidupnp.model.upnp.didl.DIDLDevice;
 import org.droidupnp.model.upnp.CallableContentDirectoryFilter;
@@ -44,11 +41,9 @@ import org.droidupnp.model.upnp.didl.IDIDLObject;
 import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -220,45 +215,17 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 					final Intent intent = new Intent(Intent.ACTION_VIEW);
 
 					Uri uri = Uri.parse(ididlItem.getURI());
+					intent.setDataAndType(uri, didl.getDataType());
 
-					if (didl instanceof ClingAudioItem)
-						intent.setDataAndType(uri, "audio/*");
-
-					if (didl instanceof ClingVideoItem)
-						intent.setDataAndType(uri, "video/*");
-
-					// A image from the network can't be viewed using any of android's stock apps.
-					// See:
-					// https://stackoverflow.com/questions/7734432/use-android-intent-to-display-an-image-from-internet
-					// This is only here in case it works in the future.
-					if (didl instanceof ClingImageItem)
-						intent.setDataAndType(uri, "image/*");
-
-					final String launch_local_viewer = getResources().getString(R.string.launch_local_viewer);
-					final String nothing_on_device_can_open_item = getResources().getString(R.string.nothing_on_device_can_open_item);
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(a);
-					CharSequence[] list = new CharSequence[1];
-					list[0] = launch_local_viewer;
-					builder.setItems(list, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialogInterface, int i) {
-							try {
-								a.startActivity(intent);
-							}
-							catch (ActivityNotFoundException ex) {
-								Toast.makeText(getActivity(), nothing_on_device_can_open_item, Toast.LENGTH_SHORT).show();
-							}
-						}
-					});
-					AlertDialog dialog = builder.create();
-					dialog.show();
-
-					return true;
+					try {
+						a.startActivity(intent);
+					} catch (ActivityNotFoundException ex) {
+						Toast.makeText(getActivity(), R.string.failed_action, Toast.LENGTH_SHORT).show();
+					}
 				}
 				else
 				{
-					Toast.makeText(getActivity(), "No action available", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), R.string.no_action_available, Toast.LENGTH_SHORT).show();
 				}
 
 				return true;

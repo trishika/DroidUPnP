@@ -61,6 +61,10 @@
 	<string name="noRenderer">Il n\'y a pas d\'écran disponible</string>
 	<string name="selectContentDirectory">Choissisez un serveur de contenus</string>
 
+	<!-- Long click options -->
+	<string name="no_action_available">Pas d'action disponible</string>
+	<string name="failed_action">Impossible de lire l'élément</string>
+
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
 
