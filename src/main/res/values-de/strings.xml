@@ -27,8 +27,8 @@
 	<string name="contentdirectory">Browser</string>
 	<string name="renderer">Player</string>
 	<string name="device_list_empty">Kein Gerät verfügbar</string>
-	<string name="navigation_drawer_open">Öffnen Sie Geräteliste</string>
-	<string name="navigation_drawer_close">Schließen Geräteliste</string>
+	<string name="navigation_drawer_open">Geräteliste öffnen</string>
+	<string name="navigation_drawer_close">Geräteliste schließen</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Einstellungen</string>
@@ -37,28 +37,28 @@
 	<string name="menu_quit">Schließen</string>
 
 	<!-- Option -->
-	<string name="pref_contentdirectory_title">Content provider</string>
-	<string name="pref_contentdirectory_desc">Aktivieren Sie einen lokalen Content Directory Server</string>
-	<string name="pref_contentDirectory_display_name">Name anzeigen</string>
-	<string name="pref_contentDirectory_share_contentdirectory">Teilen Medien</string>
-	<string name="pref_contentDirectory_share_contentdirectory_desc">Teilen Medien mit einem anderen Gerät im Netzwerk</string>
-	<string name="pref_share_media_title">Medientyp zu teilen</string>
-	<string name="pref_contentDirectory_audio_title">Audio</string>
-	<string name="pref_contentDirectory_audio_desc">Teilen Audio</string>
-	<string name="pref_contentDirectory_image_title">Bild</string>
-	<string name="pref_contentDirectory_image_desc">Bild teilen</string>
-	<string name="pref_contentDirectory_video_title">Video</string>
-	<string name="pref_contentDirectory_video_desc">Video teilen</string>
-	<string name="pref_about_title">über</string>
+	<string name="pref_contentdirectory_title">Lokaler Server</string>
+	<string name="pref_contentdirectory_desc">Aktiviert einen loklen Medienserver</string>
+	<string name="pref_contentDirectory_display_name">Anzeigename</string>
+	<string name="pref_contentDirectory_share_contentdirectory">Medien Teilen</string>
+	<string name="pref_contentDirectory_share_contentdirectory_desc">Gewährt anderen Geräten im lokalen Netzwerk zugriff auf lokale Medien</string>
+	<string name="pref_share_media_title">Zu teilende Medientypen</string>
+	<string name="pref_contentDirectory_audio_title">Musik</string>
+	<string name="pref_contentDirectory_audio_desc">Musikdateien freigeben</string>
+	<string name="pref_contentDirectory_image_title">Bilder</string>
+	<string name="pref_contentDirectory_image_desc">Bilder freigeben</string>
+	<string name="pref_contentDirectory_video_title">Videos</string>
+	<string name="pref_contentDirectory_video_desc">Videos freigeben</string>
+	<string name="pref_about_title">Über</string>
 	<string name="pref_about_desc"></string>
-	<string name="pref_theme_title">Thema</string>
+	<string name="pref_theme_title">Design</string>
 	<string name="pref_theme_desc"></string>
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
 	<string name="loading">Lade...</string>
 	<string name="selectRenderer">Empfänger auswählen</string>
-	<string name="noRenderer">Es gibt keine Renderer verfügbar</string>
+	<string name="noRenderer">Es ist kein Renderer verfügbar</string>
 	<string name="selectContentDirectory">Server auswählen</string>
 
 	<!-- Now Playing -->
