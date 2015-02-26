@@ -32,7 +32,6 @@
 
 	<!--  Menu -->
 	<string name="menu_settings">Paramètres</string>
-	<string name="menu_about">À propos</string>
 	<string name="menu_refresh">Refraichir</string>
 	<string name="menu_quit">Quitter</string>
 
@@ -51,15 +50,12 @@
 	<string name="pref_contentDirectory_video_desc">Partager les videos</string>
 	<string name="pref_about_title">À propos</string>
 	<string name="pref_about_desc"></string>
-	<string name="pref_theme_title">Thème</string>
-	<string name="pref_theme_desc"></string>
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
 	<string name="loading">Chargement…</string>
 	<string name="selectRenderer">Choisissez un écran</string>
 	<string name="noRenderer">Il n\'y a pas d\'écran disponible</string>
-	<string name="selectContentDirectory">Choissisez un serveur de contenus</string>
 
 	<!-- Long click options -->
 	<string name="no_action_available">Pas d\'action disponible</string>
@@ -72,8 +68,6 @@
 	<string name="play">Play</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stop</string>
-	<string name="next">Suivant</string>
-	<string name="back">Précédent</string>
 	<string name="mute">Muet</string>
 
 	<!-- Device Info -->
@@ -89,14 +83,11 @@
 	<string name="separator"> : </string>
 
 	<!-- About -->
+	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
-	<string name="about_contact">Contact : aurelien@chabot.fr</string>
-	<string name="about_app">
-		<![CDATA[
-		<p><b>DroidUPnP est un logiciel libre sous license GPLv3.</b>
-		Le code source est disponible à <a href="https://github.com/trishika/DroidUPnP">GitHub</a>.
-		Les contributions sont les bienvenues !</p>
-		]]>
-	</string>
+	<string name="license">License</string>
+	<string name="licenses_other">Library licenses</string>
+	<string name="about_licenses_other"></string>
+	<string name="source">Source Code</string>
 
 </resources>
