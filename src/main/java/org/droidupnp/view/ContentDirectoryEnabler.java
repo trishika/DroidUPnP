@@ -78,7 +78,7 @@ public class ContentDirectoryEnabler  implements CompoundButton.OnCheckedChangeL
 		Log.d("ContentDirectoryEnabler", "setConfig " + ((isChecked) ? " true" : " false"));
 		Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
 		editor.putBoolean(SettingsActivity.CONTENTDIRECTORY_SERVICE, isChecked);
-		editor.commit();
+		editor.apply();
 	}
 
 	public boolean isSwitchOn()
