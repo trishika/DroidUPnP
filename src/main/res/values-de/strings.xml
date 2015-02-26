@@ -56,7 +56,7 @@
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="loading">Lade...</string>
+	<string name="loading">Lade…</string>
 	<string name="selectRenderer">Empfänger auswählen</string>
 	<string name="noRenderer">Es ist kein Renderer verfügbar</string>
 	<string name="selectContentDirectory">Server auswählen</string>

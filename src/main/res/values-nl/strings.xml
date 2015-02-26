@@ -56,7 +56,7 @@
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="loading">Het laden...</string>
+	<string name="loading">Het laden…</string>
 	<string name="selectRenderer">Selecteer een Renderer</string>
 	<string name="noRenderer">Er is geen renderer beschikbaar</string>
 	<string name="selectContentDirectory">Selecteer een Content directory</string>

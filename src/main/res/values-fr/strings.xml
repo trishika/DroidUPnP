@@ -56,7 +56,7 @@
 
 	<!-- Popup -->
 	<string name="OK">OK</string>
-	<string name="loading">Chargement...</string>
+	<string name="loading">Chargement…</string>
 	<string name="selectRenderer">Choisissez un écran</string>
 	<string name="noRenderer">Il n\'y a pas d\'écran disponible</string>
 	<string name="selectContentDirectory">Choissisez un serveur de contenus</string>

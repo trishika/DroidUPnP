@@ -56,7 +56,7 @@
 
 	<!-- Popup -->
 	<string name="OK">Aceptar</string>
-	<string name="loading">Cargando...</string>
+	<string name="loading">Cargando…</string>
 	<string name="selectRenderer">Seleccione un reproductor</string>
 	<string name="noRenderer">No hay visualización disponible</string>
 	<string name="selectContentDirectory">Seleccione un directorio de contenido</string>
