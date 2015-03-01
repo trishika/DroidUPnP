@@ -92,9 +92,15 @@ public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment imple
 		IUpnpDevice device = Main.upnpServiceController.getSelectedContentDirectory();
 		if(device==null)
 		{
-			// Uncheck device
-			getListView().clearChoices();
-			list.notifyDataSetChanged();
+			if (getActivity() != null) // Visible
+				getActivity().runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// Uncheck device
+						getListView().clearChoices();
+						list.notifyDataSetChanged();
+					}
+				});
 		}
 		else
 		{
