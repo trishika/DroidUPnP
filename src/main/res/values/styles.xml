@@ -99,7 +99,7 @@
 
 	<style name="TextAppearance.Custom.PtrHeader.Title" parent="android:TextAppearance.Large.Inverse">
 		<item name="android:textColor">@android:color/white</item>
-		<item name="android:textSize">20dp</item>
+		<item name="android:textSize">20sp</item>
 	</style>
 
 	<!-- The app theme -->

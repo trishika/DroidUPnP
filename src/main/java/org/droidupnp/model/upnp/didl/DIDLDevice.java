@@ -38,6 +38,12 @@ public class DIDLDevice implements IDIDLObject {
 	}
 
 	@Override
+	public String getDataType()
+	{
+		return "";
+	}
+
+	@Override
 	public String getTitle() {
 		return (new DeviceDisplay(device)).toString();
 	}

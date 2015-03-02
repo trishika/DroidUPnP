@@ -19,13 +19,12 @@
 
 package org.droidupnp;
 
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -35,7 +34,6 @@ import android.support.v4.widget.DrawerLayout;
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.upnp.IFactory;
 import org.droidupnp.view.ContentDirectoryFragment;
-import org.droidupnp.view.RendererFragment;
 import org.droidupnp.view.SettingsActivity;
 
 import java.net.Inet4Address;
@@ -43,7 +41,6 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
-import java.util.Observer;
 
 public class Main extends ActionBarActivity
 {
@@ -134,7 +131,7 @@ public class Main extends ActionBarActivity
 	}
 
 	public void restoreActionBar() {
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		if(actionBar!=null) {
 			actionBar.setDisplayShowTitleEnabled(true);
 			actionBar.setTitle(mTitle);

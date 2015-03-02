@@ -33,6 +33,12 @@ public class ClingVideoItem extends ClingDIDLItem
 	}
 
 	@Override
+	public String getDataType()
+	{
+		return "video/*";
+	}
+
+	@Override
 	public String getDescription()
 	{
 		List<Res> res = item.getResources();

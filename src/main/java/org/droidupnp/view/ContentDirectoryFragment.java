@@ -42,16 +42,21 @@ import org.droidupnp.model.upnp.didl.IDIDLParentContainer;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -195,6 +200,37 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 			device = Main.upnpServiceController.getSelectedContentDirectory();
 			contentDirectoryCommand = Main.factory.createContentDirectoryCommand();
 		}
+
+		getListView().setOnItemLongClickListener( new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View v, int position, long id) {
+				Log.v(TAG, "On long-click event");
+
+				IDIDLObject didl = contentList.getItem(position).getDIDLObject();
+
+				if (didl instanceof IDIDLItem)
+				{
+					IDIDLItem ididlItem = (IDIDLItem) didl;
+					final Activity a = getActivity();
+					final Intent intent = new Intent(Intent.ACTION_VIEW);
+
+					Uri uri = Uri.parse(ididlItem.getURI());
+					intent.setDataAndType(uri, didl.getDataType());
+
+					try {
+						a.startActivity(intent);
+					} catch (ActivityNotFoundException ex) {
+						Toast.makeText(getActivity(), R.string.failed_action, Toast.LENGTH_SHORT).show();
+					}
+				}
+				else
+				{
+					Toast.makeText(getActivity(), R.string.no_action_available, Toast.LENGTH_SHORT).show();
+				}
+
+				return true;
+			}
+		});
 
 		Log.d(TAG, "Force refresh");
 		refresh();

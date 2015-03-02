@@ -34,6 +34,12 @@ public class ClingAudioItem extends ClingDIDLItem
 	}
 
 	@Override
+	public String getDataType()
+	{
+		return "audio/*";
+	}
+
+	@Override
 	public String getDescription()
 	{
 		if(item instanceof MusicTrack)

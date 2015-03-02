@@ -238,10 +238,13 @@ public class RendererFragment extends Fragment implements Observer
 						title.setText(rendererState.getTitle());
 						artist.setText(rendererState.getArtist());
 
-						if (rendererState.getState() == RendererState.State.PLAY)
+						if (rendererState.getState() == RendererState.State.PLAY) {
 							play_pauseButton.setImageResource(R.drawable.pause);
-						else
+							play_pauseButton.setContentDescription(getResources().getString(R.string.pause));
+						} else {
 							play_pauseButton.setImageResource(R.drawable.play);
+							play_pauseButton.setContentDescription(getResources().getString(R.string.play));
+						}
 
 						if (rendererState.isMute())
 							volumeButton.setImageResource(R.drawable.volume_mute);
@@ -303,7 +306,7 @@ public class RendererFragment extends Fragment implements Observer
 				{
 					view.setBackgroundColor(Color.TRANSPARENT);
 				}
-			}, 100L);    // Change this value to whatever is suitable
+			}, 100L);
 			return null;
 		}
 	}
