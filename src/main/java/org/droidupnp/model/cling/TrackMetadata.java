@@ -2,6 +2,8 @@ package org.droidupnp.model.cling;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -21,14 +23,14 @@ public class TrackMetadata {
 
 	protected static final String TAG = "TrackMetadata";
 
-	@Override
+    @Override
 	public String toString()
 	{
 		return "TrackMetadata [id=" + id + ", title=" + title + ", artist=" + artist + ", genre=" + genre + ", artURI="
-				+ artURI + "res=" + res + ", itemClass=" + itemClass + "]";
+				+ artURI + "res=" + getRes() + ", itemClass=" + itemClass + "]";
 	}
 
-	public TrackMetadata(String xml)
+    public TrackMetadata(String xml)
 	{
 		parseTrackMetadata(xml);
 	}
@@ -37,8 +39,8 @@ public class TrackMetadata {
 	{
 	}
 
-	public TrackMetadata(String id, String title, String artist, String genre, String artURI, String res,
-			String itemClass)
+	public TrackMetadata(String id, String title, String artist, String genre, String artURI,
+			String itemClass,List<Resource> res)
 	{
 		super();
 		this.id = id;
@@ -46,8 +48,8 @@ public class TrackMetadata {
 		this.artist = artist;
 		this.genre = genre;
 		this.artURI = artURI;
-		this.res = res;
 		this.itemClass = itemClass;
+        resources = res;
 	}
 
 	public String id;
@@ -55,9 +57,11 @@ public class TrackMetadata {
 	public String artist;
 	public String genre;
 	public String artURI;
-	public String res;
 	public String itemClass;
-
+    private List<Resource> resources = new ArrayList<>();
+    private String getRes() {
+        return resources!=null&&resources.size()==0?"":resources.get(0).url;
+    }
 	private XMLReader initializeReader() throws ParserConfigurationException, SAXException
 	{
 		SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -141,12 +145,13 @@ public class TrackMetadata {
 				s.endTag(null, "upnp:albumArtURI");
 			}
 
-			if(res!=null)
-			{
-				s.startTag(null, "res");
-				s.text(res);
-				s.endTag(null, "res");
-			}
+            if(resources!=null)
+                for(Resource r:resources){
+                    s.startTag(null, "res");
+                    if(r.protocolinfo!=null)s.attribute(null,"protocolInfo",r.protocolinfo);
+                    s.text(r.url);
+                    s.endTag(null, "res");
+                }
 
 			if(itemClass!=null)
 			{
@@ -176,6 +181,7 @@ public class TrackMetadata {
 	public class UpnpItemHandler extends DefaultHandler {
 
 		private final StringBuffer buffer = new StringBuffer();
+        private Attributes attributes;
 
 		@Override
 		public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
@@ -183,7 +189,7 @@ public class TrackMetadata {
 		{
 			buffer.setLength(0);
 			// Log.v(TAG, "startElement, localName="+ localName + ", qName=" + qName);
-
+            attributes = atts;
 			if (localName.equals("item"))
 			{
 				id = atts.getValue("id");
@@ -218,7 +224,8 @@ public class TrackMetadata {
 			}
 			else if (localName.equals("res"))
 			{
-				res = buffer.toString();
+                String protocolinfo = attributes==null?null:attributes.getValue("protocolInfo");
+                resources.add(new Resource(buffer.toString(),protocolinfo));
 			}
 		}
 
@@ -228,4 +235,11 @@ public class TrackMetadata {
 			buffer.append(ch, start, length);
 		}
 	}
+    static public class Resource{
+        String url,protocolinfo;
+        public Resource(String url,String protocolinfo){
+            this.url = url;
+            this.protocolinfo = protocolinfo;
+        }
+    }
 }

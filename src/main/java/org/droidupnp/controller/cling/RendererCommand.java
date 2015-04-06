@@ -42,6 +42,7 @@ import org.fourthline.cling.support.avtransport.callback.Stop;
 import org.fourthline.cling.support.model.DIDLObject;
 import org.fourthline.cling.support.model.MediaInfo;
 import org.fourthline.cling.support.model.PositionInfo;
+import org.fourthline.cling.support.model.Res;
 import org.fourthline.cling.support.model.TransportInfo;
 import org.fourthline.cling.support.model.item.AudioItem;
 import org.fourthline.cling.support.model.item.ImageItem;
@@ -55,6 +56,8 @@ import org.fourthline.cling.support.renderingcontrol.callback.SetMute;
 import org.fourthline.cling.support.renderingcontrol.callback.SetVolume;
 
 import android.util.Log;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("rawtypes")
 public class RendererCommand implements Runnable, IRendererCommand {
@@ -319,11 +322,14 @@ public class RendererCommand implements Runnable, IRendererCommand {
 			type = "playlistItem";
 		else if (upnpItem instanceof TextItem)
 			type = "textItem";
-
+        ArrayList<TrackMetadata.Resource> reslist= new ArrayList<>();
+        for(Res r:upnpItem.getResources()){
+            String pi = r.getProtocolInfo()==null?null: r.getProtocolInfo().toString();
+            reslist.add(new TrackMetadata.Resource(r.getValue(),pi));
+        }
 		// TODO genre && artURI
 		final TrackMetadata trackMetadata = new TrackMetadata(upnpItem.getId(), upnpItem.getTitle(),
-				upnpItem.getCreator(), "", "", upnpItem.getFirstResource().getValue(),
-				"object.item." + type);
+				upnpItem.getCreator(), "", "", "object.item." + type,reslist);
 
 		Log.i(TAG, "TrackMetadata : "+trackMetadata.toString());
 
