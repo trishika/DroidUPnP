@@ -37,10 +37,10 @@
 
 	<!-- Option -->
 	<string name="pref_contentdirectory_title">Lokaler Server</string>
-	<string name="pref_contentdirectory_desc">Aktiviert einen loklen Medienserver</string>
+	<string name="pref_contentdirectory_desc">Aktiviert einen lokalen Medienserver</string>
 	<string name="pref_contentDirectory_display_name">Anzeigename</string>
 	<string name="pref_contentDirectory_share_contentdirectory">Medien Teilen</string>
-	<string name="pref_contentDirectory_share_contentdirectory_desc">Gewährt anderen Geräten im lokalen Netzwerk zugriff auf lokale Medien</string>
+	<string name="pref_contentDirectory_share_contentdirectory_desc">Gewährt anderen Geräten im lokalen Netzwerk Zugriff auf lokale Medien</string>
 	<string name="pref_share_media_title">Zu teilende Medientypen</string>
 	<string name="pref_contentDirectory_audio_title">Musik</string>
 	<string name="pref_contentDirectory_audio_desc">Musikdateien freigeben</string>
@@ -59,7 +59,7 @@
 
 	<!-- Long click options -->
 	<string name="no_action_available">Keine Aktion verfügbar</string>
-	<string name="failed_action">Fehler beim Laden der Artikel lesen</string>
+	<string name="failed_action">Fehler beim Lesen des Elements</string>
 
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
@@ -68,7 +68,7 @@
 	<string name="play">Start</string>
 	<string name="pause">Pause</string>
 	<string name="stop">Stopp</string>
-	<string name="mute">Still</string>
+	<string name="mute">Ton aus</string>
 
 	<!-- Device Info -->
 	<string name="manufacturer">Hersteller</string>
@@ -77,7 +77,7 @@
 	<string name="model_url">Modell URL</string>
 	<string name="model_number">Modellnummer</string>
 	<string name="model_desc">Modellbeschreibung</string>
-	<string name="presention_url">Präsentation URL</string>
+	<string name="presention_url">Browser URL</string>
 	<string name="desc_xml">Beschreibung XML</string>
 	<string name="udn">UDN</string>
 	<string name="separator"> : </string>
@@ -85,9 +85,9 @@
 	<!-- About -->
 	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
-	<string name="license">License</string>
-	<string name="licenses_other">Library licenses</string>
+	<string name="license">Lizenz</string>
+	<string name="licenses_other">Bibliothekslizenzen</string>
 	<string name="about_licenses_other"></string>
-	<string name="source">Source Code</string>
+	<string name="source">Quellcode</string>
 
 </resources>
