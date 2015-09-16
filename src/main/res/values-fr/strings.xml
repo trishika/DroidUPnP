@@ -26,13 +26,13 @@
 	<!-- Navigation drawer -->
 	<string name="contentdirectory">Serveur de contenus</string>
 	<string name="renderer">Écran</string>
-	<string name="device_list_empty">Pas d\'appareil disponible</string>
-	<string name="navigation_drawer_open">Ouvrir la liste d\'appareil</string>
-	<string name="navigation_drawer_close">Fermer la liste d\'appareil</string>
+	<string name="device_list_empty">Pas d’appareil disponible</string>
+	<string name="navigation_drawer_open">Ouvrir la liste d’appareils</string>
+	<string name="navigation_drawer_close">Fermer la liste d’appareils</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Paramètres</string>
-	<string name="menu_refresh">Refraichir</string>
+	<string name="menu_refresh">Rafraîchir</string>
 	<string name="menu_quit">Quitter</string>
 
 	<!-- Option -->
@@ -46,8 +46,8 @@
 	<string name="pref_contentDirectory_audio_desc">Partager les musiques</string>
 	<string name="pref_contentDirectory_image_title">Image</string>
 	<string name="pref_contentDirectory_image_desc">Partager les images</string>
-	<string name="pref_contentDirectory_video_title">Video</string>
-	<string name="pref_contentDirectory_video_desc">Partager les videos</string>
+	<string name="pref_contentDirectory_video_title">Vidéo</string>
+	<string name="pref_contentDirectory_video_desc">Partager les vidéos</string>
 	<string name="pref_about_title">À propos</string>
 	<string name="pref_about_desc"></string>
 
@@ -55,11 +55,11 @@
 	<string name="OK">OK</string>
 	<string name="loading">Chargement…</string>
 	<string name="selectRenderer">Choisissez un écran</string>
-	<string name="noRenderer">Il n\'y a pas d\'écran disponible</string>
+	<string name="noRenderer">Il n’y a pas d’écran disponible</string>
 
 	<!-- Long click options -->
-	<string name="no_action_available">Pas d\'action disponible</string>
-	<string name="failed_action">Impossible de lire l\'élément</string>
+	<string name="no_action_available">Pas d’action disponible</string>
+	<string name="failed_action">Impossible de lire l’élément</string>
 
 	<!-- Now Playing -->
 	<string name="duration">00:00:00</string>
@@ -71,13 +71,13 @@
 	<string name="mute">Muet</string>
 
 	<!-- Device Info -->
-	<string name="manufacturer">Construteur</string>
-	<string name="manufacturer_url">Construteur URL</string>
+	<string name="manufacturer">Constructeur</string>
+	<string name="manufacturer_url">Constructeur URL</string>
 	<string name="model_name">Modèle</string>
 	<string name="model_url">Modèle URL</string>
 	<string name="model_number">Modèle version</string>
 	<string name="model_desc">Modèle description</string>
-	<string name="presention_url">Presentation URL</string>
+	<string name="presention_url">Présentation URL</string>
 	<string name="desc_xml">Description XML</string>
 	<string name="udn">UDN</string>
 	<string name="separator"> : </string>
@@ -85,9 +85,9 @@
 	<!-- About -->
 	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
-	<string name="license">License</string>
-	<string name="licenses_other">Library licenses</string>
+	<string name="license">Licence</string>
+	<string name="licenses_other">Licences des librairies</string>
 	<string name="about_licenses_other"></string>
-	<string name="source">Source Code</string>
+	<string name="source">Code source</string>
 
 </resources>
