@@ -53,9 +53,12 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -75,11 +78,16 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	private String currentID = null;
 	private IUpnpDevice device;
 
+	private LruCache<String, Bitmap> mMemoryCache;
+
 	private IContentDirectoryCommand contentDirectoryCommand;
 
 	static final String STATE_CONTENTDIRECTORY = "contentDirectory";
 	static final String STATE_TREE = "tree";
 	static final String STATE_CURRENT = "current";
+
+	static final int IMAGE_FADE_ANIMATION_DURATION = 400;
+	static final float MAX_CACHE_SIZE = 1.0f/8.0f;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -91,8 +99,25 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		initCache();
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.browsing_list_fragment, container, false);
+	}
+
+	private void initCache() {
+		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+		// Use 1/8th of the available memory for this memory cache.
+		final int cacheSize = (int) (maxMemory * MAX_CACHE_SIZE);
+
+		mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+			@Override
+			protected int sizeOf(String key, Bitmap bitmap) {
+				// The cache size will be measured in kilobytes rather than
+				// number of items.
+				return bitmap.getByteCount() / 1024;
+			}
+		};
 	}
 
 	/** This update the search visibility depending on current content directory capabilities */
@@ -179,6 +204,16 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		}
 	}
 
+	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+		if (getBitmapFromMemCache(key) == null) {
+			mMemoryCache.put(key, bitmap);
+		}
+	}
+
+	public Bitmap getBitmapFromMemCache(String key) {
+		return mMemoryCache.get(key);
+	}
+
 	private class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
 		ImageView imageView;
 		String url;
@@ -192,17 +227,43 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		@Override
 		protected Bitmap doInBackground(Void... voids) {
 			try {
-				return BitmapFactory.decodeStream(new java.net.URL(url).openStream());
+				Bitmap b = getBitmapFromMemCache(url);
+
+				if (b != null) {
+					return b;
+				}
+
+				b = BitmapFactory.decodeStream(new java.net.URL(url).openStream());
+				addBitmapToMemoryCache(url, b);
+				return b;
 			} catch (IOException e) {
-				Log.e("Error", e.getMessage());
+				Log.e(TAG, "IO Error during image fetch: "+e.getMessage());
 				return null;
 			}
 		}
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			if(result != null && imageView.getTag().equals(url))
+			if (result != null && imageView.getTag().equals(url)) {
 				imageView.setImageBitmap(result);
+
+				Animation a = new AlphaAnimation(0.00f, 1.00f);
+				a.setDuration(IMAGE_FADE_ANIMATION_DURATION);
+				a.setAnimationListener(new Animation.AnimationListener() {
+
+					public void onAnimationStart(Animation animation) {
+					}
+
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					public void onAnimationEnd(Animation animation) {
+						imageView.setVisibility(View.VISIBLE);
+					}
+				});
+
+				imageView.startAnimation(a);
+			}
 		}
 	}
 

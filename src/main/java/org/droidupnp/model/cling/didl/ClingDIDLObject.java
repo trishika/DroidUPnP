@@ -66,8 +66,18 @@ public class ClingDIDLObject implements IDIDLObject {
 	@Override
 	public Object getIcon()
 	{
-		if (item != null && item.hasProperty(DIDLObject.Property.UPNP.ICON.class))
-			return item.getFirstPropertyValue(DIDLObject.Property.UPNP.ICON.class);
+		if (item != null) {
+			if (item.hasProperty(DIDLObject.Property.UPNP.ICON.class)) {
+				Object prop = item.getFirstPropertyValue(DIDLObject.Property.UPNP.ICON.class);
+				if (!(prop instanceof Integer)) {
+					return item.getFirstPropertyValue(DIDLObject.Property.UPNP.ICON.class);
+				}
+			}
+
+			if (item.hasProperty(DIDLObject.Property.UPNP.ALBUM_ART_URI.class)) {
+				return item.getFirstPropertyValue(DIDLObject.Property.UPNP.ALBUM_ART_URI.class);
+			}
+		}
 		return defaultIcon;
 	}
 
