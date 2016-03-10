@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.+'
+        classpath 'com.android.tools.build:gradle:1.5.+'
     }
 }
 apply plugin: 'com.android.application'
@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     // Android support
-    compile 'com.android.support:appcompat-v7:21.0.+'
+    compile 'com.android.support:appcompat-v7:23.2.+'
 
     // Cling
     compile group: 'org.fourthline.cling', name: 'cling-core', version:'2.0.1'
@@ -37,12 +37,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 23
     }
 
     packagingOptions {
