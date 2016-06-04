@@ -73,7 +73,6 @@ public class SettingsActivity extends PreferenceActivity {
 	{
 		super.onCreate(savedInstanceState);
 		mActionBar.setTitle(getTitle());
-//		mActionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
