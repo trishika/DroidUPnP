@@ -32,7 +32,7 @@ import java.util.Observer;
 
 public class ContentDirectoryDeviceFragment extends UpnpDeviceListFragment implements Observer {
 
-	protected static final String TAG = "ContentDirectoryDeviceFragment";
+	protected static final String TAG = ContentDirectoryDeviceFragment.class.getSimpleName();
 
 	public ContentDirectoryDeviceFragment()
 	{

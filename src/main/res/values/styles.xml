@@ -91,24 +91,10 @@
 		<item name="android:textSize">15sp</item>
 	</style>
 
-	<!-- Pull to refresh style -->
-	<style name="Widget.Custom.PtrHeader" parent="android:Widget">
-		<item name="ptrProgressBarColor">@color/blue_dark</item>
-		<item name="ptrHeaderTitleTextAppearance">@style/TextAppearance.Custom.PtrHeader.Title</item>
-	</style>
-
-	<style name="TextAppearance.Custom.PtrHeader.Title" parent="android:TextAppearance.Large.Inverse">
-		<item name="android:textColor">@android:color/white</item>
-		<item name="android:textSize">20sp</item>
-	</style>
-
 	<!-- The app theme -->
 	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorPrimary">@color/blue</item>
 		<item name="colorPrimaryDark">@color/blue_dark</item>
 		<item name="colorAccent">@color/blue</item>
-
-		<item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
 	</style>
-
 </resources>

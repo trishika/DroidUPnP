@@ -47,6 +47,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,12 +59,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-
 public class ContentDirectoryFragment extends ListFragment implements Observer
 {
-	private static final String TAG = "ContentDirectoryFragment";
+	private static final String TAG = ContentDirectoryFragment.class.getSimpleName();
 
 	private ArrayAdapter<DIDLObjectDisplay> contentList;
 	private LinkedList<String> tree = null;
@@ -71,6 +69,8 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	private IUpnpDevice device;
 
 	private IContentDirectoryCommand contentDirectoryCommand;
+
+	private SwipeRefreshLayout swipeContainer;
 
 	static final String STATE_CONTENTDIRECTORY = "contentDirectory";
 	static final String STATE_TREE = "tree";
@@ -244,38 +244,29 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		Main.upnpServiceController.getContentDirectoryDiscovery().removeObserver(deviceObserver);
 	}
 
-	private PullToRefreshLayout mPullToRefreshLayout;
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState)
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		// This is the View which is created by ListFragment
-		ViewGroup viewGroup = (ViewGroup) view;
-
 		view.setBackgroundColor(getResources().getColor(R.color.grey));
 
-		// We need to create a PullToRefreshLayout manually
-		mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
+		swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
-		// We can now setup the PullToRefreshLayout
-		ActionBarPullToRefresh.from(getActivity())
-			.insertLayoutInto(viewGroup)
-			.theseChildrenArePullable(getListView(), getListView().getEmptyView())
-			.listener(new uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener() {
-				@Override
-				public void onRefreshStarted(View view) {
-					refresh();
-				}
-			})
-			.setup(mPullToRefreshLayout);
+		// Setup refresh listener which triggers new data loading
+		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				refresh();
+			}
+		});
 	}
 
 	@Override
 	public void onDestroyView()
 	{
-		mPullToRefreshLayout.setRefreshComplete();
+		swipeContainer.setRefreshing(false);
 		super.onDestroyView();
 	}
 
@@ -345,13 +336,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 	public class RefreshCallback implements Callable<Void> {
 		public Void call() throws java.lang.Exception {
+			Log.d(TAG, "Stop refresh");
 			final Activity a = getActivity();
 			if(a!=null) {
 				a.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						try {
-							mPullToRefreshLayout.setRefreshComplete();
+							swipeContainer.setRefreshing(false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -411,19 +403,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 
 		setEmptyText(getString(R.string.loading));
 
-		final Activity a = getActivity();
-		if(a!=null) {
-			a.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						mPullToRefreshLayout.setRefreshing(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
+		swipeContainer.setRefreshing(true);
 
 		// Update search visibility
 		updateSearchVisibility();

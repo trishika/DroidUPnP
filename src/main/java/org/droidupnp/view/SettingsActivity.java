@@ -57,6 +57,8 @@ import de.psdev.licensesdialog.model.Notices;
 
 public class SettingsActivity extends PreferenceActivity {
 
+	protected static final String TAG = SettingsActivity.class.getSimpleName();
+
 	public static final String CONTENTDIRECTORY_SERVICE = "pref_contentDirectoryService";
 	public static final String CONTENTDIRECTORY_NAME = "pref_contentDirectoryService_name";
 	public static final String CONTENTDIRECTORY_SHARE = "pref_contentDirectoryService_share";
@@ -100,8 +102,6 @@ public class SettingsActivity extends PreferenceActivity {
 			.getString(SettingsActivity.CONTENTDIRECTORY_NAME, "");
 		return (value != "") ? value : android.os.Build.MODEL;
 	}
-
-	private static final String TAG = "SettingsActivity";
 
 	private List<Header> mHeaders;
 
@@ -213,7 +213,7 @@ public class SettingsActivity extends PreferenceActivity {
 		protected void updateSettings()
 		{
 			boolean available = enabler.isSwitchOn();
-			Log.d("ContentDirectorySettingsFragment", "updateSettings " + (available ? " true" : " false"));
+			Log.d(TAG, "updateSettings " + (available ? " true" : " false"));
 
 			// Enable or not preference field
 			for(int i = 0; i < getPreferenceScreen().getPreferenceCount(); ++i)
@@ -223,7 +223,7 @@ public class SettingsActivity extends PreferenceActivity {
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
 		{
-			Log.d("ContentDirectorySettingsFragment", "onSharedPreferenceChanged " + key);
+			Log.d(TAG, "onSharedPreferenceChanged " + key);
 
 			if (key.equals(SettingsActivity.CONTENTDIRECTORY_SERVICE))
 			{
@@ -268,9 +268,6 @@ public class SettingsActivity extends PreferenceActivity {
 					notices.addNotice(new Notice(
 						"NanoHttpd", "https://github.com/NanoHttpd/nanohttpd",
 						"Copyright (C) 2012-2013 by Paul S. Hawke, 2001,2005-2013 by Jarno Elonen, 2010 by Konstantinos Togias", new BSD3ClauseLicense()));
-					notices.addNotice(new Notice(
-						"ActionBar-PullToRefresh", "https://github.com/chrisbanes/ActionBar-PullToRefresh",
-						"Copyright (C) Chris Banes", new ApacheSoftwareLicense20()));
 					notices.addNotice(new Notice(
 						"LicenseDialog", "http://psdev.de/LicensesDialog/",
 						"Copyright (C) Philip Schiffer", new ApacheSoftwareLicense20()));
