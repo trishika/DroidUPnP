@@ -156,7 +156,7 @@ public class DrawerFragment extends Fragment {
 			}
 		});
 
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		mDrawerLayout.addDrawerListener(mDrawerToggle);
 	}
 
 	@Override
