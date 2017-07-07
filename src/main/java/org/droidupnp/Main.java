@@ -19,11 +19,16 @@
 
 package org.droidupnp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,6 +50,7 @@ import java.util.Enumeration;
 public class Main extends AppCompatActivity
 {
 	private static final String TAG = "Main";
+	private static final int REQUEST_READ_EXT_STORAGE = 12345;
 
 	// Controller
 	public static IUpnpServiceController upnpServiceController = null;
@@ -102,6 +108,12 @@ public class Main extends AppCompatActivity
 			mDrawerFragment.setUp(
 				R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		}
+
+		if (Build.VERSION.SDK_INT >= 23) {
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+				ActivityCompat.requestPermissions(this,	new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXT_STORAGE);
+			}
 		}
 	}
 
