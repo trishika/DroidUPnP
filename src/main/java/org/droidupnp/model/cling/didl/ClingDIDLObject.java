@@ -25,6 +25,7 @@ import org.fourthline.cling.support.model.DIDLObject;
 public class ClingDIDLObject implements IDIDLObject {
 
 	private static final String TAG = "ClingDIDLObject";
+	protected int defaultIcon = android.R.color.transparent;
 
 	protected DIDLObject item;
 
@@ -63,9 +64,21 @@ public class ClingDIDLObject implements IDIDLObject {
 	}
 
 	@Override
-	public int getIcon()
+	public Object getIcon()
 	{
-		return android.R.color.transparent;
+		if (item != null) {
+			if (item.hasProperty(DIDLObject.Property.UPNP.ICON.class)) {
+				Object prop = item.getFirstPropertyValue(DIDLObject.Property.UPNP.ICON.class);
+				if (!(prop instanceof Integer)) {
+					return item.getFirstPropertyValue(DIDLObject.Property.UPNP.ICON.class);
+				}
+			}
+
+			if (item.hasProperty(DIDLObject.Property.UPNP.ALBUM_ART_URI.class)) {
+				return item.getFirstPropertyValue(DIDLObject.Property.UPNP.ALBUM_ART_URI.class);
+			}
+		}
+		return defaultIcon;
 	}
 
 	@Override
