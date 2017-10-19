@@ -26,20 +26,20 @@
 	<!-- Navigation drawer -->
 	<string name="contentdirectory">Navegador</string>
 	<string name="renderer">Reproductor</string>
-	<string name="device_list_empty">No dispositivo disponible</string>
-	<string name="navigation_drawer_open">Lista de dispositivos abierto</string>
-	<string name="navigation_drawer_close">Cerrar la lista de dispositivos</string>
+	<string name="device_list_empty">No hay dispositivo disponible</string>
+	<string name="navigation_drawer_open">Abrir Lista de dispositivos</string>
+	<string name="navigation_drawer_close">Cerrar lista de dispositivos</string>
 
 	<!--  Menu -->
 	<string name="menu_settings">Configuración</string>
-	<string name="menu_refresh">Refrescar</string>
+	<string name="menu_refresh">Actualizar</string>
 	<string name="menu_quit">Salir</string>
 
 	<!-- Option -->
 	<string name="pref_contentdirectory_title">Proveedor de contenido</string>
 	<string name="pref_contentdirectory_desc">Activar un proveedor de contenido local</string>
-	<string name="pref_contentDirectory_display_name">Display Name</string>
-	<string name="pref_contentDirectory_share_contentdirectory">Medios share</string>
+	<string name="pref_contentDirectory_display_name">Nombre para mostrar</string>
+	<string name="pref_contentDirectory_share_contentdirectory">Compartir contenido</string>
 	<string name="pref_contentDirectory_share_contentdirectory_desc">Compartir contenido multimedia con otros dispositivos en red</string>
 	<string name="pref_share_media_title">Tipo de medios de comunicación para compartir</string>
 	<string name="pref_contentDirectory_audio_title">Audio</string>
@@ -84,9 +84,9 @@
 	<!-- About -->
 	<string name="copyright">Copyright</string>
 	<string name="about_copyright">Copyright © 2013 Aurélien Chabot</string>
-	<string name="license">License</string>
-	<string name="licenses_other">Library licenses</string>
+	<string name="license">Licencia</string>
+	<string name="licenses_other">Licencias de librerías</string>
 	<string name="about_licenses_other"></string>
-	<string name="source">Source Code</string>
+	<string name="source">Código Fuente</string>
 
 </resources>
