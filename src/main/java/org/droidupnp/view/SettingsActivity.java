@@ -65,6 +65,8 @@ public class SettingsActivity extends PreferenceActivity {
 	public static final String CONTENTDIRECTORY_VIDEO = "pref_contentDirectoryService_video";
 	public static final String CONTENTDIRECTORY_AUDIO = "pref_contentDirectoryService_audio";
 	public static final String CONTENTDIRECTORY_IMAGE = "pref_contentDirectoryService_image";
+	public static final String CONTENTDIRECTORY_DIRECTORY = "pref_contentDirectoryService_directory";
+	public static final String CONTENTDIRECTORY_PROBEMIMETYPE = "pref_contentDirectoryService_probeMimetype";
 
 	private Toolbar mActionBar;
 

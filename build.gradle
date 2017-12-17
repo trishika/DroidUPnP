@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -27,6 +27,7 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'8.1.18.v20150929'
     compile group: 'org.eclipse.jetty', name: 'jetty-client', version:'8.1.18.v20150929'
     compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.14'
+    compile group: 'org.apache.tika', name: 'tika-core', version: '1.8'
 
     compile('de.psdev.licensesdialog:licensesdialog:1.8.1') {
         exclude module: 'support-v4'
@@ -35,10 +36,10 @@ dependencies {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 24
         targetSdkVersion 26
     }
 

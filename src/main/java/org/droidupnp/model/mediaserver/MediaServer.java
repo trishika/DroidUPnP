@@ -20,12 +20,15 @@
 package org.droidupnp.model.mediaserver;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.droidupnp.R;
+import org.droidupnp.model.cling.localContent.DirectoryContainer;
 import org.droidupnp.view.SettingsActivity;
 import org.fourthline.cling.binding.annotations.AnnotationLocalServiceBinder;
 import org.fourthline.cling.model.DefaultServiceManager;
@@ -42,10 +45,12 @@ import org.fourthline.cling.model.types.UDADeviceType;
 import org.fourthline.cling.model.types.UDN;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -153,36 +158,66 @@ public class MediaServer extends fi.iki.elonen.SimpleWebServer
 	{
 		try
 		{
-			// Remove extension
-			int dot = id.lastIndexOf('.');
-			if (dot >= 0)
-				id = id.substring(0,dot);
-
-			// Try to get media id
-			int mediaId = Integer.parseInt(id.substring(3));
-			Log.v(TAG, "media of id is " + mediaId);
-
 			MediaStore.MediaColumns mediaColumns = null;
 			Uri uri = null;
+			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
 
 			if(id.startsWith("/"+ContentDirectoryService.AUDIO_PREFIX))
 			{
 				Log.v(TAG, "Ask for audio");
+				if (!sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_AUDIO, true)) {
+					throw new InvalidIdentificatorException("Serving audio is disabled");
+				}
 				uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 				mediaColumns = new MediaStore.Audio.Media();
 			}
 			else if(id.startsWith("/"+ContentDirectoryService.VIDEO_PREFIX))
 			{
 				Log.v(TAG, "Ask for video");
+				if (!sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_VIDEO, true)) {
+					throw new InvalidIdentificatorException("Serving videos is disabled");
+				}
 				uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
 				mediaColumns = new MediaStore.Video.Media();
 			}
 			else if(id.startsWith("/"+ContentDirectoryService.IMAGE_PREFIX))
 			{
 				Log.v(TAG, "Ask for image");
+				if (!sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_IMAGE, true)) {
+					throw new InvalidIdentificatorException("Serving images is disabled");
+				}
 				uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 				mediaColumns = new MediaStore.Images.Media();
 			}
+			else if(id.startsWith("/"+ContentDirectoryService.FILE_PREFIX))
+			{
+				Log.v(TAG, "Ask for file");
+
+				if (!sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_DIRECTORY, true)) {
+					throw new InvalidIdentificatorException("Serving directories is disabled");
+				}
+				String path = id.substring(3);
+				try {
+					path = URLDecoder.decode(path, "utf-8");
+				} catch (UnsupportedEncodingException e) {
+					Log.w(TAG, "Could not decode fileid " + path + ": " + e);
+				}
+				File file = new File(path);
+				if (DirectoryContainer.isValidSubpath(file, DirectoryContainer.getRoots(ctx))) {
+					return new ServerObject(file.getAbsolutePath(), DirectoryContainer.getMimeType(file, ctx));
+				} else {
+					throw new InvalidIdentificatorException(id + " is not a subdirectory of the shared volumes");
+				}
+			}
+
+			// Remove extension
+			int dot = id.lastIndexOf('.');
+			if (dot >= 0)
+				id = id.substring(0, dot);
+
+			// Try to get media id
+			int mediaId = Integer.parseInt(id.substring(3));
+			Log.v(TAG, "media of id is " + mediaId);
 
 			if(uri!=null && mediaColumns!=null)
 			{
