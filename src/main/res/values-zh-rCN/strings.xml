@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2013 Aurélien Chabot <aurelien@chabot.fr>
+
+  This file is part of DroidUPNP.
+
+  DroidUPNP is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  DroidUPNP is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+	<!-- General -->
+	<string name="app_name">DroidUPnP</string>
+	<string name="app_url">https://github.com/trishika/DroidUPnP</string>
+	<string name="version">版本</string>
+
+	<!-- Navigation drawer -->
+	<string name="contentdirectory">内容目录</string>
+	<string name="renderer">呈现器</string>
+	<string name="device_list_empty">没有可用的设备</string>
+	<string name="navigation_drawer_open">打开设备列表</string>
+	<string name="navigation_drawer_close">关闭设备列表</string>
+
+	<!--  Menu -->
+	<string name="menu_settings">设置</string>
+	<string name="menu_refresh">刷新</string>
+	<string name="menu_quit">退出</string>
+	<string name="menu_search">搜索</string>
+
+	<!-- Option -->
+	<string name="pref_contentdirectory_title">内容目录</string>
+	<string name="pref_contentdirectory_desc">激活本地内容目录服务器</string>
+	<string name="pref_contentDirectory_display_name">显示名称</string>
+	<string name="pref_contentDirectory_share_contentdirectory">共享媒体</string>
+	<string name="pref_contentDirectory_share_contentdirectory_desc">在网络上与其他设备共享媒体</string>
+	<string name="pref_share_media_title">要共享的媒体类型</string>
+	<string name="pref_contentDirectory_audio_title">音频</string>
+	<string name="pref_contentDirectory_audio_desc">共享音频</string>
+	<string name="pref_contentDirectory_image_title">图像</string>
+	<string name="pref_contentDirectory_image_desc">共享图像</string>
+	<string name="pref_contentDirectory_video_title">视频</string>
+	<string name="pref_contentDirectory_video_desc">共享视频</string>
+	<string name="pref_about_title">关于</string>
+	<string name="pref_about_desc"></string>
+
+	<!-- Popup -->
+	<string name="OK">确定</string>
+	<string name="loading">加载…</string>
+	<string name="selectRenderer">选择呈现器</string>
+	<string name="noRenderer">没有可用的呈现器</string>
+
+	<!-- Long click options -->
+	<string name="no_action_available">没有可用的操作</string>
+	<string name="failed_action">无法读取项目</string>
+
+	<!-- Now Playing -->
+	<string name="duration">00:00:00</string>
+
+	<!-- Now Playing Footer -->
+	<string name="play">播放</string>
+	<string name="pause">暂停</string>
+	<string name="stop">停止</string>
+	<string name="mute">静音</string>
+
+	<!-- Device Info -->
+	<string name="manufacturer">制造商</string>
+	<string name="manufacturer_url">制造商网址</string>
+	<string name="model_name">型号名称</string>
+	<string name="model_url">型号 URL</string>
+	<string name="model_number">型号</string>
+	<string name="model_desc">型号描述</string>
+	<string name="presention_url">演示文稿 URL</string>
+	<string name="desc_xml">描述 XML</string>
+	<string name="udn">UDN</string>
+	<string name="separator"> : </string>
+
+	<!-- About -->
+	<string name="copyright">版权</string>
+	<string name="about_copyright">Copyright © 2014 Aurélien Chabot</string>
+	<string name="license">许可证</string>
+	<string name="licenses_other">库许可证</string>
+	<string name="about_licenses_other"></string>
+	<string name="source">源代码</string>
+
+</resources>
