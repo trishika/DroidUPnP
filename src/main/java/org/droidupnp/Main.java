@@ -23,6 +23,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -45,7 +47,10 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
+
 import java.util.Enumeration;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class Main extends AppCompatActivity
 {
@@ -192,6 +197,20 @@ public class Main extends AppCompatActivity
 		super.onBackPressed();
 	}
 
+	public static InetAddress formatInetAddress(int ipAddress) throws UnknownHostException
+	{
+
+		return InetAddress.getByName
+				(
+						String.format
+								(
+										"%d.%d.%d.%d",
+										(ipAddress & 0xff), (ipAddress >> 8 & 0xff),
+										(ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff)
+								)
+				);
+	}
+
 	private static InetAddress getLocalIpAdressFromIntf(String intfName)
 	{
 		try
@@ -238,6 +257,87 @@ public class Main extends AppCompatActivity
 		{
 			Log.d(TAG, "Got an ip for interfarce usb0");
 			return inetAddress;
+		}
+
+		// Quick patch below should be refactored ("un-duplicate" code for getting gateway adress for a net iface by moving this code to a function)
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connectivityManager != null)
+		{
+			try
+			{
+				// getMethod and getField may throw exception (No such Method and no such field exceptions)
+				Method getTetheredIfaces = connectivityManager.getClass().getMethod("getTetheredIfaces");
+				String[] tetheredIfaces = (String[]) getTetheredIfaces.invoke(connectivityManager);
+				//if (tetheredIfaces.size() == 1)
+				//{
+				for (String netIfaceName : tetheredIfaces)
+				{
+					NetworkInterface netIface = NetworkInterface.getByName(netIfaceName);
+					Field gatewayField =
+						netIface != null
+						? netIface.getClass().getField("gateway")
+						: null;
+					if (gatewayField != null)
+					{
+						int gateway = gatewayField.getInt(netIface);
+						if (netIface.isUp() && gateway != 0)
+						{
+							Log.d(TAG, "Using Gateway ip adress because device is tethering.");
+							return formatInetAddress(gateway);
+						}
+					}
+					else
+						Log.d(TAG, "Could not retrieve tethered interface named " + netIfaceName);
+				}
+                //}
+            }
+            catch(Exception e)
+            {
+				Log.d(TAG, e.getMessage());
+            }
+            try
+            {
+                Method isWifiApEnabledMethod = wifiManager.getClass().getMethod("isWifiApEnabled");
+                boolean isWifiApEnabled = (boolean) isWifiApEnabledMethod.invoke(wifiManager);
+                if (isWifiApEnabled)
+                {
+                    NetworkInterface netIface = NetworkInterface.getByName("wlan0");
+                    Field gatewayField = null;
+                    try
+                    {
+                        gatewayField =
+                                netIface != null
+                                        ? netIface.getClass().getField("gateway")
+                                        : null;
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                    if (gatewayField != null)
+                    {
+                        int gateway = gatewayField.getInt(netIface);
+                        if (netIface.isUp() && gateway != 0)
+                        {
+							Log.d(TAG, "Using Gateway ip adress because device is tethering.");
+                            return formatInetAddress(gateway);
+                        }
+                    }
+
+					DhcpInfo dhcpInfo = wifiManager.getDhcpInfo();
+					if (dhcpInfo != null && dhcpInfo.gateway != 0)
+					{
+						Log.d(TAG, "Using Gateway ip adress because device is tethering.");
+						return formatInetAddress(dhcpInfo.gateway);
+					}
+
+					Log.d(TAG, "Tethering is activated, and ip address could not be processed, default value will be used");
+                    return InetAddress.getByName("192.168.43.1");
+                }
+			}
+			catch (Exception e)
+			{
+				Log.d(TAG, e.getMessage());
+			}
 		}
 
 		return InetAddress.getByName("0.0.0.0");
