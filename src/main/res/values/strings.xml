@@ -100,4 +100,7 @@
 	<string name="source">Source Code</string>
 	<string name="source_url" translatable="false">http://github.com/trishika/droidupnp</string>
 
+	<!-- URL Intent-->
+	<string name="play_with_droidupnp">Play with DroidUPnP</string>
+
 </resources>

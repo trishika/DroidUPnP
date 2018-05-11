@@ -23,16 +23,12 @@ import org.fourthline.cling.support.model.item.MusicTrack;
 import org.fourthline.cling.support.model.item.VideoItem;
 import org.seamless.util.MimeType;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -177,7 +173,9 @@ public class DirectoryContainer extends Container {
     @Override
     public List<Container> getContainers() {
         if (path.isDirectory()) {
-            for (File file : path.listFiles()) {
+            File files[] = path.listFiles();
+            Arrays.sort(files);
+            for (File file : files) {
                 if (file.isDirectory()) {
                     Log.d(TAG, "Found directory " + file);
                     containers.add(new DirectoryContainer(id, file.getName(), ctx.getString(R.string.app_name), baseURL, ctx, file));

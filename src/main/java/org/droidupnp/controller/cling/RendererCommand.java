@@ -54,6 +54,7 @@ import org.fourthline.cling.support.renderingcontrol.callback.GetVolume;
 import org.fourthline.cling.support.renderingcontrol.callback.SetMute;
 import org.fourthline.cling.support.renderingcontrol.callback.SetVolume;
 
+import android.net.Uri;
 import android.util.Log;
 
 @SuppressWarnings("rawtypes")
@@ -326,7 +327,18 @@ public class RendererCommand implements Runnable, IRendererCommand {
 				"object.item." + type);
 
 		Log.i(TAG, "TrackMetadata : "+trackMetadata.toString());
+		playUri(item.getURI(), trackMetadata);
+	}
 
+	@Override
+	public void launchUri(Uri uri) {
+		final TrackMetadata trackMetadata = new TrackMetadata(uri.toString(), uri.getLastPathSegment(),
+				"", "", "", uri.toString(), "object.item.videoItem");
+		Log.i(TAG, "TrackMetadata : "+trackMetadata.toString());
+		playUri(uri.toString(), trackMetadata);
+	}
+
+	private void playUri(final String uri, final TrackMetadata trackMetadata) {
 		// Stop playback before setting URI
 		controlPoint.execute(new Stop(getAVTransportService()) {
 			@Override
@@ -345,10 +357,9 @@ public class RendererCommand implements Runnable, IRendererCommand {
 
 			public void callback()
 			{
-				setURI(item.getURI(), trackMetadata);
+				setURI(uri, trackMetadata);
 			}
 		});
-
 	}
 
 	// Update

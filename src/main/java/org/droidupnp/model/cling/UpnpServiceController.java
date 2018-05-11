@@ -21,13 +21,16 @@ package org.droidupnp.model.cling;
 
 import java.util.Observer;
 
+import org.droidupnp.Main;
 import org.droidupnp.controller.upnp.IUpnpServiceController;
 import org.droidupnp.model.CObservable;
 import org.droidupnp.model.upnp.ContentDirectoryDiscovery;
+import org.droidupnp.model.upnp.IRendererCommand;
 import org.droidupnp.model.upnp.IUpnpDevice;
 import org.droidupnp.model.upnp.RendererDiscovery;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.util.Log;
 
 public abstract class UpnpServiceController implements IUpnpServiceController {
@@ -42,6 +45,8 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 
 	private final ContentDirectoryDiscovery contentDirectoryDiscovery;
 	private final RendererDiscovery rendererDiscovery;
+
+	private Uri playOnNextSelectedRendererUri;
 
 	@Override
 	public ContentDirectoryDiscovery getContentDirectoryDiscovery()
@@ -62,6 +67,8 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 
 		contentDirectoryDiscovery = new ContentDirectoryDiscovery(getServiceListener());
 		rendererDiscovery = new RendererDiscovery(getServiceListener());
+
+		playOnNextSelectedRendererUri = null;
 	}
 
 	@Override
@@ -79,6 +86,13 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 
 		this.renderer = renderer;
 		rendererObservable.notifyAllObservers();
+
+		// Play URI passed via intent
+		if (renderer != null && playOnNextSelectedRendererUri != null) {
+			playOnNextSelectedRenderer(playOnNextSelectedRendererUri);
+			playOnNextSelectedRendererUri = null;
+		}
+		Log.d(TAG,"playOnNextSelectedRendererUri = " + playOnNextSelectedRendererUri);
 	}
 
 	@Override
@@ -152,4 +166,15 @@ public abstract class UpnpServiceController implements IUpnpServiceController {
 		contentDirectoryDiscovery.resume(getServiceListener());
 	}
 
+	@Override
+	public void playOnNextSelectedRenderer(Uri uri) {
+		IRendererCommand rendererCommand = Main.factory.createRendererCommand(Main.factory.createRendererState());
+		if (renderer != null && rendererCommand != null) {
+			Log.d(TAG, "Play URI " + uri + " immediately");
+			rendererCommand.launchUri(uri);
+		} else {
+			Log.d(TAG, "Play URI " + uri + " when renderer becomes available");
+			playOnNextSelectedRendererUri = uri;
+		}
+	}
 }

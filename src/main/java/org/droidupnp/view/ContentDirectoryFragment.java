@@ -45,9 +45,12 @@ import android.app.ListFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,11 +65,14 @@ import android.widget.Toast;
 public class ContentDirectoryFragment extends ListFragment implements Observer
 {
 	private static final String TAG = ContentDirectoryFragment.class.getSimpleName();
+	protected static final String LAST_CONTENT_TREE_PREFIX = "last_content_tree_";
+	protected static final String LAST_CONTENT_CURRENT_PREFIX = "last_content_current_";
 
 	private ArrayAdapter<DIDLObjectDisplay> contentList;
 	private LinkedList<String> tree = null;
 	private String currentID = null;
 	private IUpnpDevice device;
+	protected SharedPreferences sharedPref;
 
 	private IContentDirectoryCommand contentDirectoryCommand;
 
@@ -81,6 +87,7 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 	{
 	   Main.setContentDirectoryFragment(this);
 	   super.onCreate(savedInstanceState);
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
 	}
 
 	@Override
@@ -323,6 +330,14 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 		{
 			Log.d(TAG, "Go back in browsing");
 			currentID = tree.pop();
+
+			Log.d(TAG, "Storing currentID = " + currentID + " tree = " + TextUtils.join(";", tree) + " for device (" +
+					device.getUID());
+			sharedPref.edit()
+					.putString(LAST_CONTENT_CURRENT_PREFIX + device.getUID(), currentID)
+					.putString(LAST_CONTENT_TREE_PREFIX + device.getUID(), TextUtils.join(";", tree))
+					.apply();
+
 			update();
 			return false;
 		}
@@ -452,23 +467,27 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 				+ Main.upnpServiceController.getSelectedContentDirectory().getDisplayString());
 
 			tree = new LinkedList<String>();
-
-			Log.i(TAG, "Browse root of a new device");
-			contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
+			currentID = sharedPref.getString(LAST_CONTENT_CURRENT_PREFIX + device.getUID(), "0");
+			String treeString = sharedPref.getString(LAST_CONTENT_TREE_PREFIX + device.getUID(), "");
+			Log.d(TAG, "Restoring currentID = " + currentID + ", tree = " + treeString + " for device " + device
+					.getUID());
+			for (String node : treeString.split(";")) {
+				tree.add(node);
+			}
+			Log.d(TAG, TextUtils.join(";", tree));
+			//Log.i(TAG, "Browse root");
+			//contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
+		}
+		if (tree != null && tree.size() > 0)
+		{
+			String parentID = (tree.size() > 0) ? tree.getLast() : null;
+			Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
+			contentDirectoryCommand.browse(currentID, parentID, new ContentCallback(contentList));
 		}
 		else
 		{
-			if (tree != null && tree.size() > 0)
-			{
-				String parentID = (tree.size() > 0) ? tree.getLast() : null;
-				Log.i(TAG, "Browse, currentID : " + currentID + ", parentID : " + parentID);
-				contentDirectoryCommand.browse(currentID, parentID, new ContentCallback(contentList));
-			}
-			else
-			{
-				Log.i(TAG, "Browse root");
-				contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
-			}
+			Log.i(TAG, "Browse root");
+			contentDirectoryCommand.browse("0", null, new ContentCallback(contentList));
 		}
 	}
 
@@ -500,6 +519,13 @@ public class ContentDirectoryFragment extends ListFragment implements Observer
 					String parentID = didl.getParentID();
 					tree.push(parentID);
 				}
+
+				Log.d(TAG, "Storing currentID = " + currentID + " tree = " + TextUtils.join(";", tree) + " for device (" +
+						device.getUID());
+				sharedPref.edit()
+						.putString(LAST_CONTENT_CURRENT_PREFIX + device.getUID(), currentID)
+						.putString(LAST_CONTENT_TREE_PREFIX + device.getUID(), TextUtils.join(";", tree))
+						.apply();
 
 				// Refresh display
 				refresh();

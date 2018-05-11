@@ -19,6 +19,8 @@
 
 package org.droidupnp.model.upnp;
 
+import android.net.Uri;
+
 import org.droidupnp.model.upnp.didl.IDIDLItem;
 
 public interface IRendererCommand {
@@ -55,6 +57,7 @@ public interface IRendererCommand {
 
 	// / URI
 	public void launchItem(final IDIDLItem uri);
+	public void launchUri(final Uri uri);
 
 	// / Full
 	public void updateFull();
