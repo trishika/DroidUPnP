@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-	maven { url "file:/opt/android-studio/gradle/m2repository" }
         mavenCentral()
 	google()
     }
@@ -17,6 +16,7 @@ repositories {
     maven {
         url 'http://4thline.org/m2'
     }
+    google()
 }
 
 dependencies {
@@ -38,8 +38,8 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+//    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 24
