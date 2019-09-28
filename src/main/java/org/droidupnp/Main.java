@@ -210,12 +210,17 @@ public class Main extends AppCompatActivity
 
 	private void handleIntent(Intent intent) {
 		final String action = intent.getAction();
-		final String videoUri;
+		String videoUri;
 		if (action == null) {
 			Log.d(TAG, "Intent already handled");
 			return;
 		} else if (action.equals(Intent.ACTION_SEND)) {
 			videoUri = intent.getStringExtra(Intent.EXTRA_TEXT);
+			if (videoUri == null) {
+				videoUri = intent.getStringExtra(Intent.EXTRA_STREAM);
+			}
+		} else if (action.equals(Intent.ACTION_VIEW)) {
+			videoUri = intent.getDataString();
 		} else if (action.equals(Intent.ACTION_MAIN)) {
 			Log.d(TAG, "Nothing to do for main intent");
 			return;
