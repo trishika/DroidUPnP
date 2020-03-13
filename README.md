@@ -16,7 +16,7 @@ It is licensed under the **GPLv3**.
 BUILD
 =====
 
-Application can be build using [gragle](http://www.gradle.org).
+Application can be build using [gradle](http://www.gradle.org).
 
 To generate the apk :
 
