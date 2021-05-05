@@ -28,6 +28,7 @@ import org.droidupnp.model.upnp.RendererDiscovery;
 import org.fourthline.cling.model.meta.LocalDevice;
 
 import android.app.Activity;
+import android.net.Uri;
 
 public interface IUpnpServiceController {
 	public void setSelectedRenderer(IUpnpDevice renderer);
@@ -65,4 +66,6 @@ public interface IUpnpServiceController {
 	public void addDevice(LocalDevice localDevice);
 	public void removeDevice(LocalDevice localDevice);
 
+	// Play track on next selected renderer
+	public void playOnNextSelectedRenderer(Uri uri);
 }

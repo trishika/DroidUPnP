@@ -24,6 +24,7 @@ import org.droidupnp.model.cling.localContent.AlbumContainer;
 import org.droidupnp.model.cling.localContent.ArtistContainer;
 import org.droidupnp.model.cling.localContent.AudioContainer;
 import org.droidupnp.model.cling.localContent.CustomContainer;
+import org.droidupnp.model.cling.localContent.DirectoryContainer;
 import org.droidupnp.model.cling.localContent.ImageContainer;
 import org.droidupnp.model.cling.localContent.VideoContainer;
 import org.droidupnp.view.SettingsActivity;
@@ -43,8 +44,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContentDirectoryService extends AbstractContentDirectoryService
 {
@@ -57,11 +61,13 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 	public final static int VIDEO_ID  = 1;
 	public final static int AUDIO_ID  = 2;
 	public final static int IMAGE_ID  = 3;
+	public final static int DIRECTORY_ID  = 4;
 
 	// Test
 	public final static String VIDEO_TXT  = "Videos";
 	public final static String AUDIO_TXT  = "Music";
 	public final static String IMAGE_TXT  = "Images";
+	public final static String DIRECTORY_TXT  = "Directories";
 
 	// Type subfolder
 	public final static int ALL_ID    = 0;
@@ -74,6 +80,7 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 	public final static String AUDIO_PREFIX     = "a-";
 	public final static String IMAGE_PREFIX     = "i-";
 	public final static String DIRECTORY_PREFIX = "d-";
+	public final static String FILE_PREFIX      = "f-";
 
 
 	private static Context ctx;
@@ -100,6 +107,7 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 		this.baseURL = baseURL;
 	}
 
+
 	@Override
 	public BrowseResult browse(String objectID, BrowseFlag browseFlag,
 			String filter, long firstResult, long maxResults,
@@ -110,24 +118,27 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 		try
 		{
 			DIDLContent didl = new DIDLContent();
-			TextUtils.StringSplitter ss = new TextUtils.SimpleStringSplitter(SEPARATOR);
-			ss.setString(objectID);
 
 			int type = -1;
 			ArrayList<Integer> subtype = new ArrayList<Integer>();
+			File path = null;
 
-			for (String s : ss)
-			{
-				int i = Integer.parseInt(s);
-				if(type==-1)
-				{
-					type = i;
-					if(type!=ROOT_ID && type!=VIDEO_ID && type!=AUDIO_ID && type!=IMAGE_ID)
-						throw new ContentDirectoryException(ContentDirectoryErrorCode.NO_SUCH_OBJECT, "Invalid type!");
-				}
-				else
-				{
-					subtype.add(i);
+			if (objectID.startsWith(DIRECTORY_PREFIX)) {
+				type = DIRECTORY_ID;
+				path = new File(objectID.substring(DIRECTORY_PREFIX.length())).getCanonicalFile();
+			} else {
+				TextUtils.StringSplitter ss = new TextUtils.SimpleStringSplitter(SEPARATOR);
+				ss.setString(objectID);
+
+				for (String s : ss) {
+					int i = Integer.parseInt(s);
+					if (type == -1) {
+						type = i;
+						if (type != ROOT_ID && type != VIDEO_ID && type != AUDIO_ID && type != IMAGE_ID && type != DIRECTORY_ID)
+							throw new ContentDirectoryException(ContentDirectoryErrorCode.NO_SUCH_OBJECT, "Invalid type!");
+					} else {
+						subtype.add(i);
+					}
 				}
 			}
 
@@ -196,12 +207,52 @@ public class ContentDirectoryService extends AbstractContentDirectoryService
 				imageContainer.setChildCount(imageContainer.getChildCount()+1);
 			}
 
-			if(subtype.size()==0)
+			// Directory
+			Container directoryContainer = null, volumeContainer = null;
+			List<Pair<String, File>> volumes = DirectoryContainer.getRoots(ctx);
+			List<Container> volumeContainers = new ArrayList<>();
+			if(sharedPref.getBoolean(SettingsActivity.CONTENTDIRECTORY_DIRECTORY, true))
+			{
+				directoryContainer = new CustomContainer( "" + DIRECTORY_ID, "" + ROOT_ID,
+						DIRECTORY_TXT, ctx.getString(R.string.app_name), baseURL);
+				rootContainer.addContainer(directoryContainer);
+				rootContainer.setChildCount(rootContainer.getChildCount()+1);
+
+				for (Pair<String, File> volume : volumes)
+				{
+					volumeContainer = new DirectoryContainer("" + DIRECTORY_ID,
+							volume.first, ctx.getString(R.string.app_name), baseURL, ctx, volume.second);
+					directoryContainer.addContainer(volumeContainer);
+					volumeContainers.add(volumeContainer);
+					directoryContainer.setChildCount(directoryContainer.getChildCount() + 1);
+				}
+			}
+
+			if(path != null && type == DIRECTORY_ID)
+			{
+				if (DirectoryContainer.isValidSubpath(path, volumes))
+				{
+					File parent = new File(path.getParent());
+					String parentID = "" + DIRECTORY_ID;
+					if (DirectoryContainer.isValidSubpath(parent, volumes)) {
+						parentID = DIRECTORY_PREFIX + parent.getAbsolutePath();
+					}
+					container = new DirectoryContainer(parentID, path.getName(), ctx.getString(R.string.app_name),
+							baseURL, ctx, path);
+					Log.d(TAG, "Listing directory " + path + "...");
+				} else {
+					Log.d(TAG, "Invalid path " + path + ". Listing directory roots...");
+					path = null;
+					container = directoryContainer;
+				}
+			}
+			else if(subtype.size()==0)
 			{
 				if(type==ROOT_ID) container = rootContainer;
 				if(type==AUDIO_ID) container = audioContainer;
 				if(type==VIDEO_ID) container = videoContainer;
 				if(type==IMAGE_ID) container = imageContainer;
+				if(type==DIRECTORY_ID) container = directoryContainer;
 			}
 			else
 			{

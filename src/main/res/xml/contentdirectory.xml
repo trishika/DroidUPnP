@@ -61,6 +61,17 @@ along with DroidUPNP.  If not, see <http://www.gnu.org/licenses/>.
 			android:summary="@string/pref_contentDirectory_video_desc"
 			android:defaultValue="true" />
 
+		<CheckBoxPreference
+			android:key="pref_contentDirectoryService_directory"
+			android:title="@string/pref_contentDirectory_directory_title"
+			android:summary="@string/pref_contentDirectory_directory_desc"
+			android:defaultValue="true" />
+
+		<CheckBoxPreference
+			android:key="pref_contentDirectoryService_probeMimetype"
+			android:title="@string/pref_contentDirectory_probeMimetype_title"
+			android:summary="@string/pref_contentDirectory_probeMimetype_desc"
+			android:defaultValue="true" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

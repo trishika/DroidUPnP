@@ -36,6 +36,7 @@ import org.droidupnp.model.upnp.IUpnpDevice;
 import org.droidupnp.view.SettingsActivity;
 import org.fourthline.cling.android.AndroidUpnpService;
 import org.fourthline.cling.model.ValidationException;
+import org.fourthline.cling.model.message.header.STAllHeader;
 import org.fourthline.cling.model.meta.Device;
 
 import android.content.ComponentName;
@@ -66,7 +67,7 @@ public class ServiceListener implements IServiceListener
 	@Override
 	public void refresh()
 	{
-		upnpService.getControlPoint().search();
+		upnpService.getControlPoint().search(new STAllHeader());
 	}
 
 	@Override
@@ -157,7 +158,7 @@ public class ServiceListener implements IServiceListener
 			}
 
 			// Search asynchronously for all devices, they will respond soon
-			upnpService.getControlPoint().search();
+			upnpService.getControlPoint().search(new STAllHeader());
 		}
 
 		@Override

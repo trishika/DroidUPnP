@@ -21,24 +21,34 @@ package org.droidupnp.controller.cling;
 
 import org.droidupnp.model.cling.UpnpService;
 import org.droidupnp.model.cling.UpnpServiceController;
+import org.droidupnp.model.upnp.IDeviceDiscoveryObserver;
+import org.droidupnp.model.upnp.IUpnpDevice;
 import org.fourthline.cling.model.meta.LocalDevice;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class ServiceController extends UpnpServiceController
+public class ServiceController extends UpnpServiceController implements IDeviceDiscoveryObserver
 {
 	private static final String TAG = "Cling.ServiceController";
+	protected static final String LAST_RENDERER_DEVICE = "last_renderer_device_uid";
+	protected static final String LAST_CONTENT_DEVICE = "last_content_device_uid";
 
 	private final ServiceListener upnpServiceListener;
 	private Activity activity = null;
+	protected SharedPreferences sharedPref;
 
 	public ServiceController(Context ctx)
 	{
 		super();
 		upnpServiceListener = new ServiceListener(ctx);
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(ctx);
+		getRendererDiscovery().addObserver(this);
+		getContentDirectoryDiscovery().addObserver(this);
 	}
 
 	@Override
@@ -83,4 +93,31 @@ public class ServiceController extends UpnpServiceController
 		upnpServiceListener.getUpnpService().getRegistry().removeDevice(localDevice);
 	}
 
+	@Override
+	public void setSelectedRenderer(IUpnpDevice renderer, boolean force) {
+		super.setSelectedRenderer(renderer, force);
+		if (renderer != null) {
+			sharedPref.edit().putString(LAST_RENDERER_DEVICE, renderer.getUID()).apply();
+		}
+	}
+
+	@Override
+	public void setSelectedContentDirectory(IUpnpDevice contentDirectory, boolean force) {
+		super.setSelectedContentDirectory(contentDirectory, force);
+		if (contentDirectory != null) {
+			sharedPref.edit().putString(LAST_CONTENT_DEVICE, contentDirectory.getUID()).apply();
+		}
+	}
+
+	@Override
+	public void addedDevice(IUpnpDevice device) {
+		if (device.getUID().equals(sharedPref.getString(LAST_RENDERER_DEVICE, ""))) {
+			setSelectedRenderer(device, false);
+		} else if (device.getUID().equals(sharedPref.getString(LAST_CONTENT_DEVICE, ""))) {
+			setSelectedContentDirectory(device, false);
+		}
+	}
+
+	@Override
+	public void removedDevice(IUpnpDevice device) {}
 }

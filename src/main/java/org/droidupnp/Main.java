@@ -23,6 +23,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -118,6 +119,14 @@ public class Main extends AppCompatActivity
 	}
 
 	@Override
+	public void onStart()
+	{
+		Log.v(TAG, "Start activity");
+		super.onStart();
+		handleIntent(getIntent());
+	}
+
+	@Override
 	public void onResume()
 	{
 		Log.v(TAG, "Resume activity");
@@ -190,6 +199,46 @@ public class Main extends AppCompatActivity
 			return;
 		}
 		super.onBackPressed();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Log.v(TAG, "New intent");
+		super.onNewIntent(intent);
+		setIntent(intent);
+	}
+
+	private void handleIntent(Intent intent) {
+		final String action = intent.getAction();
+		String videoUri;
+		if (action == null) {
+			Log.d(TAG, "Intent already handled");
+			return;
+		} else if (action.equals(Intent.ACTION_SEND)) {
+			videoUri = intent.getStringExtra(Intent.EXTRA_TEXT);
+			if (videoUri == null) {
+				videoUri = intent.getStringExtra(Intent.EXTRA_STREAM);
+			}
+		} else if (action.equals(Intent.ACTION_VIEW)) {
+			videoUri = intent.getDataString();
+		} else if (action.equals(Intent.ACTION_MAIN)) {
+			Log.d(TAG, "Nothing to do for main intent");
+			return;
+		} else {
+			Log.e(TAG, "Received unhandled intent: " + action);
+			return;
+		}
+		if (videoUri == null) {
+			Log.e(TAG, "Received intent " + action + " without URI");
+			return;
+		}
+		Log.i(TAG, "Received intent " + action + " for URI " + videoUri);
+		String mimeType = intent.getType();
+		if (!mimeType.equals("video/*")) {
+			Log.w(TAG,"Received intent " + action + " for unknown mime type " + mimeType);
+		}
+		upnpServiceController.playOnNextSelectedRenderer(Uri.parse(videoUri));
+		intent.setAction(null);
 	}
 
 	private static InetAddress getLocalIpAdressFromIntf(String intfName)

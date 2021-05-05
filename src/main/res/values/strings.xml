@@ -46,8 +46,13 @@
 	<string name="pref_share_media_title">Type of media to share</string>
 	<string name="pref_contentDirectory_audio_title">Audio</string>
 	<string name="pref_contentDirectory_audio_desc">Share audio</string>
+	<string name="pref_contentDirectory_directory_title">Directories</string>
+	<string name="pref_contentDirectory_directory_desc">Share internal and external storage</string>
 	<string name="pref_contentDirectory_image_title">Image</string>
 	<string name="pref_contentDirectory_image_desc">Share image</string>
+	<string name="pref_contentDirectory_probeMimetype_title">Probe mimetype</string>
+	<string name="pref_contentDirectory_probeMimetype_desc">Guess mimetype from file content instead of extension in
+		directory tree</string>
 	<string name="pref_contentDirectory_video_title">Video</string>
 	<string name="pref_contentDirectory_video_desc">Share video</string>
 	<string name="pref_about_title">About</string>
@@ -94,5 +99,8 @@
 	<string name="about_licenses_other"></string>
 	<string name="source">Source Code</string>
 	<string name="source_url" translatable="false">http://github.com/trishika/droidupnp</string>
+
+	<!-- URL Intent-->
+	<string name="play_with_droidupnp">Play with DroidUPnP</string>
 
 </resources>

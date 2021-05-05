@@ -99,6 +99,8 @@ public abstract class DeviceDiscovery {
 	{
 		observerList.add(o);
 
+		if (Main.upnpServiceController == null)
+			return;
 		final Collection<IUpnpDevice> upnpDevices = Main.upnpServiceController.getServiceListener()
 				.getFilteredDeviceList(getCallableFilter());
 		for (IUpnpDevice d : upnpDevices)

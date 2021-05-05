@@ -1,19 +1,22 @@
 buildscript {
     repositories {
         mavenCentral()
+	google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.1.2'
     }
 }
 apply plugin: 'com.android.application'
 
 repositories {
+    maven { url "file:/opt/android-studio/gradle/m2repository" }
     mavenCentral()
     mavenLocal()
     maven {
         url 'http://4thline.org/m2'
     }
+    google()
 }
 
 dependencies {
@@ -27,6 +30,7 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'8.1.18.v20150929'
     compile group: 'org.eclipse.jetty', name: 'jetty-client', version:'8.1.18.v20150929'
     compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.14'
+    compile group: 'org.apache.tika', name: 'tika-core', version: '1.8'
 
     compile('de.psdev.licensesdialog:licensesdialog:1.8.1') {
         exclude module: 'support-v4'
@@ -34,11 +38,11 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26"
+    compileSdkVersion 28
+//    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 24
         targetSdkVersion 26
     }
 
